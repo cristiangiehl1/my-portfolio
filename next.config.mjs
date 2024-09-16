@@ -5,7 +5,7 @@ const nextConfig = {
       'github.com',
       'raw.githubusercontent.com, cdn.devicon.com',
       'cdn.worldvectorlogo',
-      'zod.dev',
+      'files.svgcdn.io',
     ],
   },
 }

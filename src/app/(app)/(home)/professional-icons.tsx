@@ -1,4 +1,6 @@
 'use client'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import Link from 'next/link'
 import { type FormEvent, useTransition } from 'react'
 import { BiLoader } from 'react-icons/bi'
@@ -42,40 +44,132 @@ export default function ProfessionalIcons() {
     })
   }
 
-  return (
-    <div className="mt-2 flex w-full items-center gap-4">
-      <Link
-        className="transition-opacity hover:opacity-40"
-        href={'https://github.com/cristiangiehl1'}
-        target="_blank"
-      >
-        <FaGithub size={20} />
-      </Link>
-      <Link
-        className="transition-opacity hover:opacity-40"
-        href={'https://www.linkedin.com/in/cristian-giehl-5b3539b4/'}
-        target="_blank"
-      >
-        <FaLinkedin size={20} />
-      </Link>
+  useGSAP(() => {
+    const magneto = document.querySelector('.magneto') as HTMLElement
+    const magnetoText = document.querySelector('.magnetoText') as HTMLElement
 
-      <form onSubmit={handleDownloadCV}>
-        {!isPending ? (
-          <button
-            className="button-hover-effect flex items-center justify-center"
-            type="submit"
-            disabled={isPending}
-          >
-            <span className="text-left text-[12px] font-bold md:text-base">
-              Download CV
-            </span>
-          </button>
-        ) : (
-          <span>
-            <BiLoader size={35} className="animate-spin" />
+    let mouseX = 0
+    let mouseY = 0
+    let animationFrame: number | null = null
+
+    const magnetoStrength = 50
+    const magnetoTextStrength = 30
+
+    const activateMagneto = () => {
+      const boundBox = magneto.getBoundingClientRect()
+      const newX = (mouseX - boundBox.left) / magneto.offsetWidth - 0.5
+      const newY = (mouseY - boundBox.top) / magneto.offsetHeight - 0.5
+
+      // Atualiza a animação usando os valores armazenados do mouse
+      gsap.to(magneto, {
+        duration: 0,
+        x: newX * magnetoStrength,
+        y: newY * magnetoStrength,
+        rotate: '0.001deg',
+        ease: 'elastic.inOut',
+      })
+
+      gsap.to(magnetoText, {
+        duration: 0,
+        x: newX * magnetoTextStrength,
+        y: newY * magnetoTextStrength,
+        rotate: '0.001deg',
+        ease: 'elastic.inOut',
+      })
+
+      // Chama novamente o requestAnimationFrame
+      animationFrame = requestAnimationFrame(activateMagneto)
+    }
+
+    function onMouseMove(event: MouseEvent) {
+      // Atualiza as coordenadas do mouse
+      mouseX = event.clientX
+      mouseY = event.clientY
+
+      // Inicia a animação se ainda não estiver rodando
+      if (!animationFrame) {
+        animationFrame = requestAnimationFrame(activateMagneto)
+      }
+    }
+
+    function resetMagneto() {
+      // Cancela o requestAnimationFrame atual
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+        animationFrame = null
+      }
+
+      // Reseta as animações do magneto
+      gsap.to(magneto, {
+        duration: 0.5,
+        x: 0,
+        y: 0,
+        ease: 'elastic.out',
+      })
+
+      gsap.to(magnetoText, {
+        duration: 0.5,
+        x: 0,
+        y: 0,
+        ease: 'elastic.out',
+      })
+    }
+
+    // Adicionando os event listeners corretamente
+    magneto.addEventListener('mousemove', onMouseMove)
+    magneto.addEventListener('mouseleave', resetMagneto)
+
+    // Cleanup
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+
+      magneto.removeEventListener('mousemove', onMouseMove)
+      magneto.removeEventListener('mouseleave', resetMagneto)
+    }
+  }, [])
+  return (
+    <div className="relative mt-4 flex w-full items-center justify-start gap-10">
+      <form onSubmit={handleDownloadCV} className="">
+        <button
+          className={
+            isPending
+              ? 'hidden'
+              : 'magneto flex h-24 w-24 items-center justify-center rounded-full border-none bg-green-500 text-white'
+          }
+          type="submit"
+          disabled={isPending}
+        >
+          <span className="magnetoText text-left text-[12px] font-bold">
+            Download CV
           </span>
-        )}
+        </button>
+
+        <span>
+          <BiLoader
+            size={35}
+            className={isPending ? 'block animate-spin' : 'hidden'}
+          />
+        </span>
       </form>
+
+      <div className="flex flex-col gap-4">
+        <Link
+          className="transition-colors hover:text-green-500"
+          href={'https://github.com/cristiangiehl1'}
+          target="_blank"
+        >
+          <FaGithub size={25} />
+        </Link>
+        <Link
+          className="transition-colors hover:text-green-500"
+          href={'https://www.linkedin.com/in/cristian-giehl-5b3539b4/'}
+          target="_blank"
+        >
+          <FaLinkedin size={25} />
+        </Link>
+      </div>
     </div>
   )
 }

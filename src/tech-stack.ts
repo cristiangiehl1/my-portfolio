@@ -96,7 +96,7 @@ export const techStack: TechStack[] = [
   },
   {
     name: 'Zod',
-    iconUrl: 'https://zod.dev/logo.svg',
+    iconUrl: 'https://files.svgcdn.io/logos/zod.svg',
   },
   {
     name: 'Git',

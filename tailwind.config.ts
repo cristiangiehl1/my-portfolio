@@ -6,8 +6,12 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+
   theme: {
     extend: {
+      screens: {
+        'break-locale': '1244px',
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
@@ -20,9 +24,31 @@ const config: Config = {
           '75%': { borderRadius: '30% 70% 50% 60% / 40% 60% 50% 70%' },
           '100%': { borderRadius: '50%' },
         },
+        'move-up': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-3px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        'move-down': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(3px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        rotate: {
+          '0%': {
+            transform: 'rotate(0deg)',
+          },
+          '100%': {
+            transform: 'rotate(360deg)',
+          },
+        },
       },
       animation: {
         blob: 'blob 12s ease-in-out infinite',
+        'move-up': 'move-up 2s ease-in-out infinite',
+        'move-down': 'move-down 2s ease-in-out infinite',
+        rotate: 'rotate 3s infinite linear ',
+        'rotate-reverse': 'rotate 3s infinite linear reverse',
       },
     },
   },

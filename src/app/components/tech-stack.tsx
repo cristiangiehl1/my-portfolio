@@ -70,6 +70,7 @@ export default function TechStack() {
           scrollerContent.forEach((item) => {
             const duplicatedItem = item.cloneNode(true) as HTMLElement
             duplicatedItem.setAttribute('aria-hidden', 'true')
+            // duplicatedItem.style.background = 'red'
 
             scrollerInner.appendChild(duplicatedItem)
           })
@@ -94,11 +95,15 @@ export default function TechStack() {
   return (
     <div
       ref={pageContent}
-      className="mb-6 w-full overflow-hidden rounded-bl-3xl rounded-tr-3xl p-4 md:max-w-[800px]"
+      className="mb-6 w-full overflow-hidden p-4 md:max-w-[800px]"
     >
-      <h2 className="mb-10 text-center text-xl font-bold">Tech Stack</h2>
+      <div>
+        <h2 className="mb-5 border-y-2 py-2 text-center font-bold sm:text-xl">
+          Tech Stack
+        </h2>
+      </div>
 
-      <div className="scroller flex w-full flex-col justify-between gap-10 overflow-hidden">
+      <div className="scroller flex w-full flex-col justify-between gap-5 overflow-hidden">
         <div className="scroller__inner relative flex items-center gap-10 px-6">
           {firstArray.map((tech, index) => (
             <Image
@@ -108,7 +113,7 @@ export default function TechStack() {
               title={tech.name}
               width={40}
               height={40}
-              style={{ height: 'auto' }}
+              style={{ width: '40px', height: 'auto' }}
             />
           ))}
         </div>
@@ -122,7 +127,7 @@ export default function TechStack() {
               title={tech.name}
               width={40}
               height={40}
-              style={{ height: 'auto' }}
+              style={{ width: '40px', height: 'auto' }}
             />
           ))}
         </div>
