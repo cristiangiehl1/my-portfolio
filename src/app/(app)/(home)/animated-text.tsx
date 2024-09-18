@@ -13,6 +13,12 @@ export function AnimatedText() {
   const typewriterRef = useRef(null)
 
   useGSAP(() => {
+    gsap.to('.home-text-container-clip-path', {
+      clipPath: 'inset(0% 0% 0% 0%)',
+      duration: 1.2,
+      delay: 0.8,
+      ease: 'power3.inOut',
+    })
     const cursorTimeline = gsap.timeline({
       repeat: -1,
       repeatDelay: 0.8,
@@ -57,7 +63,7 @@ export function AnimatedText() {
   }, [])
 
   return (
-    <h3 className="text-sm md:text-3xl">
+    <h3 className="home-text-container-clip-path text-sm md:text-3xl">
       {`<`}
       <span ref={typewriterRef} className="text-green-500">
         {' '}

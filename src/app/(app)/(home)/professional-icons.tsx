@@ -45,6 +45,13 @@ export default function ProfessionalIcons() {
   }
 
   useGSAP(() => {
+    gsap.to('.professional-icons-gsap', {
+      scale: 1,
+      duration: 1.5,
+      delay: 0.8,
+      ease: 'power3.inOut',
+    })
+
     const magneto = document.querySelector('.magneto') as HTMLElement
     const magnetoText = document.querySelector('.magnetoText') as HTMLElement
 
@@ -60,7 +67,6 @@ export default function ProfessionalIcons() {
       const newX = (mouseX - boundBox.left) / magneto.offsetWidth - 0.5
       const newY = (mouseY - boundBox.top) / magneto.offsetHeight - 0.5
 
-      // Atualiza a animação usando os valores armazenados do mouse
       gsap.to(magneto, {
         duration: 0,
         x: newX * magnetoStrength,
@@ -131,7 +137,10 @@ export default function ProfessionalIcons() {
   }, [])
   return (
     <div className="relative mt-4 flex w-full items-center justify-start gap-10">
-      <form onSubmit={handleDownloadCV} className="">
+      <form
+        onSubmit={handleDownloadCV}
+        className="professional-icons-gsap scale-0"
+      >
         <button
           className={
             isPending
@@ -146,7 +155,7 @@ export default function ProfessionalIcons() {
           </span>
         </button>
 
-        <span>
+        <span className="">
           <BiLoader
             size={35}
             className={isPending ? 'block animate-spin' : 'hidden'}
@@ -156,14 +165,14 @@ export default function ProfessionalIcons() {
 
       <div className="flex flex-col gap-4">
         <Link
-          className="transition-colors hover:text-green-500"
+          className="professional-icons-gsap scale-0 transition-colors hover:text-green-500"
           href={'https://github.com/cristiangiehl1'}
           target="_blank"
         >
           <FaGithub size={25} />
         </Link>
         <Link
-          className="transition-colors hover:text-green-500"
+          className="professional-icons-gsap scale-0 transition-colors hover:text-green-500"
           href={'https://www.linkedin.com/in/cristian-giehl-5b3539b4/'}
           target="_blank"
         >

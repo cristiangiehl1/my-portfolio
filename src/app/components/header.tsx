@@ -2,15 +2,21 @@
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { CgMail } from 'react-icons/cg'
 import { FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { FaX } from 'react-icons/fa6'
 
+import Located from '../(app)/(home)/located'
+import AnimatedLogo from './animated-logo'
 import { NavLink } from './nav-links'
 
 export default function Header() {
+  const pathname = usePathname()
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   const menuMobileContainer = useRef(null)
   const menuContainer = useRef(null)
 
@@ -20,22 +26,55 @@ export default function Header() {
     setIsMenuOpen((prevState) => !prevState)
   }
 
-  useGSAP(
-    () => {
-      tl.current
-        .to(menuMobileContainer.current, {
-          duration: 1.25,
-          clipPath: 'inset(0% 0% 0% 0%)',
-          ease: 'power4.inOut',
-        })
-        .to('.link-mov', {
-          duration: 0.7,
-          clipPath: 'inset(0% 0% 0% 0%)',
-          ease: 'power4.inOut',
-        })
-    },
-    { scope: menuContainer },
-  )
+  function changeRouteSelected(event: React.MouseEvent<HTMLElement>) {
+    const routes = document.getElementsByClassName('current-pathname')
+
+    Array.from(routes).forEach((route) => {
+      route.setAttribute('data-current', 'false')
+    })
+
+    console.log(event.currentTarget)
+
+    event.currentTarget.setAttribute('data-current', 'true')
+  }
+
+  function setPreviusRouteSelected() {
+    const routes = document.getElementsByClassName('current-pathname')
+
+    Array.from(routes).forEach((route) => {
+      const href = route.getAttribute('href')
+
+      if (href === pathname) {
+        route.setAttribute('data-current', 'true')
+      } else {
+        route.setAttribute('data-current', 'false')
+      }
+    })
+  }
+
+  useGSAP(() => {
+    tl.current
+      .to(menuMobileContainer.current, {
+        duration: 1.25,
+        clipPath: 'inset(0% 0% 0% 0%)',
+        ease: 'power4.inOut',
+      })
+      .to('.link-mov', {
+        duration: 0.7,
+        clipPath: 'inset(0% 0% 0% 0%)',
+        ease: 'power4.inOut',
+      })
+
+    gsap.to('.current-route-desktop', {
+      opacity: 1,
+      y: 0,
+      delay: 0.8,
+      ease: 'power4.out',
+      stagger: {
+        amount: 0.3,
+      },
+    })
+  }, [menuMobileContainer])
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -50,47 +89,47 @@ export default function Header() {
       ref={menuContainer}
       className="flex items-center justify-between px-6 pt-6"
     >
-      <div>
-        <span className="font-bold text-white">Cristian.dev</span>
-      </div>
+      <AnimatedLogo />
+
+      <Located />
 
       {/* Desktop Menu */}
       <nav className="hidden gap-8 sm:flex">
-        <button className="relative">
-          <NavLink
-            className="current-route-desktop data-[current=true]:text-green-500"
-            href={'/'}
-          >
-            Home
-          </NavLink>
-        </button>
+        <NavLink
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          href={'/'}
+          onMouseEnter={changeRouteSelected}
+          onMouseLeave={setPreviusRouteSelected}
+        >
+          Home
+        </NavLink>
 
-        <button className="relative">
-          <NavLink
-            className="current-route-desktop data-[current=true]:font-bold data-[current=true]:text-green-500"
-            href={'#'}
-          >
-            Projects
-          </NavLink>
-        </button>
+        <NavLink
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          href={'/portfolio'}
+          onMouseEnter={changeRouteSelected}
+          onMouseLeave={setPreviusRouteSelected}
+        >
+          Portfolio
+        </NavLink>
 
-        <button className="relative">
-          <NavLink
-            className="current-route-desktop data-[current=true]:font-bold data-[current=true]:text-green-500"
-            href={'#'}
-          >
-            About
-          </NavLink>
-        </button>
+        <NavLink
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          href={'/about'}
+          onMouseEnter={changeRouteSelected}
+          onMouseLeave={setPreviusRouteSelected}
+        >
+          About
+        </NavLink>
 
-        <button className="relative">
-          <NavLink
-            className="current-route-desktop data-[current=true]:font-bold data-[current=true]:text-green-500"
-            href={'#'}
-          >
-            Contact
-          </NavLink>
-        </button>
+        <NavLink
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          href={'/contact'}
+          onMouseEnter={changeRouteSelected}
+          onMouseLeave={setPreviusRouteSelected}
+        >
+          Contact
+        </NavLink>
       </nav>
 
       {/* Mobile Menu Button */}
@@ -111,41 +150,45 @@ export default function Header() {
         </h3>
 
         <nav className="my-4 flex flex-col items-start gap-10 border-y-2 border-zinc-500 py-10">
-          <button onClick={toggleMenu} className="link-mov relative">
-            <NavLink
-              className="currentRoute text-5xl tracking-widest"
-              href={'/'}
-            >
-              Home
-            </NavLink>
-          </button>
+          <NavLink
+            onMouseEnter={changeRouteSelected}
+            onMouseLeave={setPreviusRouteSelected}
+            onClick={toggleMenu}
+            className="link-mov current-pathname current-route-mobile relative text-5xl tracking-widest"
+            href={'/'}
+          >
+            Home
+          </NavLink>
 
-          <button onClick={toggleMenu} className="link-mov relative">
-            <NavLink
-              className="currentRoute text-5xl tracking-widest"
-              href={'#'}
-            >
-              Projects
-            </NavLink>
-          </button>
+          <NavLink
+            onClick={toggleMenu}
+            onMouseEnter={changeRouteSelected}
+            onMouseLeave={setPreviusRouteSelected}
+            className="link-mov current-pathname current-route-mobile relative text-5xl tracking-widest"
+            href={'/portfolio'}
+          >
+            Portfolio
+          </NavLink>
 
-          <button onClick={toggleMenu} className="link-mov relative">
-            <NavLink
-              className="currentRoute text-5xl tracking-widest"
-              href={'#'}
-            >
-              About
-            </NavLink>
-          </button>
+          <NavLink
+            onMouseEnter={changeRouteSelected}
+            onMouseLeave={setPreviusRouteSelected}
+            onClick={toggleMenu}
+            className="link-mov current-pathname current-route-mobile relative text-5xl tracking-widest"
+            href={'/about'}
+          >
+            About
+          </NavLink>
 
-          <button onClick={toggleMenu} className="link-mov relative">
-            <NavLink
-              className="currentRoute text-5xl tracking-widest"
-              href={'#'}
-            >
-              Contact
-            </NavLink>
-          </button>
+          <NavLink
+            onMouseEnter={changeRouteSelected}
+            onMouseLeave={setPreviusRouteSelected}
+            onClick={toggleMenu}
+            className="link-mov current-pathname current-route-mobile relative text-5xl tracking-widest"
+            href={'/contact'}
+          >
+            Contact
+          </NavLink>
         </nav>
 
         <div className="mb-4">
@@ -155,14 +198,18 @@ export default function Header() {
           <div className="flex items-center justify-start gap-4">
             <a
               className="transition-colors hover:text-zinc-500"
+              target="_blank"
               href="https://www.instagram.com/cristian.giehl/"
+              rel="noreferrer"
             >
               <FaInstagram size={20} />
             </a>
 
             <a
               className="transition-colors hover:text-zinc-500"
+              target="_blank"
               href="https://www.linkedin.com/in/cristian-giehl-5b3539b4/"
+              rel="noreferrer"
             >
               <FaLinkedin size={20} />
             </a>
@@ -178,7 +225,7 @@ export default function Header() {
         </div>
 
         <button
-          className="absolute right-5 top-5 rounded-full p-2 transition-colors hover:text-zinc-500"
+          className="close-menu-btn absolute right-4 top-4 rounded-full p-2"
           onClick={toggleMenu}
         >
           <FaX size={15} />

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: '%s | Cristian Giehl Dev',
     default: 'Cristian Giehl Dev',
   },
-  description: 'Cristian Giehl Corretor de Imóveis',
+  description: 'Cristian Giehl Dev Porftolio.',
 }
 
 export default function RootLayout({

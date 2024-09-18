@@ -1,5 +1,27 @@
+export type TechName =
+  | 'JavaScript'
+  | 'TypeScript'
+  | 'HTML5'
+  | 'CSS3'
+  | 'Tailwind'
+  | 'React'
+  | 'Next.js'
+  | 'Vite.js'
+  | 'Node.js'
+  | 'Python'
+  | 'Django'
+  | 'Fastify'
+  | 'Express'
+  | 'Vitest'
+  | 'Playwright'
+  | 'Prisma'
+  | 'Knex'
+  | 'GSAP'
+  | 'Zod'
+  | 'Git'
+
 export interface TechStack {
-  name: string
+  name: TechName
   iconUrl: string
 }
 

@@ -5,13 +5,16 @@ import gsap from 'gsap'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
-import { type TechStack, techStack } from '@/tech-stack'
+import { type TechStack, techStack } from '@/api/tech-stack'
+
+import robot from '../../assets/robot.svg'
+import robotBlink from '../../assets/robot-blink.svg'
 
 export default function TechStack() {
   function splitTechStack(techStack: TechStack[]) {
-    const halfLength = Math.ceil(techStack.length / 2) // Calcula o tamanho do primeiro array
-    const firstHalf = techStack.slice(0, halfLength) // Cria o primeiro array
-    const secondHalf = techStack.slice(halfLength) // Cria o segundo array
+    const halfLength = Math.ceil(techStack.length / 2)
+    const firstHalf = techStack.slice(0, halfLength)
+    const secondHalf = techStack.slice(halfLength)
 
     return [firstHalf, secondHalf]
   }
@@ -19,40 +22,51 @@ export default function TechStack() {
   const [firstArray, secondArray] = splitTechStack(techStack)
 
   const pageContent = useRef(null)
-  const container1 = useRef(null)
-  const container2 = useRef(null)
 
-  //   useGSAP(
-  //     () => {
-  //       gsap.fromTo(
-  //         container1.current,
-  //         {
-  //           x: '100%',
-  //         },
-  //         {
-  //           x: '-100%',
-  //           duration: 15,
-  //           repeat: -1,
-  //           ease: 'linear',
-  //         },
-  //       )
+  useGSAP(() => {
+    gsap.to('.text-box', {
+      opacity: 1,
+      ease: 'power4.inOut',
+      delay: 1.5,
+      stagger: {
+        amount: 0.3,
+      },
+    })
 
-  //       gsap.fromTo(
-  //         container2.current,
-  //         {
-  //           x: '-100%',
-  //         },
-  //         {
-  //           x: '100%',
-  //           duration: 15,
-  //           repeat: -1,
-  //           ease: 'linear',
-  //         },
-  //       )
-  //     },
+    gsap.to('.text-box1', {
+      opacity: 1,
+      ease: 'power4.inOut',
+      delay: 1.5,
+      stagger: {
+        amount: 0.3,
+      },
+    })
 
-  //     { scope: pageContent },
-  //   )
+    gsap.to('.text-box', {
+      y: 0,
+      ease: 'power4.inOut',
+      delay: 2.2,
+      stagger: {
+        amount: 0.3,
+      },
+    })
+
+    gsap.to('.text-box1', {
+      y: 0,
+      ease: 'power4.inOut',
+      delay: 2.2,
+      stagger: {
+        amount: 0.3,
+      },
+    })
+
+    gsap.to('.scroller', {
+      y: 0,
+      opacity: 1,
+      ease: 'power4.inOut',
+      delay: 2.5,
+    })
+  }, [pageContent])
 
   useEffect(() => {
     const scrollers = document.querySelectorAll('.scroller')
@@ -70,7 +84,6 @@ export default function TechStack() {
           scrollerContent.forEach((item) => {
             const duplicatedItem = item.cloneNode(true) as HTMLElement
             duplicatedItem.setAttribute('aria-hidden', 'true')
-            // duplicatedItem.style.background = 'red'
 
             scrollerInner.appendChild(duplicatedItem)
           })
@@ -95,43 +108,54 @@ export default function TechStack() {
   return (
     <div
       ref={pageContent}
-      className="mb-6 w-full overflow-hidden p-4 md:max-w-[800px]"
+      className="mb-4 w-full overflow-hidden p-4 md:max-w-[800px]"
     >
-      <div>
-        <h2 className="mb-5 border-y-2 py-2 text-center font-bold sm:text-xl">
+      <div className="text-box flex min-w-full translate-y-[55px] items-center justify-center rounded-t-full border-[1px] bg-gray-950 py-3 opacity-0 sm:translate-y-[65px]">
+        <h2 className="flex min-w-full items-center justify-center gap-2 text-center font-bold sm:text-xl">
           Tech Stack
+          <span className="relative">
+            <Image
+              src={robotBlink}
+              alt=""
+              width={26}
+              height={26}
+              className="animate-fade-out absolute"
+            />
+            <Image src={robot} alt="" width={26} height={26} className="" />
+          </span>
         </h2>
       </div>
 
-      <div className="scroller flex w-full flex-col justify-between gap-5 overflow-hidden">
-        <div className="scroller__inner relative flex items-center gap-10 px-6">
+      <div className="scroller flex w-full translate-y-[50px] flex-col justify-between overflow-hidden opacity-0">
+        <div className="scroller__inner relative flex items-center gap-10 bg-background px-6 py-4">
           {firstArray.map((tech, index) => (
             <Image
               key={index}
               src={tech.iconUrl}
               alt={tech.name}
               title={tech.name}
-              width={40}
-              height={40}
-              style={{ width: '40px', height: 'auto' }}
+              width={30}
+              height={30}
+              className="w-[20px] sm:w-[30px]"
             />
           ))}
         </div>
 
-        <div className="scroller__inner2 relative flex items-center gap-10 px-6">
+        <div className="scroller__inner2 relative flex items-center gap-10 bg-background px-6 py-4">
           {secondArray.map((tech, index) => (
             <Image
               key={index}
               src={tech.iconUrl}
               alt={tech.name}
               title={tech.name}
-              width={40}
-              height={40}
-              style={{ width: '40px', height: 'auto' }}
+              width={30}
+              height={30}
+              className="w-[20px] sm:w-[30px]"
             />
           ))}
         </div>
       </div>
+      <div className="text-box1 flex min-w-full -translate-y-[55px] items-center justify-center rounded-b-full border-[1px] bg-gray-950 py-5 opacity-0 sm:-translate-y-[65px]"></div>
     </div>
   )
 }

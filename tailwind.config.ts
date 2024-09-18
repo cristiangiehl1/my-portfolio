@@ -42,6 +42,10 @@ const config: Config = {
             transform: 'rotate(360deg)',
           },
         },
+        'fade-out': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         blob: 'blob 12s ease-in-out infinite',
@@ -49,6 +53,8 @@ const config: Config = {
         'move-down': 'move-down 2s ease-in-out infinite',
         rotate: 'rotate 3s infinite linear ',
         'rotate-reverse': 'rotate 3s infinite linear reverse',
+        'fade-out': 'fade-out .7s infinite linear',
+        'fade-out-reverse': 'fade-out .7s infinite linear reverse',
       },
     },
   },
