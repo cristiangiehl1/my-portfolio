@@ -8,8 +8,8 @@ import { CgMail } from 'react-icons/cg'
 import { FaInstagram, FaLinkedin } from 'react-icons/fa'
 import { FaX } from 'react-icons/fa6'
 
-import Located from '../(app)/(home)/located'
 import AnimatedLogo from './animated-logo'
+import Located from './located'
 import { NavLink } from './nav-links'
 
 export default function Header() {

@@ -4,7 +4,8 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import Image from 'next/image'
 
-import { AnimatedText } from './animated-text'
+import { TypeWriteText } from '@/app/components/type-write-text'
+
 import ProfessionalIcons from './professional-icons'
 
 export default function HomeTextAndImage() {
@@ -33,7 +34,7 @@ export default function HomeTextAndImage() {
 
         <h1 className="home-text-container-clip-path text-2xl font-bold sm:text-3xl md:text-5xl">{`I'm Cristian Giehl`}</h1>
 
-        <AnimatedText />
+        <TypeWriteText texts={['FullStack Developer']} />
 
         <p className="home-text-container-clip-path mb-2 mt-4 max-w-[400px] text-xs leading-relaxed sm:text-base">
           Seja muito bem-vindo ao meu portfólio. Aqui você vai descobrir meus

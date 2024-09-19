@@ -7,10 +7,14 @@ import { useRef } from 'react'
 
 gsap.registerPlugin(TextPlugin)
 
-const words = ['Fullstack Developer']
+interface TypeWriteTextProps {
+  texts: string[]
+}
 
-export function AnimatedText() {
+export function TypeWriteText({ texts }: TypeWriteTextProps) {
   const typewriterRef = useRef(null)
+
+  const words = texts
 
   useGSAP(() => {
     gsap.to('.home-text-container-clip-path', {

@@ -8,6 +8,7 @@ interface Project {
   techs: TechName[]
   projectRepo: string
   projectImg: StaticImageData
+  projectVideo: string
 }
 
 const portfolioTechs: TechName[] = [
@@ -20,32 +21,36 @@ const portfolioTechs: TechName[] = [
   'GSAP',
 ]
 
-const portfolio = {
+const portfolio: Project = {
   name: 'My Portfolio',
   techs: portfolioTechs,
   projectRepo: 'https://github.com/cristiangiehl1/my-portfolio',
   projectImg: portfolioPage,
+  projectVideo: '/assets/videos/portfolio-video.mp4',
 }
 
-const portfolio2 = {
+const portfolio2: Project = {
   name: 'My Portfolio',
   techs: portfolioTechs,
   projectRepo: 'https://github.com/cristiangiehl1/my-portfolio',
   projectImg: portfolioPage,
+  projectVideo: '/assets/videos/portfolio-video.mp4',
 }
 
-const portfolio3 = {
+const portfolio3: Project = {
   name: 'My Portfolio',
   techs: portfolioTechs,
   projectRepo: 'https://github.com/cristiangiehl1/my-portfolio',
   projectImg: portfolioPage,
+  projectVideo: '/assets/videos/portfolio-video.mp4',
 }
 
-const portfolio4 = {
+const portfolio4: Project = {
   name: 'My Portfolio',
   techs: portfolioTechs,
   projectRepo: 'https://github.com/cristiangiehl1/my-portfolio',
   projectImg: portfolioPage,
+  projectVideo: '/assets/videos/portfolio-video.mp4',
 }
 
 export const projects: Project[] = [

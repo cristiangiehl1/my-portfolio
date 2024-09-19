@@ -1,30 +1,60 @@
 'use client'
-import Image, { type StaticImageData } from 'next/image'
+import gsap from 'gsap'
+import Image from 'next/image'
 import { useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 
 import { projects } from '@/api/projects'
 import { techStack } from '@/api/tech-stack'
+import LinksWithAnimation from '@/app/components/links-with-animation'
 
 export default function HomePortfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedImage, setSelectedImage] = useState<StaticImageData | null>(
-    null,
-  )
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
 
-  const openModal = (image: StaticImageData) => {
-    setSelectedImage(image)
+  const openModal = (url: string) => {
+    setSelectedVideo(url)
     setIsModalOpen(true)
   }
 
   const closeModal = () => {
     setIsModalOpen(false)
-    setSelectedImage(null)
+    setSelectedVideo(null)
+  }
+
+  function playVideo(
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    action: 'play' | 'pause',
+  ) {
+    const projectWrapper = event.currentTarget as HTMLDivElement
+    const videoWrapper = projectWrapper.querySelector(
+      '.video-wrapper',
+    ) as HTMLDivElement
+    const video = videoWrapper.querySelector('video') as HTMLVideoElement
+
+    if (action === 'play') {
+      gsap.to(videoWrapper, {
+        duration: 0.5,
+        opacity: 1,
+        ease: 'power4.inOut',
+      })
+
+      video.play()
+    } else if (action === 'pause') {
+      gsap.to(videoWrapper, {
+        duration: 0.5,
+        opacity: 0,
+        ease: 'power4.inOut',
+      })
+
+      video.pause()
+      video.currentTime = 0
+    }
   }
 
   return (
-    <section className="m-auto flex h-full max-w-[95vw] flex-col items-center justify-between rounded-2xl p-4 lg:max-w-[70vw]">
-      <div className="mb-6 w-full text-left">
+    <section className="flex h-full w-full flex-col items-center justify-between bg-gray-950 px-4 pb-8 pt-4">
+      <div className="mb-10 ml-6 mt-6 w-full text-left">
         <h2 className="mb-2 text-xl font-bold tracking-tighter">PORTFOLIO</h2>
 
         <p className="font-bold">
@@ -35,69 +65,94 @@ export default function HomePortfolio() {
       {projects.slice(0, 3).map((project, index) => (
         <div
           key={index}
-          className="relative mb-8 flex w-full flex-col justify-between rounded-2xl bg-gray-950 px-6 pb-12 pt-6 sm:flex-row sm:pb-6"
+          onMouseEnter={(e) => playVideo(e, 'play')}
+          onMouseLeave={(e) => playVideo(e, 'pause')}
+          className="project-container relative mb-10 flex w-full max-w-[90vw] flex-col justify-around gap-4 rounded-2xl bg-gray-950 px-6 py-6 sm:flex-row lg:max-w-[70vw]"
         >
-          <div className="flex flex-col items-center justify-start gap-4 px-4">
-            <h3 className="font-bold text-white">{project.name}</h3>
-
-            <div className="mb-4 flex flex-wrap gap-4">
-              {project.techs.map((tech, techIndex) => {
-                const techData = techStack.find((item) => item.name === tech)
-
-                return (
-                  <div key={techIndex} className="flex items-center gap-2">
-                    {techData && (
-                      <Image
-                        src={techData.iconUrl}
-                        alt={tech}
-                        title={tech}
-                        width={25}
-                        height={25}
-                      />
-                    )}
-                  </div>
-                )
-              })}
+          <div className="relative flex flex-col items-center justify-between gap-4 rounded-2xl bg-gray-900 px-6 py-4">
+            <div className="flex flex-col items-center justify-start gap-4">
+              <h3 className="text-sm font-bold text-white sm:text-base">
+                {project.name}
+              </h3>
+              <div className="flex flex-wrap gap-4 pb-4">
+                {project.techs.map((tech, techIndex) => {
+                  const techData = techStack.find((item) => item.name === tech)
+                  return (
+                    <div key={techIndex} className="flex items-center gap-2">
+                      {techData && (
+                        <Image
+                          src={techData.iconUrl}
+                          alt={tech}
+                          title={tech}
+                          width={25}
+                          height={25}
+                        />
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
 
-            <div className="absolute bottom-4 left-4 flex w-full items-center justify-start gap-2">
+            <div className="flex w-full items-center justify-start gap-2">
               <a
-                className="flex items-center gap-2 text-left transition-colors hover:text-zinc-600"
+                className="flex items-center gap-2 text-left transition-colors hover:text-zinc-400"
                 target="_blank"
                 href={project.projectRepo}
                 rel="noreferrer"
               >
-                <span className="text-sm font-bold">Code</span>
-                <FaGithub size={20} />
+                <span className="text-xs font-bold sm:text-sm">Code</span>
+                <FaGithub className="text-lg sm:text-xl" />
               </a>
             </div>
           </div>
 
-          <div className="flex h-full justify-end">
+          <div className="relative flex h-full justify-end">
             <Image
               src={project.projectImg}
               alt=""
               width={600}
               className="cursor-pointer rounded-2xl"
-              onClick={() => openModal(project.projectImg)}
             />
+            {project.projectVideo && (
+              <div className="video-wrapper g absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center rounded-2xl opacity-0">
+                <video
+                  src={project.projectVideo}
+                  loop
+                  muted
+                  className="h-full w-full rounded-2xl object-cover"
+                  onClick={() => openModal(project.projectVideo)}
+                />
+              </div>
+            )}
           </div>
         </div>
       ))}
 
-      {isModalOpen && selectedImage && (
+      <LinksWithAnimation
+        linkProps={{
+          href: '/portfolio',
+          className: 'p-6 rounded-full border-[2px]',
+        }}
+        blobProps={{ className: 'rounded-full bg-gray-700' }}
+      >
+        <span className="relative z-10">
+          More projects <sup>{projects.length}</sup>
+        </span>
+      </LinksWithAnimation>
+
+      {isModalOpen && selectedVideo && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-5"
           onClick={closeModal}
         >
-          <div className="relative">
-            <Image
-              src={selectedImage}
-              alt="Expanded view"
-              width={1000}
-              height={800}
-              quality={100}
-              className="rounded-2xl"
+          <div className="relative overflow-hidden rounded-2xl">
+            <video
+              src={selectedVideo}
+              loop
+              muted
+              autoPlay
+              className="w-[85vw] object-cover"
             />
             <button
               className="absolute right-2 top-2 rounded-full bg-black px-4 py-2 text-2xl text-white transition-all hover:bg-white hover:text-black"
@@ -108,14 +163,6 @@ export default function HomePortfolio() {
           </div>
         </div>
       )}
-      <div className="">
-        <a
-          href="#"
-          className="relative z-10 rounded-full bg-zinc-950 p-6 font-bold"
-        >
-          More projects <sup>{projects.length}</sup>
-        </a>
-      </div>
     </section>
   )
 }

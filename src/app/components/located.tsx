@@ -24,7 +24,7 @@ export default function Located() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="animate-rotate size-4 text-black"
+          className="size-4 animate-rotate text-black"
         >
           <path
             strokeLinecap="round"
@@ -39,7 +39,7 @@ export default function Located() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="animate-rotate-reverse absolute size-6 -translate-x-1/2 -translate-y-1/2 text-black"
+          className="absolute size-6 -translate-x-1/2 -translate-y-1/2 animate-rotate-reverse text-black"
         >
           <path
             strokeLinecap="round"

@@ -6,8 +6,6 @@ import { type FormEvent, useTransition } from 'react'
 import { BiLoader } from 'react-icons/bi'
 import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 
-import Magneto from '@/app/components/magneto'
-
 export default function ProfessionalIcons() {
   const [isPending, startTransition] = useTransition()
 
@@ -53,6 +51,89 @@ export default function ProfessionalIcons() {
       delay: 0.8,
       ease: 'power3.inOut',
     })
+
+    const magneto = document.querySelector('.magneto') as HTMLElement
+    const magnetoText = document.querySelector('.magnetoText') as HTMLElement
+
+    let mouseX = 0
+    let mouseY = 0
+    let animationFrame: number | null = null
+
+    const magnetoStrength = 50
+    const magnetoTextStrength = 30
+
+    const activateMagneto = () => {
+      const boundBox = magneto.getBoundingClientRect()
+      const newX = (mouseX - boundBox.left) / magneto.offsetWidth - 0.5
+      const newY = (mouseY - boundBox.top) / magneto.offsetHeight - 0.5
+
+      gsap.to(magneto, {
+        duration: 0,
+        x: newX * magnetoStrength,
+        y: newY * magnetoStrength,
+        rotate: '0.001deg',
+        ease: 'elastic.inOut',
+      })
+
+      gsap.to(magnetoText, {
+        duration: 0,
+        x: newX * magnetoTextStrength,
+        y: newY * magnetoTextStrength,
+        rotate: '0.001deg',
+        ease: 'elastic.inOut',
+      })
+
+      // Chama novamente o requestAnimationFrame
+      animationFrame = requestAnimationFrame(activateMagneto)
+    }
+
+    function onMouseMove(event: MouseEvent) {
+      // Atualiza as coordenadas do mouse
+      mouseX = event.clientX
+      mouseY = event.clientY
+
+      // Inicia a animação se ainda não estiver rodando
+      if (!animationFrame) {
+        animationFrame = requestAnimationFrame(activateMagneto)
+      }
+    }
+
+    function resetMagneto() {
+      // Cancela o requestAnimationFrame atual
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+        animationFrame = null
+      }
+
+      // Reseta as animações do magneto
+      gsap.to(magneto, {
+        duration: 0.5,
+        x: 0,
+        y: 0,
+        ease: 'elastic.out',
+      })
+
+      gsap.to(magnetoText, {
+        duration: 0.5,
+        x: 0,
+        y: 0,
+        ease: 'elastic.out',
+      })
+    }
+
+    // Adicionando os event listeners corretamente
+    magneto.addEventListener('mousemove', onMouseMove)
+    magneto.addEventListener('mouseleave', resetMagneto)
+
+    // Cleanup
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+
+      magneto.removeEventListener('mousemove', onMouseMove)
+      magneto.removeEventListener('mouseleave', resetMagneto)
+    }
   }, [])
   return (
     <div className="relative mt-4 flex w-full items-center justify-start gap-10">
@@ -60,17 +141,19 @@ export default function ProfessionalIcons() {
         onSubmit={handleDownloadCV}
         className="professional-icons-gsap scale-0"
       >
-        <Magneto
-          href=""
-          text="Download CV"
+        <button
           className={
             isPending
               ? 'hidden'
-              : `magneto-professional-icons h-24 w-24 bg-green-500 text-xs font-bold`
+              : 'magneto magneto-professional-icons flex h-24 w-24 items-center justify-center rounded-full border-none bg-green-500 text-white'
           }
-          disabled={isPending}
           type="submit"
-        />
+          disabled={isPending}
+        >
+          <span className="magnetoText text-left text-[12px] font-bold">
+            Download CV
+          </span>
+        </button>
 
         <span className="">
           <BiLoader
