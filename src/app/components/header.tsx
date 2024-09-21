@@ -96,7 +96,7 @@ export default function Header() {
       {/* Desktop Menu */}
       <nav className="hidden gap-8 sm:flex">
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
           href={'/'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -105,7 +105,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
           href={'/portfolio'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -114,7 +114,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
           href={'/about'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -123,7 +123,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-emerald-300"
+          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
           href={'/contact'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}

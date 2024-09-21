@@ -2,9 +2,8 @@ import Header from '@/app/components/header'
 
 export default function Contact() {
   return (
-    <div>
+    <div className="bg-black">
       <Header />
-      <h2>Contact</h2>
     </div>
   )
 }

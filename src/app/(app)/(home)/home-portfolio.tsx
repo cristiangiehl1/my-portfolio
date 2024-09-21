@@ -67,9 +67,9 @@ export default function HomePortfolio() {
           key={index}
           onMouseEnter={(e) => playVideo(e, 'play')}
           onMouseLeave={(e) => playVideo(e, 'pause')}
-          className="project-container relative mb-10 flex w-full max-w-[90vw] flex-col justify-around gap-4 rounded-2xl bg-gray-950 px-6 py-6 sm:flex-row lg:max-w-[70vw]"
+          className="project-container-home relative mb-10 flex w-full max-w-[95vw] flex-col justify-center overflow-hidden p-1 sm:flex-row lg:w-[800px]"
         >
-          <div className="relative flex flex-col items-center justify-between gap-4 rounded-2xl bg-gray-900 px-6 py-4">
+          <div className="relative flex flex-col items-center justify-between gap-4 bg-gray-900 px-6 py-4">
             <div className="flex flex-col items-center justify-start gap-4">
               <h3 className="text-sm font-bold text-white sm:text-base">
                 {project.name}
@@ -107,20 +107,20 @@ export default function HomePortfolio() {
             </div>
           </div>
 
-          <div className="relative flex h-full justify-end">
+          <div className="r relative flex h-full justify-end">
             <Image
               src={project.projectImg}
               alt=""
               width={600}
-              className="cursor-pointer rounded-2xl"
+              className="cursor-pointer"
             />
             {project.projectVideo && (
-              <div className="video-wrapper g absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center rounded-2xl opacity-0">
+              <div className="video-wrapper g absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center opacity-0">
                 <video
                   src={project.projectVideo}
                   loop
                   muted
-                  className="h-full w-full rounded-2xl object-cover"
+                  className="h-full w-full object-cover"
                   onClick={() => openModal(project.projectVideo)}
                 />
               </div>

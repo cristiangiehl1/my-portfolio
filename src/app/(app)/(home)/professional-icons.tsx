@@ -66,7 +66,7 @@ export default function ProfessionalIcons() {
           className={
             isPending
               ? 'hidden'
-              : `magneto-professional-icons h-24 w-24 bg-green-500 text-xs font-bold`
+              : `magneto-professional-icons h-24 w-24 bg-cyan-900 text-xs font-bold`
           }
           disabled={isPending}
           type="submit"
