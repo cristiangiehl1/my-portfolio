@@ -33,8 +33,6 @@ export default function Header() {
       route.setAttribute('data-current', 'false')
     })
 
-    console.log(event.currentTarget)
-
     event.currentTarget.setAttribute('data-current', 'true')
   }
 
@@ -65,15 +63,15 @@ export default function Header() {
         ease: 'power4.inOut',
       })
 
-    gsap.to('.current-route-desktop', {
-      opacity: 1,
-      y: 0,
-      delay: 0.8,
-      ease: 'power4.out',
-      stagger: {
-        amount: 0.3,
-      },
-    })
+    // gsap.to('.current-route-desktop', {
+    //   opacity: 1,
+    //   y: 0,
+    //   delay: 0.8,
+    //   ease: 'power4.out',
+    //   stagger: {
+    //     amount: 0.3,
+    //   },
+    // })
   }, [menuMobileContainer])
 
   useEffect(() => {
@@ -96,7 +94,7 @@ export default function Header() {
       {/* Desktop Menu */}
       <nav className="hidden gap-8 sm:flex">
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
           href={'/'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -105,7 +103,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
           href={'/portfolio'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -114,7 +112,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
           href={'/about'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -123,7 +121,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative translate-y-20 opacity-0 data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
           href={'/contact'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}

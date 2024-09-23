@@ -7,6 +7,7 @@ import { FaGithub } from 'react-icons/fa'
 import { projects } from '@/api/projects'
 import { techStack } from '@/api/tech-stack'
 import LinksWithAnimation from '@/app/components/links-with-animation'
+import Modal from '@/app/components/modal'
 
 export default function HomePortfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -74,6 +75,7 @@ export default function HomePortfolio() {
               <h3 className="text-sm font-bold text-white sm:text-base">
                 {project.name}
               </h3>
+
               <div className="flex flex-wrap gap-4 pb-4">
                 {project.techs.map((tech, techIndex) => {
                   const techData = techStack.find((item) => item.name === tech)
@@ -107,15 +109,15 @@ export default function HomePortfolio() {
             </div>
           </div>
 
-          <div className="r relative flex h-full justify-end">
+          <div className="relative flex h-full justify-end border-none">
             <Image
               src={project.projectImg}
               alt=""
               width={600}
-              className="cursor-pointer"
+              className="cursor-pointer border-none"
             />
             {project.projectVideo && (
-              <div className="video-wrapper g absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center opacity-0">
+              <div className="video-wrapper absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center border-none opacity-0">
                 <video
                   src={project.projectVideo}
                   loop
@@ -141,28 +143,11 @@ export default function HomePortfolio() {
         </span>
       </LinksWithAnimation>
 
-      {isModalOpen && selectedVideo && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-5"
-          onClick={closeModal}
-        >
-          <div className="relative overflow-hidden rounded-2xl">
-            <video
-              src={selectedVideo}
-              loop
-              muted
-              autoPlay
-              className="w-[85vw] object-cover"
-            />
-            <button
-              className="absolute right-2 top-2 rounded-full bg-black px-4 py-2 text-2xl text-white transition-all hover:bg-white hover:text-black"
-              onClick={closeModal}
-            >
-              &times;
-            </button>
-          </div>
-        </div>
-      )}
+      <Modal
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        url={selectedVideo}
+      />
     </section>
   )
 }

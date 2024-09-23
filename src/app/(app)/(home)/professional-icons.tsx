@@ -70,6 +70,8 @@ export default function ProfessionalIcons() {
           }
           disabled={isPending}
           type="submit"
+          magnetoStrength={50}
+          magnetoTextStrength={30}
         />
 
         <span className="">

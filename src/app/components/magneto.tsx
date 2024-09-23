@@ -5,12 +5,22 @@ import { useEffect, useRef } from 'react'
 
 interface MagnetoProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
-  href: string | undefined
+  href?: string
+  magnetoStrength: number
+  magnetoTextStrength: number
 }
 
-export default function Magneto({ text, href, ...props }: MagnetoProps) {
+export default function Magneto({
+  text,
+  href,
+  magnetoStrength,
+  magnetoTextStrength,
+  ...props
+}: MagnetoProps) {
   const magnetoRef = useRef<HTMLButtonElement>(null)
   const magnetoTextRef = useRef<HTMLAnchorElement>(null)
+
+  console.log(href)
 
   useEffect(() => {
     const magneto = magnetoRef.current
@@ -21,9 +31,6 @@ export default function Magneto({ text, href, ...props }: MagnetoProps) {
     let mouseX = 0
     let mouseY = 0
     let animationFrame: number | null = null
-
-    const magnetoStrength = 50
-    const magnetoTextStrength = 30
 
     const activateMagneto = () => {
       const boundBox = magneto.getBoundingClientRect()
@@ -90,7 +97,7 @@ export default function Magneto({ text, href, ...props }: MagnetoProps) {
       magneto.removeEventListener('mousemove', onMouseMove)
       magneto.removeEventListener('mouseleave', resetMagneto)
     }
-  }, [])
+  }, [magnetoStrength, magnetoTextStrength])
 
   return (
     <button
@@ -100,9 +107,15 @@ export default function Magneto({ text, href, ...props }: MagnetoProps) {
         props.className ? props.className : ''
       }`}
     >
-      <a href={href} ref={magnetoTextRef} className="">
-        <span className="magnetoText">{text}</span>
-      </a>
+      {!href ? (
+        <span ref={magnetoTextRef} className="magnetoText">
+          {text}
+        </span>
+      ) : (
+        <a href={href} ref={magnetoTextRef} className="">
+          <span className="magnetoText">{text}</span>
+        </a>
+      )}
     </button>
   )
 }

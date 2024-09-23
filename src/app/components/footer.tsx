@@ -2,13 +2,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default function Footer() {
-  const [time, setTime] = useState(
-    new Intl.DateTimeFormat('pt-BR', {
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZoneName: 'short',
-    }).format(new Date()),
-  )
+  const [time, setTime] = useState<string | null>(null)
 
   useEffect(() => {
     const timer = setInterval(() => {

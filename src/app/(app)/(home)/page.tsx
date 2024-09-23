@@ -44,6 +44,8 @@ export default function Home() {
             text="Get in touch"
             className="h-[120px] w-[120px] bg-red-800"
             href="/contact"
+            magnetoStrength={50}
+            magnetoTextStrength={30}
           />
         </div>
 

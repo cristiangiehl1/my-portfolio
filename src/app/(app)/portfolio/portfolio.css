@@ -1,0 +1,139 @@
+.space-bg {
+    background: radial-gradient(circle at 50% 50%, 
+    #000000 10%,  
+    #040506 20%,  
+    #0a0b0f 30%,  
+    #101218 45%,  
+    #161823 60%,  
+    #1d1e2a 75%, 
+    #26293b 95%, 
+    #34394e 100% 
+    );  background-size: 125% 125%;
+    /* animation: spaceMovement 30s linear infinite; */
+  }
+  
+  
+.slider {
+  transform-style: preserve-3d;
+  transform: perspective(6000px);
+  animation: autoRun 70s linear infinite;
+}
+
+
+.project {
+  transform: rotateY(calc(var(--position) * (360 / var(--quantity)) * 1deg)) translateZ(550px);
+}
+
+
+.star {
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.comet {
+  box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.5),
+              0 0 40px 20px rgba(255, 255, 255, 0.3),
+              0 0 60px 30px rgba(255, 255, 255, 0.1);
+}
+
+.current-path-project[data-current=true]::after {
+  content: '';
+  background: url('../../../assets/black-hole-2.png') no-repeat center center;
+  background-size: cover;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;  
+  position: absolute;
+  bottom: -35px;
+  left: 30%;
+  transform: translateX(-50%) scale(1);
+
+  animation: blackHoleMovemet linear 5s infinite;
+}
+
+
+.video-name {
+  /* color: #39FF14;
+  text-shadow: 
+    0 0 3px #39FF14,  
+    0 0 6px #39FF14,   
+    0 0 10px #39FF14,  
+    0 0 15px #39FF14;   */
+}
+
+
+
+@keyframes blackHoleMovemet {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(0.9) rotate(180deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+
+@keyframes spaceMovement {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: -150% -150%;
+  }
+
+  75% {
+    background-position: -150% -10%;
+  }
+
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes cometMove {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100vw) translateY(100vh) scale(2); 
+  }
+}
+
+@keyframes autoRun {
+  from {
+    transform: perspective(6000px) rotateX(-16deg) rotateY(0deg);
+  }
+  to {
+    transform: perspective(6000px) rotateX(-16deg) rotateY(360deg);
+  }
+}

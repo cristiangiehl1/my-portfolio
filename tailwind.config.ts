@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       screens: {
         'break-locale': '1244px',
+        'max-sm': { max: '640px' },
       },
       colors: {
         background: 'var(--background)',

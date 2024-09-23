@@ -1,19 +1,19 @@
-'use client'
+// 'use client'
 
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
+// import { useGSAP } from '@gsap/react'
+// import gsap from 'gsap'
 
 export default function AnimatedLogo() {
-  useGSAP(() => {
-    gsap.to('.animated-logo', {
-      scale: 1,
-      delay: 0.5,
-      ease: 'power4.inOut',
-    })
-  })
+  // useGSAP(() => {
+  //   gsap.to('.animated-logo', {
+  //     scale: 1,
+  //     delay: 0.5,
+  //     ease: 'power4.inOut',
+  //   })
+  // })
 
   return (
-    <div className="animated-logo scale-0">
+    <div className="animated-logo">
       <svg viewBox="0 0 160 20" className="w-36 font-bold md:w-52">
         <text
           x="19%"

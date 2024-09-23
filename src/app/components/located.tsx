@@ -1,19 +1,19 @@
-'use client'
+// 'use client'
 
-import { useGSAP } from '@gsap/react'
-import gsap from 'gsap'
+// import { useGSAP } from '@gsap/react'
+// import gsap from 'gsap'
 
 export default function Located() {
-  useGSAP(() => {
-    gsap.to('.located-container', {
-      y: 0,
-      delay: 0.2,
-      ease: 'power4.inOut',
-    })
-  })
+  // useGSAP(() => {
+  //   gsap.to('.located-container', {
+  //     y: 0,
+  //     delay: 0.2,
+  //     ease: 'power4.inOut',
+  //   })
+  // })
 
   return (
-    <div className="located-container absolute left-[32vw] top-0 flex -translate-y-20 items-center justify-center gap-2 rounded-b-3xl bg-neutral-950 px-6 pb-2 pt-5 shadow-sm shadow-black sm:left-[20vw]">
+    <div className="located-container absolute left-[32vw] top-0 flex items-center justify-center gap-2 rounded-b-3xl bg-neutral-950 px-6 pb-2 pt-5 shadow-sm shadow-black sm:left-[20vw]">
       <span className="whitespace-nowrap text-xs font-bold text-white">
         Located in Brazil
       </span>
