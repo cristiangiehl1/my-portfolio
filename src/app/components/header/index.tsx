@@ -1,16 +1,18 @@
 'use client'
 
+import './styles.css'
+
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { CgMail } from 'react-icons/cg'
 import { FaInstagram, FaLinkedin } from 'react-icons/fa'
-import { FaX } from 'react-icons/fa6'
 
-import AnimatedLogo from './animated-logo'
-import Located from './located'
-import { NavLink } from './nav-links'
+import AnimatedLogo from '../animated-logo'
+import Located from '../located'
+import Magneto from '../magneto'
+import { NavLink } from '../nav-links'
 
 export default function Header() {
   const pathname = usePathname()
@@ -61,6 +63,9 @@ export default function Header() {
         duration: 0.7,
         clipPath: 'inset(0% 0% 0% 0%)',
         ease: 'power4.inOut',
+        stagger: {
+          amount: 0.5,
+        },
       })
 
     // gsap.to('.current-route-desktop', {
@@ -79,6 +84,22 @@ export default function Header() {
       tl.current.play()
     } else {
       tl.current.reverse()
+    }
+  }, [isMenuOpen])
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        toggleMenu()
+      }
+    }
+
+    if (isMenuOpen) {
+      document.addEventListener('keydown', handleKeyDown)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
     }
   }, [isMenuOpen])
 
@@ -222,12 +243,17 @@ export default function Header() {
           </div>
         </div>
 
-        <button
-          className="close-menu-btn absolute right-4 top-4 rounded-full p-2"
+        <div
           onClick={toggleMenu}
+          className="absolute right-4 top-4 rounded-full"
         >
-          <FaX size={15} />
-        </button>
+          <Magneto
+            text="&times;"
+            className={`h-8 w-8 bg-cyan-900 text-xs font-bold`}
+            magnetoStrength={10}
+            magnetoTextStrength={10}
+          />
+        </div>
       </div>
     </header>
   )

@@ -1,14 +1,15 @@
 'use client'
 
+import './styles.css'
+
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
 import { type TechStack, techStack } from '@/api/tech-stack'
-
-import robot from '../../assets/robot.svg'
-import robotBlink from '../../assets/robot-blink.svg'
+import robot from '@/assets/robot.svg'
+import robotBlink from '@/assets/robot-blink.svg'
 
 export default function TechStack() {
   function splitTechStack(techStack: TechStack[]) {
@@ -75,28 +76,18 @@ export default function TechStack() {
       scrollers.forEach((scroller) => {
         scroller.setAttribute('data-animated', 'true')
 
-        const scrollerInner = scroller.querySelector('.scroller__inner')
-        const scrollerInner2 = scroller.querySelector('.scroller__inner2')
+        const scrollerInners = scroller.querySelectorAll('.scroller__inner')
 
-        if (scrollerInner) {
-          const scrollerContent = Array.from(scrollerInner.children)
+        if (scrollerInners) {
+          scrollerInners.forEach((scrollerInner) => {
+            const scrollerContent = Array.from(scrollerInner.children)
 
-          scrollerContent.forEach((item) => {
-            const duplicatedItem = item.cloneNode(true) as HTMLElement
-            duplicatedItem.setAttribute('aria-hidden', 'true')
+            scrollerContent.forEach((item) => {
+              const duplicatedItem = item.cloneNode(true) as HTMLElement
+              duplicatedItem.setAttribute('aria-hidden', 'true')
 
-            scrollerInner.appendChild(duplicatedItem)
-          })
-        }
-
-        if (scrollerInner2) {
-          const scrollerContent = Array.from(scrollerInner2.children)
-
-          scrollerContent.forEach((item) => {
-            const duplicatedItem = item.cloneNode(true) as HTMLElement
-            duplicatedItem.setAttribute('aria-hidden', 'true')
-
-            scrollerInner2.appendChild(duplicatedItem)
+              scrollerInner.appendChild(duplicatedItem)
+            })
           })
         }
       })
@@ -119,7 +110,7 @@ export default function TechStack() {
               alt=""
               width={26}
               height={26}
-              className="animate-fade-out absolute"
+              className="absolute animate-fade-out"
             />
             <Image src={robot} alt="" width={26} height={26} className="" />
           </span>
@@ -141,7 +132,14 @@ export default function TechStack() {
           ))}
         </div>
 
-        <div className="scroller__inner2 relative flex items-center gap-10 bg-background px-6 py-4">
+        <div
+          style={
+            {
+              '--direction': 'reverse',
+            } as React.CSSProperties
+          }
+          className="scroller__inner relative flex items-center gap-10 bg-background px-6 py-4"
+        >
           {secondArray.map((tech, index) => (
             <Image
               key={index}

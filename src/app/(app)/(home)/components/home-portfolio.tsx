@@ -68,7 +68,7 @@ export default function HomePortfolio() {
           key={index}
           onMouseEnter={(e) => playVideo(e, 'play')}
           onMouseLeave={(e) => playVideo(e, 'pause')}
-          className="project-container-home relative mb-10 flex w-full max-w-[95vw] flex-col justify-center overflow-hidden p-1 sm:flex-row lg:w-[800px]"
+          className="home-portfolio-container relative mb-10 flex w-full max-w-[95vw] flex-col justify-center overflow-hidden p-1 sm:flex-row lg:w-[800px]"
         >
           <div className="relative flex flex-col items-center justify-between gap-4 bg-gray-900 px-6 py-4">
             <div className="flex flex-col items-center justify-start gap-4">

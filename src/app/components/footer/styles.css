@@ -1,0 +1,20 @@
+.hover-underline {
+    transition: color .3s linear;
+  }
+  
+  .hover-underline:hover {
+    color: rgba(101, 98, 117, 0.979);
+  }
+  
+  .hover-underline::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: rgba(101, 98, 117, 0.979); 
+    transition: width 0.3s ease;
+  }
+  
+  .hover-underline:hover::after {
+    width: 100%;
+  }

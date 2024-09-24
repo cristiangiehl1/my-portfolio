@@ -22,6 +22,7 @@
 
 .project {
   transform: rotateY(calc(var(--position) * (360 / var(--quantity)) * 1deg)) translateZ(550px);
+  opacity: 0;
 }
 
 
@@ -35,7 +36,12 @@
               0 0 60px 30px rgba(255, 255, 255, 0.1);
 }
 
-.current-path-project[data-current=true]::after {
+.current-path-project[data-current=true] {
+  transition: color .3s ease-in-out;
+
+}
+
+.current-path-project::after {
   content: '';
   background: url('../../../assets/black-hole-2.png') no-repeat center center;
   background-size: cover;
@@ -49,8 +55,15 @@
   bottom: -35px;
   left: 30%;
   transform: translateX(-50%) scale(1);
-
+  clip-path: circle(0% at 50% 50%);
+  
   animation: blackHoleMovemet linear 5s infinite;
+  transition: clip-path .5s ease-out;
+}
+
+
+.current-path-project[data-current=true]::after {
+  clip-path: circle(150% at 50% 50%);
 }
 
 

@@ -20,8 +20,6 @@ export default function Magneto({
   const magnetoRef = useRef<HTMLButtonElement>(null)
   const magnetoTextRef = useRef<HTMLAnchorElement>(null)
 
-  console.log(href)
-
   useEffect(() => {
     const magneto = magnetoRef.current
     const magnetoText = magnetoTextRef.current

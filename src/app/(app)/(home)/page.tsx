@@ -1,3 +1,5 @@
+import './styles.css'
+
 import type { Metadata } from 'next'
 import Image from 'next/image'
 
@@ -5,10 +7,10 @@ import Footer from '@/app/components/footer'
 import Header from '@/app/components/header'
 import LinksWithAnimation from '@/app/components/links-with-animation'
 import Magneto from '@/app/components/magneto'
-import TechStack from '@/app/components/tech-stack'
 
-import HomePortfolio from './home-portfolio'
-import HomeTextAndImage from './home-text-and-image'
+import HomePortfolio from './components/home-portfolio'
+import HomeTextAndImage from './components/home-text-and-image'
+import TechStack from './components/tech-stack'
 
 export const metadata: Metadata = {
   title: 'Home',

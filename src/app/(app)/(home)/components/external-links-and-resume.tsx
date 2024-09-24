@@ -8,7 +8,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 
 import Magneto from '@/app/components/magneto'
 
-export default function ProfessionalIcons() {
+export default function ExternalLinksAndResume() {
   const [isPending, startTransition] = useTransition()
 
   async function handleDownloadCV(event: FormEvent<HTMLFormElement>) {
@@ -71,7 +71,7 @@ export default function ProfessionalIcons() {
           disabled={isPending}
           type="submit"
           magnetoStrength={50}
-          magnetoTextStrength={30}
+          magnetoTextStrength={20}
         />
 
         <span className="">
@@ -88,14 +88,14 @@ export default function ProfessionalIcons() {
           href={'https://github.com/cristiangiehl1'}
           target="_blank"
         >
-          <FaGithub size={25} />
+          <FaGithub className="text-xl md:text-2xl" />
         </Link>
         <Link
           className="professional-icons-gsap scale-0 transition-colors hover:text-green-500"
           href={'https://www.linkedin.com/in/cristian-giehl-5b3539b4/'}
           target="_blank"
         >
-          <FaLinkedin size={25} />
+          <FaLinkedin className="text-xl md:text-2xl" />
         </Link>
       </div>
     </div>

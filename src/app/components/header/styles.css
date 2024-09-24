@@ -1,0 +1,45 @@
+/* Data-Current Route Icon */
+.current-route-desktop::after {
+    content: '';
+    display: block;
+    width: 6px; 
+    height: 0px; 
+    border-radius: 50%; 
+    background-color: rgb(20 184 166); 
+    
+    position: absolute; 
+    right: 50%;
+    bottom: -10px;
+  
+    transition: height .3s ease-in-out;
+}
+  
+.current-route-desktop[data-current=true]::after {
+    height: 6px;
+}
+  
+.current-route-mobile {
+    padding-right: 2rem;
+}
+  
+.current-route-mobile::after {
+    content: '';
+    display: block;
+    width: 0px; 
+    height: 12px; 
+    border-radius: 50%; 
+    background-color: white; 
+    position: absolute;
+  
+    top: 50%;
+    right: 5%;
+  
+    transform: translateY(-50%);
+  
+    transition: width .3s ease-in-out;
+}
+  
+.current-route-mobile[data-current=true]::after {
+    width: 12px;
+}
+

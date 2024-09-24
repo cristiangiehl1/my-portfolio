@@ -7,11 +7,11 @@ import { useRef } from 'react'
 
 gsap.registerPlugin(TextPlugin)
 
-interface TypeWriteTextProps {
+interface TypeWriteTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   texts: string[]
 }
 
-export function TypeWriteText({ texts }: TypeWriteTextProps) {
+export function TypeWriteText({ texts, ...props }: TypeWriteTextProps) {
   const typewriterRef = useRef(null)
 
   const words = texts
@@ -67,13 +67,14 @@ export function TypeWriteText({ texts }: TypeWriteTextProps) {
   }, [])
 
   return (
-    <h3 className="home-text-container-clip-path text-sm md:text-3xl">
-      {`<`}
+    <span
+      {...props}
+      className="home-text-container-clip-path text-sm md:text-3xl"
+    >
       <span ref={typewriterRef} className="text-green-500">
         {' '}
       </span>
       <span id="cursor">|</span>
-      {` />`}
-    </h3>
+    </span>
   )
 }

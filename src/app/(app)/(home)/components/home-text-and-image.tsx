@@ -6,21 +6,21 @@ import Image from 'next/image'
 
 import { TypeWriteText } from '@/app/components/type-write-text'
 
-import ProfessionalIcons from './professional-icons'
+import ExternalLinksAndResume from './external-links-and-resume'
 
 export default function HomeTextAndImage() {
   useGSAP(() => {
     gsap.to('.home-text-container-clip-path', {
       clipPath: 'inset(0% 0% 0% 0%)',
       duration: 1.2,
-      delay: 0.8,
+      delay: 0.4,
       ease: 'power3.inOut',
     })
 
     gsap.to('.home-circle-container-clip-path', {
       clipPath: 'circle(60%)',
       duration: 1.5,
-      delay: 0.8,
+      delay: 0.6,
       ease: 'power3.inOut',
     })
   })
@@ -34,7 +34,11 @@ export default function HomeTextAndImage() {
 
         <h1 className="home-text-container-clip-path text-2xl font-bold sm:text-3xl md:text-5xl">{`I'm Cristian Giehl`}</h1>
 
-        <TypeWriteText texts={['FullStack Developer']} />
+        <div className="flex items-center">
+          <h3>{'<'}</h3>
+          <TypeWriteText texts={['FullStack Developer']} />
+          <h3> {'/>'}</h3>
+        </div>
 
         <p className="home-text-container-clip-path mb-2 mt-4 max-w-[400px] text-xs leading-relaxed sm:text-base">
           Seja muito bem-vindo ao meu portfólio. Aqui você vai descobrir meus
@@ -45,7 +49,7 @@ export default function HomeTextAndImage() {
           à realidade.
         </p>
 
-        <ProfessionalIcons />
+        <ExternalLinksAndResume />
       </div>
 
       <div className="relative flex flex-col gap-4">

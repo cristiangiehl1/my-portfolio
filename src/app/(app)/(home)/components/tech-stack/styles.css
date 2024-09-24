@@ -1,0 +1,28 @@
+/* infinite scrollbar horizontal */
+.scroller[data-animated=true] {
+    overflow: hidden;
+    
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent); 
+  }
+  
+  .scroller[data-animated=true] .scroller__inner {
+    width: max-content;
+    animation: scroll var(--_animation-durantion, 60s) linear infinite var(--direction, normal);
+  }
+  
+  
+.scroller[data-animated=true] .scroller__inner:hover {
+    animation-play-state: paused;
+}
+  
+  /*
+    Negativo = faz a esteria correr mais para a esquerda (atrasa) antes de resetar
+    Positivo = faz a esteria correr mais para a direita (antecipa) atnes de resetar
+  */
+
+  @keyframes scroll {
+    to {
+      transform: translate(calc(-50% + 6px));
+    }
+}

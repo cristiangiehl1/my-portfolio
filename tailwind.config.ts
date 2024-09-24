@@ -47,11 +47,6 @@ const config: Config = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
-        'border-spin': {
-          '100%': {
-            transform: 'rotate(-360deg)',
-          },
-        },
       },
       animation: {
         blob: 'blob 12s ease-in-out infinite',
@@ -61,7 +56,6 @@ const config: Config = {
         'rotate-reverse': 'rotate 3s infinite linear reverse',
         'fade-out': 'fade-out .7s infinite linear',
         'fade-out-reverse': 'fade-out .7s infinite linear reverse',
-        'boder-spin': 'border-spin 7s linear infinite',
       },
     },
   },
