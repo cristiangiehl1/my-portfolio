@@ -41,6 +41,10 @@
     animation: borderSpin 7s infinite linear;
 }
 
+.home-text-container-clip-path {
+  clip-path: inset(0% 100% 0% 0%);
+}
+
 @keyframes borderSpin {
     100% {
       transform: rotate(-360deg);

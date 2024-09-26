@@ -15,8 +15,8 @@ import planet from '@/assets/planet.png'
 import { createComet } from '@/utils/create-comet'
 import { createStar } from '@/utils/create-start'
 
+import PreLoader from './components/pre-loader'
 import PortFolioHeader from './portfolio-header'
-import PreLoader from './pre-loader'
 
 export default function Portfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -183,7 +183,6 @@ export default function Portfolio() {
   }, [isLoaded])
 
   // orbital appereance
-
   useGSAP(() => {
     if (isLoaded) {
       gsap.to(projectsContainerRef.current, {})
@@ -213,7 +212,7 @@ export default function Portfolio() {
   useEffect(() => {
     const loadTimeout = setTimeout(() => {
       setIsLoaded(true)
-    }, 10000)
+    }, 17000)
 
     return () => clearTimeout(loadTimeout)
   }, [])

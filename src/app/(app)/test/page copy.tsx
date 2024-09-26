@@ -32,24 +32,25 @@ export default function Test() {
       const xPos = getRandom(0, containerX)
       const yPos = getRandom(0, containerY)
 
+      const DistanceToCenterX = centerX - xPos
+
+      console.log('xPos = ' + Math.round(xPos))
+      console.log('yPos = ' + Math.round(yPos))
+
+      console.log('centerX - Xpos = ' + DistanceToCenterX)
+
       const particle = document.createElement('div')
       particle.classList.add(className)
       particle.style.position = 'absolute'
       particle.style.zIndex = '100'
       particle.style.top = `${yPos}px`
-      particle.style.left = `${xPos}px`
+      particle.style.left = `${-DistanceToCenterX}px`
       particle.style.width = `40px`
       particle.style.height = `${size}px`
       particle.style.backgroundColor = 'white'
       particle.style.borderRadius = '9999px'
 
-      const dx = centerX - xPos // Distância em x
-      const dy = centerY - yPos // Distância em y
-      const angleRad = Math.atan2(dy, dx) // Ângulo em radianos
-      const angleDeg = angleRad * (180 / Math.PI) // Converta para graus
-      const rotatedAngle = angleDeg + 90 // Ajuste para que fique alinhado
-
-      particle.style.transform = `rotate(${rotatedAngle}deg)`
+      particle.style.transform = 'rotate(90deg)'
 
       container.appendChild(particle)
     }
@@ -59,8 +60,8 @@ export default function Test() {
     sliceRefs.current.forEach((sliceRef) => {
       if (!sliceRef) return
       createParticles(sliceRef, 1, 'particle', 1)
-      // createParticles(sliceRef, 1, 'particle2', -2)
-      // createParticles(sliceRef, 1, 'particle3', -2)
+      createParticles(sliceRef, 1, 'particle2', -2)
+      createParticles(sliceRef, 1, 'particle3', -2)
     })
   }, [])
 
@@ -76,14 +77,12 @@ export default function Test() {
   //   const animateParticles = ({
   //     className,
   //     yPosition,
-  //     xPosition, // Adicione xPosition aqui
   //     delay,
   //     duration,
   //     repeat,
-  //   }: AnimateParticlesProps & { xPosition: number }) => {
+  //   }: AnimateParticlesProps) => {
   //     gsap.to(`.${className}`, {
-  //       y: yPosition, // Mantenha a animação em Y
-  //       x: xPosition, // Use x aqui para o deslocamento em X
+  //       transform: `translateY(${yPosition}px)`,
   //       duration,
   //       delay,
   //       repeat,
@@ -94,7 +93,6 @@ export default function Test() {
   //   animateParticles({
   //     className: 'particle2',
   //     yPosition: 1050,
-  //     xPosition: 205,
   //     delay: 1.5,
   //     duration: 9,
   //     repeat: -1,

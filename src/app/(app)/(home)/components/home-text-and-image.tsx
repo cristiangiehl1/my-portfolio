@@ -34,10 +34,13 @@ export default function HomeTextAndImage() {
 
         <h1 className="home-text-container-clip-path text-2xl font-bold sm:text-3xl md:text-5xl">{`I'm Cristian Giehl`}</h1>
 
-        <div className="flex items-center">
-          <h3>{'<'}</h3>
-          <TypeWriteText texts={['FullStack Developer']} />
-          <h3> {'/>'}</h3>
+        <div className="home-text-container-clip-path flex items-center">
+          <span className="text-sm md:text-3xl">{'<'}</span>
+          <TypeWriteText
+            texts={['FullStack Developer']}
+            className="text-sm text-green-500 md:text-3xl"
+          />
+          <span className="text-sm md:text-3xl"> {'/>'}</span>
         </div>
 
         <p className="home-text-container-clip-path mb-2 mt-4 max-w-[400px] text-xs leading-relaxed sm:text-base">
@@ -62,7 +65,9 @@ export default function HomeTextAndImage() {
             alt=""
             className="rounded-full"
             style={{ width: 'auto' }}
+            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority
+            loading="eager"
           />
         </div>
       </div>

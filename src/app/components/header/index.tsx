@@ -119,6 +119,7 @@ export default function Header() {
           href={'/'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
+          aria-label="Navigate to home"
         >
           Home
         </NavLink>
@@ -128,6 +129,7 @@ export default function Header() {
           href={'/portfolio'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
+          aria-label="Navigate to portfolio"
         >
           Portfolio
         </NavLink>
@@ -137,6 +139,7 @@ export default function Header() {
           href={'/about'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
+          aria-label="Navigate to about"
         >
           About
         </NavLink>
@@ -146,6 +149,7 @@ export default function Header() {
           href={'/contact'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
+          aria-label="Navigate to contact"
         >
           Contact
         </NavLink>

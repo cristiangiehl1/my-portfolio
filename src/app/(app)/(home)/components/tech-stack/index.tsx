@@ -5,7 +5,7 @@ import './styles.css'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { type TechStack, techStack } from '@/api/tech-stack'
 import robot from '@/assets/robot.svg'
@@ -20,29 +20,11 @@ export default function TechStack() {
     return [firstHalf, secondHalf]
   }
 
-  const [firstArray, secondArray] = splitTechStack(techStack)
+  const [firstArray, secondArray] = useMemo(() => splitTechStack(techStack), [])
 
   const pageContent = useRef(null)
 
   useGSAP(() => {
-    gsap.to('.text-box', {
-      opacity: 1,
-      ease: 'power4.inOut',
-      delay: 1.5,
-      stagger: {
-        amount: 0.3,
-      },
-    })
-
-    gsap.to('.text-box1', {
-      opacity: 1,
-      ease: 'power4.inOut',
-      delay: 1.5,
-      stagger: {
-        amount: 0.3,
-      },
-    })
-
     gsap.to('.text-box', {
       y: 0,
       ease: 'power4.inOut',
@@ -101,24 +83,34 @@ export default function TechStack() {
       ref={pageContent}
       className="mb-4 w-full overflow-hidden p-4 md:max-w-[800px]"
     >
-      <div className="text-box flex min-w-full translate-y-[55px] items-center justify-center rounded-t-full border-[1px] bg-gray-950 py-3 opacity-0 sm:translate-y-[65px]">
+      <div className="text-box flex min-w-full translate-y-[65px] items-center justify-center rounded-t-full border-[1px] bg-gray-950 py-3 sm:translate-y-[75px]">
         <h2 className="flex min-w-full items-center justify-center gap-2 text-center font-bold sm:text-xl">
           Tech Stack
           <span className="relative">
             <Image
               src={robotBlink}
+              quality={70}
               alt=""
               width={26}
               height={26}
               className="absolute animate-fade-out"
+              loading="lazy"
             />
-            <Image src={robot} alt="" width={26} height={26} className="" />
+            <Image
+              src={robot}
+              alt=""
+              width={26}
+              height={26}
+              className=""
+              quality={70}
+              loading="lazy"
+            />
           </span>
         </h2>
       </div>
 
       <div className="scroller flex w-full translate-y-[50px] flex-col justify-between overflow-hidden opacity-0">
-        <div className="scroller__inner relative flex items-center gap-10 bg-background px-6 py-4">
+        <div className="scroller__inner relative flex items-center gap-10 px-6 py-4">
           {firstArray.map((tech, index) => (
             <Image
               key={index}
@@ -127,7 +119,13 @@ export default function TechStack() {
               title={tech.name}
               width={30}
               height={30}
-              className="w-[20px] sm:w-[30px]"
+              className="w-[30px] rounded-2xl bg-slate-700 p-[6px] sm:w-[40px]"
+              style={{
+                boxShadow:
+                  'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+              }}
+              loading="lazy"
+              quality={70}
             />
           ))}
         </div>
@@ -138,7 +136,7 @@ export default function TechStack() {
               '--direction': 'reverse',
             } as React.CSSProperties
           }
-          className="scroller__inner relative flex items-center gap-10 bg-background px-6 py-4"
+          className="scroller__inner relative flex items-center gap-10 px-6 py-4"
         >
           {secondArray.map((tech, index) => (
             <Image
@@ -148,12 +146,18 @@ export default function TechStack() {
               title={tech.name}
               width={30}
               height={30}
-              className="w-[20px] sm:w-[30px]"
+              className="h-[auto] w-[30px] rounded-2xl bg-slate-700 p-[6px] sm:w-[40px]"
+              style={{
+                boxShadow:
+                  'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+              }}
+              loading="lazy"
+              quality={70}
             />
           ))}
         </div>
       </div>
-      <div className="text-box1 flex min-w-full -translate-y-[55px] items-center justify-center rounded-b-full border-[1px] bg-gray-950 py-5 opacity-0 sm:-translate-y-[65px]"></div>
+      <div className="text-box1 flex min-w-full -translate-y-[65px] items-center justify-center rounded-b-full border-[1px] bg-gray-950 py-5 sm:-translate-y-[75px]"></div>
     </div>
   )
 }

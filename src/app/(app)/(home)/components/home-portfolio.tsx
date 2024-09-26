@@ -102,6 +102,7 @@ export default function HomePortfolio() {
                 target="_blank"
                 href={project.projectRepo}
                 rel="noreferrer"
+                aria-label="Navigate to project github repository."
               >
                 <span className="text-xs font-bold sm:text-sm">Code</span>
                 <FaGithub className="text-lg sm:text-xl" />
@@ -115,6 +116,7 @@ export default function HomePortfolio() {
               alt=""
               width={600}
               className="cursor-pointer border-none"
+              quality={80}
             />
             {project.projectVideo && (
               <div className="video-wrapper absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center border-none opacity-0">

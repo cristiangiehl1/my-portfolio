@@ -74,12 +74,14 @@ export default function PortFolioHeader() {
               alt=""
               width={85}
               className="rounded-2xl"
+              quality={80}
             />
             <NavLink
               className="current-path-project absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 rounded-sm p-[18px] text-[#E0FFFF] data-[current=true]:text-[#00FFFF]"
               href={'/'}
               onMouseEnter={changeRouteSelected}
               onMouseLeave={setPreviusRouteSelected}
+              aria-label="Navigate to home"
             >
               Home
             </NavLink>
@@ -91,12 +93,14 @@ export default function PortFolioHeader() {
               alt=""
               width={85}
               className="rounded-2xl"
+              quality={80}
             />
             <NavLink
               className="current-path-project absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-sm p-[18px] data-[current=true]:text-[#00FFFF]"
               href={'/portfolio'}
               onMouseEnter={changeRouteSelected}
               onMouseLeave={setPreviusRouteSelected}
+              aria-label="Navigate to portfolio"
             >
               Portfolio
             </NavLink>
@@ -108,12 +112,14 @@ export default function PortFolioHeader() {
               alt=""
               width={85}
               className="rounded-2xl"
+              quality={80}
             />
             <NavLink
               className="current-path-project absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-sm p-[18px] text-[#E0FFFF] data-[current=true]:text-[#00FFFF]"
               href={'/about'}
               onMouseEnter={changeRouteSelected}
               onMouseLeave={setPreviusRouteSelected}
+              aria-label="Navigate to about"
             >
               About
             </NavLink>
@@ -125,12 +131,14 @@ export default function PortFolioHeader() {
               alt=""
               width={85}
               className="rounded-2xl"
+              quality={80}
             />
             <NavLink
               className="current-path-project absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-sm p-[18px] text-[#E0FFFF] data-[current=true]:text-[#00FFFF]"
               href={'/contact'}
               onMouseEnter={changeRouteSelected}
               onMouseLeave={setPreviusRouteSelected}
+              aria-label="Navigate to contact"
             >
               Contact
             </NavLink>

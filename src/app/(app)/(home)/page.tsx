@@ -35,6 +35,7 @@ export default function Home() {
             alt=""
             width={40}
             height={40}
+            loading="eager"
             className="rounded-full border-2"
           />
 
@@ -56,6 +57,7 @@ export default function Home() {
             linkProps={{
               href: 'mailto:cristiangiehl@gmail.com',
               className: 'p-5 rounded-full border-[2px]',
+              'aria-label': 'Send e-mail to Cristian Giehl.',
             }}
             blobProps={{ className: 'rounded-full bg-slate-500' }}
           >
@@ -67,6 +69,7 @@ export default function Home() {
               href: 'https://wa.me/5521999815903?text=Bem-vindo!%20Clique%20no%20ícone%20para%20iniciar%20uma%20conversa%20comigo.',
               className: 'p-5 rounded-full border-[2px]',
               target: '_blank',
+              'aria-label': 'Open whatsapp chat with Cristian Giehl.',
             }}
             blobProps={{ className: 'rounded-full bg-slate-500' }}
           >

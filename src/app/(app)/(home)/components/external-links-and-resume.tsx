@@ -72,6 +72,7 @@ export default function ExternalLinksAndResume() {
           type="submit"
           magnetoStrength={50}
           magnetoTextStrength={20}
+          aria-label="Download Cristian Giehl Resume."
         />
 
         <span className="">
@@ -87,6 +88,7 @@ export default function ExternalLinksAndResume() {
           className="professional-icons-gsap scale-0 transition-colors hover:text-green-500"
           href={'https://github.com/cristiangiehl1'}
           target="_blank"
+          aria-label="Navigate to Cristian Giehl Github Profile."
         >
           <FaGithub className="text-xl md:text-2xl" />
         </Link>
@@ -94,6 +96,7 @@ export default function ExternalLinksAndResume() {
           className="professional-icons-gsap scale-0 transition-colors hover:text-green-500"
           href={'https://www.linkedin.com/in/cristian-giehl-5b3539b4/'}
           target="_blank"
+          aria-label="Navigate to Cristian Giehl LinkedIn Profile."
         >
           <FaLinkedin className="text-xl md:text-2xl" />
         </Link>

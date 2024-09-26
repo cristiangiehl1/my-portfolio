@@ -17,12 +17,6 @@ export function TypeWriteText({ texts, ...props }: TypeWriteTextProps) {
   const words = texts
 
   useGSAP(() => {
-    gsap.to('.home-text-container-clip-path', {
-      clipPath: 'inset(0% 0% 0% 0%)',
-      duration: 1.2,
-      delay: 0.8,
-      ease: 'power3.inOut',
-    })
     const cursorTimeline = gsap.timeline({
       repeat: -1,
       repeatDelay: 0.8,
@@ -47,12 +41,12 @@ export function TypeWriteText({ texts, ...props }: TypeWriteTextProps) {
       const textTimeline = gsap.timeline({
         repeat: 1,
         yoyo: true,
-        repeatDelay: 4.8,
+        repeatDelay: 3,
       })
 
       textTimeline.to(typewriterRef.current, {
         text: word,
-        duration: 2,
+        duration: 1.5,
         onUpdate: () => {
           cursorTimeline.restart()
           cursorTimeline.pause()
@@ -67,13 +61,8 @@ export function TypeWriteText({ texts, ...props }: TypeWriteTextProps) {
   }, [])
 
   return (
-    <span
-      {...props}
-      className="home-text-container-clip-path text-sm md:text-3xl"
-    >
-      <span ref={typewriterRef} className="text-green-500">
-        {' '}
-      </span>
+    <span {...props}>
+      <span ref={typewriterRef}> </span>
       <span id="cursor">|</span>
     </span>
   )

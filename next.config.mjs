@@ -27,6 +27,16 @@ const nextConfig = {
         hostname: 'files.svgcdn.io',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'seeklogo.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'gsap.com',
+        pathname: '/**',
+      },
     ],
   },
 }
