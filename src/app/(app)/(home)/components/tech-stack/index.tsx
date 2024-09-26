@@ -22,9 +22,15 @@ export default function TechStack() {
 
   const [firstArray, secondArray] = useMemo(() => splitTechStack(techStack), [])
 
-  const pageContent = useRef(null)
+  const pageContent = useRef<HTMLDivElement>(null)
 
   useGSAP(() => {
+    gsap.to(pageContent.current, {
+      clipPath: 'inset(0% 0% 0% 0%)',
+      duration: 2,
+      ease: 'power2.inOut',
+    })
+
     gsap.to('.text-box', {
       y: 0,
       ease: 'power4.inOut',
@@ -81,9 +87,9 @@ export default function TechStack() {
   return (
     <div
       ref={pageContent}
-      className="mb-4 w-full overflow-hidden p-4 md:max-w-[800px]"
+      className="tech-stack-container mb-4 w-full overflow-hidden p-4 md:max-w-[800px]"
     >
-      <div className="text-box flex min-w-full translate-y-[65px] items-center justify-center rounded-t-full border-[1px] bg-gray-950 py-3 sm:translate-y-[75px]">
+      <div className="text-box flex min-w-full translate-y-[55px] items-center justify-center rounded-t-full border-[1px] bg-gray-950 py-3 sm:translate-y-[65px]">
         <h2 className="flex min-w-full items-center justify-center gap-2 text-center font-bold sm:text-xl">
           Tech Stack
           <span className="relative">
@@ -110,7 +116,7 @@ export default function TechStack() {
       </div>
 
       <div className="scroller flex w-full translate-y-[50px] flex-col justify-between overflow-hidden opacity-0">
-        <div className="scroller__inner relative flex items-center gap-10 px-6 py-4">
+        <div className="scroller__inner relative flex items-center gap-10 px-6 py-3">
           {firstArray.map((tech, index) => (
             <Image
               key={index}
@@ -136,7 +142,7 @@ export default function TechStack() {
               '--direction': 'reverse',
             } as React.CSSProperties
           }
-          className="scroller__inner relative flex items-center gap-10 px-6 py-4"
+          className="scroller__inner relative flex items-center gap-10 px-6 py-3"
         >
           {secondArray.map((tech, index) => (
             <Image
@@ -157,7 +163,7 @@ export default function TechStack() {
           ))}
         </div>
       </div>
-      <div className="text-box1 flex min-w-full -translate-y-[65px] items-center justify-center rounded-b-full border-[1px] bg-gray-950 py-5 sm:-translate-y-[75px]"></div>
+      <div className="text-box1 flex min-w-full -translate-y-[55px] items-center justify-center rounded-b-full border-[1px] bg-gray-950 py-5 sm:-translate-y-[65px]"></div>
     </div>
   )
 }

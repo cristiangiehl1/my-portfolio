@@ -68,7 +68,7 @@ export default function HomePortfolio() {
           key={index}
           onMouseEnter={(e) => playVideo(e, 'play')}
           onMouseLeave={(e) => playVideo(e, 'pause')}
-          className="home-portfolio-container relative mb-10 flex w-full max-w-[95vw] flex-col justify-center overflow-hidden p-1 sm:flex-row lg:w-[800px]"
+          className="home-portfolio-container relative mb-10 flex w-full max-w-[95vw] flex-col justify-center overflow-hidden p-1 md:flex-row lg:w-[930px]"
         >
           <div className="relative flex flex-col items-center justify-between gap-4 bg-gray-900 px-6 py-4">
             <div className="flex flex-col items-center justify-start gap-4">
@@ -76,7 +76,7 @@ export default function HomePortfolio() {
                 {project.name}
               </h3>
 
-              <div className="flex flex-wrap gap-4 pb-4">
+              <div className="flex flex-wrap gap-4 pb-4 max-sm:pb-10">
                 {project.techs.map((tech, techIndex) => {
                   const techData = techStack.find((item) => item.name === tech)
                   return (
@@ -86,8 +86,14 @@ export default function HomePortfolio() {
                           src={techData.iconUrl}
                           alt={tech}
                           title={tech}
-                          width={25}
-                          height={25}
+                          width={40}
+                          height={40}
+                          loading="lazy"
+                          className="rounded-xl bg-gray-800 p-2"
+                          style={{
+                            boxShadow:
+                              'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
+                          }}
                         />
                       )}
                     </div>
@@ -96,9 +102,15 @@ export default function HomePortfolio() {
               </div>
             </div>
 
-            <div className="flex w-full items-center justify-start gap-2">
+            <div
+              className="absolute bottom-2 right-4 flex items-center justify-start gap-2 rounded-xl bg-gray-950 p-2 transition-colors hover:bg-green-800"
+              style={{
+                boxShadow:
+                  ' rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;',
+              }}
+            >
               <a
-                className="flex items-center gap-2 text-left transition-colors hover:text-zinc-400"
+                className="flex items-center gap-2 text-left"
                 target="_blank"
                 href={project.projectRepo}
                 rel="noreferrer"
@@ -115,7 +127,8 @@ export default function HomePortfolio() {
               src={project.projectImg}
               alt=""
               width={600}
-              className="cursor-pointer border-none"
+              height={400}
+              className="w-full cursor-pointer border-none object-cover"
               quality={80}
             />
             {project.projectVideo && (

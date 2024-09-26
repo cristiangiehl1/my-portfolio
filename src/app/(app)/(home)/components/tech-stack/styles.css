@@ -1,4 +1,8 @@
-/* infinite scrollbar horizontal */
+.tech-stack-container {
+  clip-path: inset(0% 100% 0 0);
+}
+
+
 .scroller[data-animated=true] {
     overflow: hidden;
     

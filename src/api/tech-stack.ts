@@ -112,7 +112,16 @@ export const techStack: TechStack[] = [
     iconUrl:
       'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/knexjs/knexjs-original.svg',
   },
-
+  {
+    name: 'GSAP',
+    iconUrl:
+      'https://gsap.com/community/uploads/monthly_2020_03/tweenmax.png.cf27916e926fbb328ff214f66b4c8429.png',
+  },
+  {
+    name: 'Zod',
+    iconUrl:
+      'https://raw.githubusercontent.com/colinhacks/zod/3032e240a0c227692bb96eedf240ed493c53f54c/logo.svg',
+  },
   {
     name: 'Git',
     iconUrl:

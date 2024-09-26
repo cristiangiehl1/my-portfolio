@@ -156,12 +156,13 @@ export default function Header() {
       </nav>
 
       {/* Mobile Menu Button */}
-      <button
-        className="group flex items-center justify-center gap-2 text-white sm:hidden"
+      <Magneto
+        text="Menu"
+        className="h-[30px] w-[30px] sm:hidden"
+        magnetoStrength={5}
+        magnetoTextStrength={5}
         onClick={toggleMenu}
-      >
-        Menu
-      </button>
+      />
 
       {/* Mobile Menu */}
       <div
@@ -224,6 +225,7 @@ export default function Header() {
               target="_blank"
               href="https://www.instagram.com/cristian.giehl/"
               rel="noreferrer"
+              aria-label="Navigate to Cristian Giehl Instagram Profile."
             >
               <FaInstagram size={20} />
             </a>
@@ -233,6 +235,7 @@ export default function Header() {
               target="_blank"
               href="https://www.linkedin.com/in/cristian-giehl-5b3539b4/"
               rel="noreferrer"
+              aria-label="Navigate to Cristian Giehl LinkedIn Profile."
             >
               <FaLinkedin size={20} />
             </a>
@@ -241,6 +244,7 @@ export default function Header() {
               className="transition-colors hover:text-zinc-500"
               href="mailto:cristiangiehl@gmail.com"
               title="Gmail"
+              aria-label="Send an e-mail to Cristian Giehl."
             >
               <CgMail size={25} />
             </a>
