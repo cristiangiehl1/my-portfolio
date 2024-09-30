@@ -19,7 +19,7 @@ export default function Home() {
     <div className="relative min-h-full min-w-full overflow-x-hidden">
       <Header />
 
-      <main className="mx-10 mt-6 flex min-h-[90vh] flex-col items-center justify-center">
+      <main className="mx-10 mt-10 flex min-h-screen flex-col items-center justify-center">
         <HomeTextAndImage />
         <TechStack />
       </main>

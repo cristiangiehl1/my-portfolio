@@ -7,7 +7,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact-section"
-      className="contact-section relative flex h-[105vh] w-full flex-col place-content-center items-center justify-center gap-6 bg-slate-800"
+      className="panel contact-section relative flex h-[100vh] w-full flex-col place-content-center items-center justify-center gap-6 bg-slate-800"
     >
       <div className="flex items-center justify-center gap-2">
         <Image
@@ -22,7 +22,7 @@ export default function ContactSection() {
         <h2 className="text-4xl font-bold">{`Let's work together`}</h2>
       </div>
 
-      <div className="flex items-center justify-center">
+      <div className="z-50 flex items-center justify-center">
         <Magneto
           text="Get in touch"
           className="h-[120px] w-[120px] bg-red-800"
@@ -41,7 +41,9 @@ export default function ContactSection() {
           }}
           blobProps={{ className: 'rounded-full bg-slate-500' }}
         >
-          <span className="relative z-10">cristiangiehl@gmail.com</span>
+          <span className="relative z-10 text-sm sm:text-base">
+            cristiangiehl@gmail.com
+          </span>
         </LinksWithAnimation>
 
         <LinksWithAnimation
@@ -53,7 +55,9 @@ export default function ContactSection() {
           }}
           blobProps={{ className: 'rounded-full bg-slate-500' }}
         >
-          <span className="relative z-10">+55 21 99981 5903</span>
+          <span className="relative z-10 text-sm sm:text-base">
+            +55 21 99981 5903
+          </span>
         </LinksWithAnimation>
       </div>
     </section>

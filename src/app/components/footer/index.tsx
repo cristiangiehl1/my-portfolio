@@ -21,7 +21,10 @@ export default function Footer() {
   }, [])
 
   return (
-    <footer className="absolute bottom-0 left-0 flex w-full justify-between px-8 py-6">
+    <footer
+      id="app-footer"
+      className="footer-component absolute bottom-0 left-0 flex w-full justify-between px-8 py-6"
+    >
       <div className="flex flex-col gap-2">
         <strong className="text-xs text-gray-500">VERSION</strong>
 

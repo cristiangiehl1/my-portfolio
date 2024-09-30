@@ -89,7 +89,13 @@ export default function TechStack() {
       ref={pageContent}
       className="tech-stack-container mb-4 w-full overflow-hidden p-4 md:max-w-[800px]"
     >
-      <div className="text-box flex min-w-full translate-y-[55px] items-center justify-center rounded-t-full border-[1px] bg-gray-950 py-3 sm:translate-y-[65px]">
+      <div
+        className="text-box flex min-w-full translate-y-[55px] items-center justify-center rounded-t-full border-[1px] bg-gray-950 py-3 sm:translate-y-[65px]"
+        style={{
+          boxShadow:
+            'rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px',
+        }}
+      >
         <h2 className="flex min-w-full items-center justify-center gap-2 text-center font-bold sm:text-xl">
           Tech Stack
           <span className="relative">
@@ -163,7 +169,13 @@ export default function TechStack() {
           ))}
         </div>
       </div>
-      <div className="text-box1 flex min-w-full -translate-y-[55px] items-center justify-center rounded-b-full border-[1px] bg-gray-950 py-5 sm:-translate-y-[65px]"></div>
+      <div
+        className="text-box1 flex min-w-full -translate-y-[55px] items-center justify-center rounded-b-full border-[1px] bg-gray-950 py-5 sm:-translate-y-[65px]"
+        style={{
+          boxShadow:
+            'rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px',
+        }}
+      ></div>
     </div>
   )
 }

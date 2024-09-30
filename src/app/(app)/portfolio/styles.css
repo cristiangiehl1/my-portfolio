@@ -15,7 +15,7 @@
   
 .slider {
   transform-style: preserve-3d;
-  transform: perspective(6000px);
+  transform: perspective(6000px) rotateX(-16deg);
   animation: autoRun 70s linear infinite;
 }
 

@@ -4,10 +4,14 @@ import './styles.css'
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { CgMail } from 'react-icons/cg'
 import { FaInstagram, FaLinkedin } from 'react-icons/fa'
+
+import americanFlag from '@/assets/american-flag.svg'
+import brazilianFlag from '@/assets/brazilian-flag.svg'
 
 import AnimatedLogo from '../animated-logo'
 import Located from '../located'
@@ -53,6 +57,8 @@ export default function Header() {
   }
 
   useGSAP(() => {
+    const body = document.body
+
     tl.current
       .to(menuMobileContainer.current, {
         duration: 1.25,
@@ -67,16 +73,12 @@ export default function Header() {
           amount: 0.5,
         },
       })
-
-    // gsap.to('.current-route-desktop', {
-    //   opacity: 1,
-    //   y: 0,
-    //   delay: 0.8,
-    //   ease: 'power4.out',
-    //   stagger: {
-    //     amount: 0.3,
-    //   },
-    // })
+      .to(body, {
+        overflow: 'hidden',
+        duration: 1,
+        ease: 'power4.inOut',
+        delay: -1,
+      })
   }, [menuMobileContainer])
 
   useEffect(() => {
@@ -106,7 +108,8 @@ export default function Header() {
   return (
     <header
       ref={menuContainer}
-      className="flex items-center justify-between px-6 pt-6"
+      id="app-header"
+      className="lef-0 over absolute top-0 z-20 flex w-full items-center justify-between px-6 pt-6"
     >
       <AnimatedLogo />
 
@@ -115,7 +118,7 @@ export default function Header() {
       {/* Desktop Menu */}
       <nav className="hidden gap-8 sm:flex">
         <NavLink
-          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative"
           href={'/'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -125,7 +128,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative"
           href={'/portfolio'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -135,7 +138,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative"
           href={'/about'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -145,7 +148,7 @@ export default function Header() {
         </NavLink>
 
         <NavLink
-          className="current-pathname current-route-desktop relative data-[current=true]:text-teal-500"
+          className="current-pathname current-route-desktop relative"
           href={'/contact'}
           onMouseEnter={changeRouteSelected}
           onMouseLeave={setPreviusRouteSelected}
@@ -215,39 +218,64 @@ export default function Header() {
           </NavLink>
         </nav>
 
-        <div className="mb-4">
-          <h3 className="mb-4 text-xs font-bold tracking-tighter text-zinc-500">
-            SOCIALS
-          </h3>
-          <div className="flex items-center justify-start gap-4">
-            <a
-              className="transition-colors hover:text-zinc-500"
-              target="_blank"
-              href="https://www.instagram.com/cristian.giehl/"
-              rel="noreferrer"
-              aria-label="Navigate to Cristian Giehl Instagram Profile."
-            >
-              <FaInstagram size={20} />
-            </a>
+        <div className="mb-4 flex justify-between">
+          <div>
+            <h3 className="mb-4 text-xs font-bold tracking-tighter text-zinc-500">
+              SOCIALS
+            </h3>
+            <div className="flex items-center justify-start gap-4">
+              <a
+                className="transition-colors hover:text-zinc-500"
+                target="_blank"
+                href="https://www.instagram.com/cristian.giehl/"
+                rel="noreferrer"
+                aria-label="Navigate to Cristian Giehl Instagram Profile."
+              >
+                <FaInstagram size={20} />
+              </a>
+              <a
+                className="transition-colors hover:text-zinc-500"
+                target="_blank"
+                href="https://www.linkedin.com/in/cristian-giehl-5b3539b4/"
+                rel="noreferrer"
+                aria-label="Navigate to Cristian Giehl LinkedIn Profile."
+              >
+                <FaLinkedin size={20} />
+              </a>
+              <a
+                className="transition-colors hover:text-zinc-500"
+                href="mailto:cristiangiehl@gmail.com"
+                title="Gmail"
+                aria-label="Send an e-mail to Cristian Giehl."
+              >
+                <CgMail size={25} />
+              </a>
+            </div>
+          </div>
 
-            <a
-              className="transition-colors hover:text-zinc-500"
-              target="_blank"
-              href="https://www.linkedin.com/in/cristian-giehl-5b3539b4/"
-              rel="noreferrer"
-              aria-label="Navigate to Cristian Giehl LinkedIn Profile."
-            >
-              <FaLinkedin size={20} />
-            </a>
+          <div>
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-tighter text-zinc-500">
+              Language
+            </h3>
+            <div className="flex gap-4">
+              <button>
+                <Image
+                  src={brazilianFlag}
+                  alt="language option Portuguese"
+                  height={30}
+                  width={30}
+                />
+              </button>
 
-            <a
-              className="transition-colors hover:text-zinc-500"
-              href="mailto:cristiangiehl@gmail.com"
-              title="Gmail"
-              aria-label="Send an e-mail to Cristian Giehl."
-            >
-              <CgMail size={25} />
-            </a>
+              <button>
+                <Image
+                  src={americanFlag}
+                  alt="language option English"
+                  height={30}
+                  width={30}
+                />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -257,7 +285,7 @@ export default function Header() {
         >
           <Magneto
             text="&times;"
-            className={`h-8 w-8 bg-cyan-900 text-xs font-bold`}
+            className={`h-8 w-8 bg-zinc-500 text-xs font-bold`}
             magnetoStrength={10}
             magnetoTextStrength={10}
           />

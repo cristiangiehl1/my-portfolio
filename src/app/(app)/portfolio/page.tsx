@@ -21,7 +21,7 @@ import PortFolioHeader from './portfolio-header'
 export default function Portfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(true)
 
   const projectsContainerRef = useRef<HTMLDivElement>(null)
   const galleryRef = useRef<HTMLDivElement>(null)
@@ -256,6 +256,10 @@ export default function Portfolio() {
                     onMouseEnter={(e) => playVideo(e, 'play')}
                     onMouseLeave={(e) => playVideo(e, 'pause')}
                     className="project-video-image relative h-[160px] w-[320px] cursor-pointer overflow-hidden rounded-xl sm:h-[180px] sm:w-[360px] lg:h-[200px] lg:w-[400px] max-sm:h-[150px] max-sm:w-[300px]"
+                    style={{
+                      boxShadow:
+                        ' rgb(0, 0, 0) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
+                    }}
                   >
                     <div className="preview-img absolute inset-0 opacity-100 hover:opacity-0">
                       <Image
@@ -282,15 +286,19 @@ export default function Portfolio() {
                       return (
                         <div
                           key={techIndex}
-                          className="relative items-center gap-2"
+                          className="relative items-center gap-2 rounded-lg bg-slate-900 p-2"
+                          style={{
+                            boxShadow:
+                              ' rgb(0, 0, 0) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
+                          }}
                         >
                           {techData && (
                             <Image
                               src={techData.iconUrl}
                               alt={tech}
                               title={tech}
-                              width={25}
-                              height={25}
+                              width={35}
+                              height={35}
                               className=""
                             />
                           )}
@@ -299,9 +307,15 @@ export default function Portfolio() {
                     })}
                   </div>
 
-                  <div>
+                  <div
+                    className="rounded-2xl bg-slate-800 p-2 hover:bg-slate-500"
+                    style={{
+                      boxShadow:
+                        'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
+                    }}
+                  >
                     <a
-                      className="flex items-center gap-2 text-left transition-colors hover:text-zinc-400"
+                      className="flex items-center gap-2 text-left"
                       target="_blank"
                       href={project.projectRepo}
                       rel="noreferrer"

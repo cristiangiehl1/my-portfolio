@@ -12,6 +12,7 @@
     "@gsap/react": "^2.1.1",
     "focus-trap-react": "^10.3.0",
     "gsap": "^3.12.5",
+    "lenis": "^1.1.13",
     "lodash": "^4.17.21",
     "next": "14.2.11",
     "react": "^18",

@@ -16,28 +16,22 @@ export default function ExternalLinksAndResume() {
 
     startTransition(async () => {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-        // Faz a requisição para a API
         const response = await fetch('/api/download-cv')
 
         if (!response.ok) {
           throw new Error('Failed to download file')
         }
 
-        // Converte a resposta em um blob
         const blob = await response.blob()
 
-        // Cria um URL para o blob
         const url = window.URL.createObjectURL(blob)
 
-        // Cria um link temporário para o download
         const link = document.createElement('a')
         link.href = url
         link.download = 'cristian-giehl-resume.pdf'
         document.body.appendChild(link)
         link.click()
 
-        // Remove o link temporário e libera o URL
         document.body.removeChild(link)
         window.URL.revokeObjectURL(url)
       } catch (error) {

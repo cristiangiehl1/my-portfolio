@@ -101,16 +101,16 @@ export default function Magneto({
     <button
       ref={magnetoRef}
       {...props}
-      className={`magneto flex cursor-pointer items-center justify-center rounded-full ${
+      className={`magneto z-500 flex cursor-pointer items-center justify-center rounded-full ${
         props.className ? props.className : ''
       }`}
     >
       {!href ? (
-        <span ref={magnetoTextRef} className="magnetoText">
+        <span ref={magnetoTextRef} className="magnetoText z-500">
           {text}
         </span>
       ) : (
-        <a href={href} ref={magnetoTextRef} className="">
+        <a href={href} ref={magnetoTextRef} className="z-500">
           <span className="magnetoText">{text}</span>
         </a>
       )}

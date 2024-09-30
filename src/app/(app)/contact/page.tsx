@@ -1,8 +1,10 @@
+'use client'
+
 import Header from '@/app/components/header'
 
 export default function Contact() {
   return (
-    <div>
+    <div className="relative">
       <Header />
       <h2>Contact</h2>
       <main>
