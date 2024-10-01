@@ -34,9 +34,9 @@ export function createComet(container: HTMLDivElement): HTMLElement {
   // Cauda
   tail.classList.add('tail')
   tail.style.position = 'absolute'
-  tail.style.top = '-20%'
-  tail.style.right = '40%'
-  tail.style.transform = 'translateY(0%) rotate(30deg)'
+  tail.style.top = '-52%'
+  tail.style.right = '18%'
+  tail.style.transform = 'translateY(0%) rotate(45deg)'
   tail.style.zIndex = '-1'
 
   tail.style.width = '50px'

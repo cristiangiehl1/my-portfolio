@@ -149,6 +149,7 @@ export default function PortFolioHeader() {
           ref={portfolioToggleBtnRef}
           onClick={handlePortfolioToggle}
           className=""
+          aria-label="toggle navbar"
         >
           <Image src={spaceship} alt="" width={48} />
         </button>
