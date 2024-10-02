@@ -13,7 +13,7 @@ import spaceship from '@/assets/nav.png'
 export default function PortFolioHeader() {
   const pathname = usePathname()
 
-  const [isMenuOpen, setIsMenuOpen] = useState(true)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const portfolioNavRef = useRef<HTMLElement>(null)
   const portfolioToggleBtnRef = useRef<HTMLButtonElement>(null)
@@ -48,10 +48,18 @@ export default function PortFolioHeader() {
   }
 
   useGSAP(() => {
-    tl.current.to(portfolioNavRef.current, {
-      duration: 1.25,
+    gsap.to('.portfolio-header', {
+      y: 0,
       delay: 5,
-      x: '0%',
+      duration: 2,
+      ease: 'sine.inOut',
+    })
+  }, [])
+
+  useGSAP(() => {
+    tl.current.to(portfolioNavRef.current, {
+      duration: 0.7,
+      x: 0,
       ease: 'power4.inOut',
     })
   }, [portfolioNavRef])
@@ -65,7 +73,7 @@ export default function PortFolioHeader() {
   }, [isMenuOpen])
 
   return (
-    <header className="absolute left-0 top-0 z-50 flex gap-4 p-2">
+    <header className="portfolio-header absolute left-0 top-0 z-50 flex -translate-y-full gap-4 p-2">
       <nav ref={portfolioNavRef} className="flex -translate-x-[88%] gap-4">
         <ul className="flex gap-4">
           <li className="relative">

@@ -1,3 +1,14 @@
+
+.text-about-animation {
+    transition: text-shadow .7s ease-in-out;
+}
+
+.text-about-animation:hover {
+    text-shadow: 0 0 5px rgba(255, 255, 0, 0.8), 
+    0 0 7px rgba(255, 255, 0, 0.6), 
+    0 0 9px rgba(255, 255, 0, 0.4);
+}
+
 .help-with-element,
 .help-with-element-heading {
    opacity: 0;
@@ -103,7 +114,6 @@
     transform: translate(-50%, -50%) rotate(0deg);
     animation: rotateRadar 5s linear infinite;
 }
-
 
 
 @keyframes dotAppereance {

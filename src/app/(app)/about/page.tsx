@@ -40,6 +40,8 @@ export default function About() {
 
   const { contextSafe } = useGSAP(
     () => {
+      // gsap.to('#rect', { duration: 5, motionPath: '#path' })
+
       ScrollTrigger.create({
         trigger: '#app-header',
         pin: true,
@@ -276,10 +278,14 @@ export default function About() {
             style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
           >
             <h1 className="text-3xl font-bold leading-snug tracking-tighter md:text-5xl">
-              Turning ideas into solutions that make an impact
+              Turning{' '}
+              <span className="text-about-animation px-2 text-yellow-300">
+                ideas
+              </span>{' '}
+              into solutions that make an impact
             </h1>
 
-            <p className="leading-relaxed">
+            <p className="w-full text-left leading-relaxed">
               {`Passionate about exploring new technologies and discovering
               innovative ways to turn concepts into reality.`}
             </p>

@@ -180,24 +180,27 @@ export default function Portfolio() {
 
   // orbital appereance
   useGSAP(() => {
-    gsap.to('.banner', {
-      scale: 1,
-      duration: 6,
-      ease: 'sine.inOut',
-      stagger: {
-        amount: 0.6,
-      },
-    })
+    const tl = gsap.timeline({})
 
-    gsap.to('.project', {
+    tl.to('.planet', {
+      clipPath: 'circle(150% at 50% 50%)',
       opacity: 1,
-      delay: 6,
-      duration: 0.8,
-      ease: 'power4.out',
-      stagger: {
-        amount: 1,
-      },
+      duration: 2,
+      ease: 'circ.inOut',
     })
+      .to('.banner', {
+        scale: 1,
+        duration: 6,
+        ease: 'sine.inOut',
+      })
+      .to('.project', {
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power4.out',
+        stagger: {
+          amount: 1,
+        },
+      })
   }, [])
 
   return (
@@ -329,7 +332,10 @@ export default function Portfolio() {
           <Image
             src={planet}
             alt=""
-            className="absolute -bottom-[140px] left-1/2 z-50 h-auto w-[650px] -translate-x-1/2 max-sm:-bottom-[50px]"
+            className="planet absolute -bottom-[140px] left-1/2 z-50 h-auto w-[650px] -translate-x-1/2 opacity-0 max-sm:-bottom-[50px]"
+            style={{
+              clipPath: 'circle(0% at 50% 50%)',
+            }}
           />
         </div>
       </div>
