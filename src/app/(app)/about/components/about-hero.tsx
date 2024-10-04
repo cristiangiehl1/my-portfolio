@@ -1,6 +1,265 @@
+'use client'
+
+import { useGSAP } from '@gsap/react'
+import { gsap } from 'gsap'
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Image from 'next/image'
+import { useRef } from 'react'
+
 import ContactSection from '@/app/components/contact-section'
+import Header from '@/app/components/header'
+import aboutImg from '@/assets/about-img.jpeg'
+
+import KnightGame from './knight-game'
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 export default function AboutHero() {
+  const aboutRef = useRef<HTMLDivElement>(null)
+  const scrollTween = useRef<gsap.core.Tween | null>(null)
+  const snapTriggers = useRef<ScrollTrigger[]>([])
+
+  function getClipPath(panelIndex: number, progress: number): string {
+    const polygonClipPath = (p: number) =>
+      `polygon(${p}% 0%, ${100 - p}% 0%, ${100 - p}% 100%, ${p}% 100%)`
+
+    switch (panelIndex) {
+      case 0:
+        return `ellipse(${40 + 60 * progress}% ${50 + 50 * progress}% at 50% 50%)`
+      case 1:
+      case 3:
+        return polygonClipPath(40 * progress)
+      case 2:
+        return `circle(${100 - 50 * progress}% at 50% 50%)`
+      default:
+        return polygonClipPath(40 * progress)
+    }
+  }
+
+  const { contextSafe } = useGSAP(
+    () => {
+      ScrollTrigger.create({
+        trigger: '#app-header',
+        pin: true,
+        pinSpacing: false,
+        scrub: 1,
+        start: 'top top',
+        endTrigger: '#app-footer',
+      })
+
+      gsap.to('.revelear', {
+        opacity: 1,
+        duration: 2,
+        ease: 'none',
+      })
+
+      ScrollTrigger.create({
+        trigger: aboutRef.current,
+        start: 'top top',
+        end: '80% 15%',
+        pin: '.pinned',
+        pinSpacing: false,
+        markers: false,
+      })
+
+      const panels = gsap.utils.toArray<HTMLElement>('.panel')
+      let scrollStarts = [0]
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      let snapScroll = (value: number, direction?: number) => value
+
+      panels.forEach((panel, i) => {
+        const children = panel.querySelectorAll('*')
+
+        const tl = gsap.timeline()
+
+        let animation: gsap.core.Animation = tl.to('.panel', {})
+
+        let start = 'top top'
+
+        if (i > 0) {
+          start = '2% top'
+        }
+
+        snapTriggers.current[i] = ScrollTrigger.create({
+          trigger: panel,
+          start,
+          end: '90% top',
+          scrub: 1,
+          pinSpacing: true,
+          markers: false,
+          onUpdate: (self) => {
+            const progress = self.progress
+            const rotation = 360 * i + progress * 360
+            const windowWidth = window.innerWidth
+
+            const clipPath = getClipPath(i, progress)
+
+            let left = 32
+            let top = 5
+
+            if (windowWidth > 648) {
+              top = 10
+            }
+
+            let hue = 222
+            let saturation = 47
+            let light = 100
+
+            if (i === 0) {
+              top = 5 - progress * 1
+
+              // hsl(269, 97%, 85%);
+
+              hue = 222 + progress * 47
+              saturation = 47 + progress * 50
+              light = 100 - progress * 15
+
+              if (windowWidth > 648) {
+                top = 10 + progress * 18
+              }
+            }
+
+            if (i === 1) {
+              top = 4 + progress * 40
+              left = 32 + progress * (windowWidth / 2 - 40)
+
+              // hsl(222, 100%, 11%)
+              hue = 269 - progress * 47
+              saturation = 97 + progress * 3
+              light = 85 - progress * 74
+
+              if (windowWidth > 648) {
+                top = 28 + progress * 15
+              }
+            }
+
+            if (i >= 2) {
+              top = 44
+              left = windowWidth / 2 - 10
+
+              if (windowWidth > 648) {
+                top = 43
+              }
+
+              // hsl(222, 100%, 11%)
+              hue = 222
+              saturation = 100
+              light = 11
+            }
+
+            gsap.to('.pinned', { left: `${left}px`, top: `${top}vh` })
+            gsap.to('.revelear', { rotation })
+            gsap.to('.revelear-1, .revelear-2', {
+              clipPath,
+              backgroundColor: `hsl(${hue}, ${saturation}%, ${light}%)`,
+              ease: 'none',
+              duration: 0,
+            })
+          },
+        })
+
+        if (i === 0) {
+          animation = tl
+            .from('.help-with-element', {
+              x: 0,
+              opacity: 1,
+              duration: 2,
+              stagger: {
+                amount: 15,
+              },
+            })
+            .from('.help-with-element-heading', {
+              y: 0,
+              opacity: 1,
+              duration: 2,
+            })
+
+          gsap.to(children, {
+            y: 0,
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1,
+            ease: 'power4.inOut',
+          })
+        }
+
+        if (i === 2) {
+          animation = tl
+            .to('.soft-skills', {
+              gap: '42vw',
+              duration: 2,
+            })
+            .to('.soft-skills-l', {
+              transform: 'rotate(10deg)',
+              delay: -1,
+            })
+            .to('.soft-skills-r', {
+              transform: 'rotate(-10deg)',
+              delay: -1,
+            })
+            .to('.soft-skills-heading', {
+              opacity: 1,
+              y: 0,
+            })
+        }
+
+        ScrollTrigger.create({
+          trigger: panel,
+          start: 'top top',
+          pin: true,
+          pinSpacing: false,
+          scrub: 1,
+        })
+
+        ScrollTrigger.create({
+          trigger: panel,
+          start: 'top top',
+          end: '20% bottom',
+          scrub: 1,
+          markers: false,
+          animation,
+        })
+      })
+
+      ScrollTrigger.addEventListener('refresh', () => {
+        scrollStarts = snapTriggers.current.map((trigger) => trigger.start)
+        snapScroll = ScrollTrigger.snapDirectional(scrollStarts)
+      })
+
+      ScrollTrigger.observe({
+        type: 'wheel,touch',
+        onChangeY(self) {
+          const scroll = snapScroll(
+            self.scrollY() + self.deltaY,
+            self.deltaY > 0 ? 1 : -1,
+          )
+
+          goToSection(scrollStarts.indexOf(scroll))
+        },
+      })
+
+      ScrollTrigger.refresh()
+
+      return () => {
+        ScrollTrigger.killAll()
+      }
+    },
+    { scope: aboutRef, revertOnUpdate: true },
+  )
+
+  const goToSection = contextSafe((i: number) => {
+    const targetY = snapTriggers.current[i].start
+
+    scrollTween.current = gsap.to(window, {
+      scrollTo: {
+        y: targetY,
+        autoKill: false,
+      },
+      duration: 0.2,
+      overwrite: true,
+      onComplete: () => (scrollTween.current = null),
+    })
+  })
   return (
     <div
       ref={aboutRef}
@@ -26,6 +285,8 @@ export default function AboutHero() {
               {`Passionate about exploring new technologies and discovering
                 innovative ways to turn concepts into reality.`}
             </p>
+
+            <KnightGame />
           </div>
 
           <div

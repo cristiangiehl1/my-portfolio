@@ -56,25 +56,19 @@ export default function ExternalLinksAndResume() {
       >
         <Magneto
           href=""
-          text="Download CV"
-          className={
-            isPending
-              ? 'hidden'
-              : `magneto-professional-icons h-24 w-24 bg-cyan-900 text-xs font-bold`
-          }
+          text={`${!isPending && 'Download Resume'}`}
+          className={`magneto-professional-icons h-24 w-24 bg-cyan-900 text-xs font-bold`}
           disabled={isPending}
           type="submit"
           magnetoStrength={50}
           magnetoTextStrength={20}
           aria-label="Download Cristian Giehl Resume."
-        />
-
-        <span className="">
+        >
           <BiLoader
             size={35}
             className={isPending ? 'block animate-spin' : 'hidden'}
           />
-        </span>
+        </Magneto>
       </form>
 
       <div className="flex flex-col gap-4">

@@ -1,13 +1,14 @@
 'use client'
 
 import gsap from 'gsap'
-import { useEffect, useRef } from 'react'
+import { type ReactNode, useEffect, useRef } from 'react'
 
 interface MagnetoProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string
+  text?: string
   href?: string
   magnetoStrength: number
   magnetoTextStrength: number
+  children?: ReactNode
 }
 
 export default function Magneto({
@@ -15,6 +16,7 @@ export default function Magneto({
   href,
   magnetoStrength,
   magnetoTextStrength,
+  children,
   ...props
 }: MagnetoProps) {
   const magnetoRef = useRef<HTMLButtonElement>(null)
@@ -101,16 +103,17 @@ export default function Magneto({
     <button
       ref={magnetoRef}
       {...props}
-      className={`magneto z-500 flex cursor-pointer items-center justify-center rounded-full ${
+      className={`magneto z-10 flex cursor-pointer items-center justify-center rounded-full ${
         props.className ? props.className : ''
       }`}
     >
       {!href ? (
-        <span ref={magnetoTextRef} className="magnetoText z-500">
+        <span ref={magnetoTextRef} className="magnetoText z-10">
           {text}
+          {children}
         </span>
       ) : (
-        <a href={href} ref={magnetoTextRef} className="z-500">
+        <a href={href} ref={magnetoTextRef} className="z-10">
           <span className="magnetoText">{text}</span>
         </a>
       )}

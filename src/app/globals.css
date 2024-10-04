@@ -58,6 +58,43 @@ body {
   background-color: rgba(26, 15, 108, 0.874); 
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {        
+    border: none;       
+    -webkit-box-shadow: none;
+    -webkit-text-fill-color: rgb(219 234 254);
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+.hover-underline {
+  transition: color .3s linear;
+}
+
+.hover-underline:hover {
+  color: rgba(101, 98, 117, 0.979);
+}
+
+.hover-underline::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: rgba(101, 98, 117, 0.979); 
+  transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
