@@ -37,6 +37,11 @@ const nextConfig = {
         hostname: 'gsap.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'svgrepo.com',
+        pathname: '/**',
+      },
     ],
   },
 }

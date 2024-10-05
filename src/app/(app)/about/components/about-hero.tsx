@@ -11,7 +11,7 @@ import ContactSection from '@/app/components/contact-section'
 import Header from '@/app/components/header'
 import aboutImg from '@/assets/about-img.jpeg'
 
-import KnightGame from './knight-game'
+// import KnightGame from './knight-game'
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
@@ -45,7 +45,7 @@ export default function AboutHero() {
         pinSpacing: false,
         scrub: 1,
         start: 'top top',
-        endTrigger: '#app-footer',
+        endTrigger: '#contact-section',
       })
 
       gsap.to('.revelear', {
@@ -64,6 +64,19 @@ export default function AboutHero() {
       })
 
       const panels = gsap.utils.toArray<HTMLElement>('.panel')
+
+      const firstChildPanelsArray = Array.from({ length: panels.length })
+
+      panels.forEach((panel, i) => {
+        const firstChild = panel.firstElementChild
+
+        if (firstChild) {
+          const firstChildReact = firstChild.getBoundingClientRect()
+
+          firstChildPanelsArray[i] = firstChildReact
+        }
+      })
+
       let scrollStarts = [0]
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       let snapScroll = (value: number, direction?: number) => value
@@ -98,6 +111,10 @@ export default function AboutHero() {
             let left = 32
             let top = 5
 
+            // if (windowWidth > 1500) {
+            //   top = 7
+            // } else
+
             if (windowWidth > 648) {
               top = 10
             }
@@ -115,30 +132,46 @@ export default function AboutHero() {
               saturation = 47 + progress * 50
               light = 100 - progress * 15
 
-              if (windowWidth > 648) {
+              // if (windowWidth > 1500) {
+              //   top = 7 + progress * 31
+              // } else
+
+              if (windowWidth > 1500) {
                 top = 10 + progress * 18
               }
             }
 
             if (i === 1) {
               top = 4 + progress * 40
-              left = 32 + progress * (windowWidth / 2 - 40)
+              left = 33 + progress * (windowWidth / 2 - 40)
 
               // hsl(222, 100%, 11%)
               hue = 269 - progress * 47
               saturation = 97 + progress * 3
               light = 85 - progress * 74
 
-              if (windowWidth > 648) {
+              // if (windowWidth > 1500) {
+              //   top = 38 + progress * 9
+              // } else
+
+              if (windowWidth > 1500) {
                 top = 28 + progress * 15
               }
             }
 
             if (i >= 2) {
               top = 44
-              left = windowWidth / 2 - 10
+              left = windowWidth / 2 - 8
 
               if (windowWidth > 648) {
+                top = 43
+              }
+
+              // if (windowWidth > 1500) {
+              //   top = 47
+              // } else
+
+              if (windowWidth > 1500) {
                 top = 43
               }
 
@@ -226,15 +259,28 @@ export default function AboutHero() {
         snapScroll = ScrollTrigger.snapDirectional(scrollStarts)
       })
 
+      let timeoutId: NodeJS.Timeout | null = null
+      let lastScroll: number | null = null
+
       ScrollTrigger.observe({
-        type: 'wheel,touch',
+        type: 'wheel, touch',
         onChangeY(self) {
-          const scroll = snapScroll(
+          lastScroll = snapScroll(
             self.scrollY() + self.deltaY,
             self.deltaY > 0 ? 1 : -1,
           )
 
-          goToSection(scrollStarts.indexOf(scroll))
+          if (timeoutId) {
+            clearTimeout(timeoutId)
+          }
+
+          timeoutId = setTimeout(() => {
+            if (lastScroll !== null) {
+              goToSection(scrollStarts.indexOf(lastScroll))
+            }
+
+            lastScroll = null
+          }, 300)
         },
       })
 
@@ -286,7 +332,7 @@ export default function AboutHero() {
                 innovative ways to turn concepts into reality.`}
             </p>
 
-            <KnightGame />
+            {/* <KnightGame /> */}
           </div>
 
           <div
@@ -366,14 +412,14 @@ export default function AboutHero() {
         </section>
 
         <section className="panel relative flex min-h-[110vh] w-full flex-col items-center justify-center overflow-hidden bg-slate-600 px-6">
-          <h2 className="soft-skills-heading absolute translate-y-20 text-6xl font-bold opacity-0">
+          <h2 className="soft-skills-heading absolute translate-y-20 text-4xl font-bold opacity-0 md:text-6xl">
             <span className="cloudy text-yellow-500">Soft</span>
             <span className="target ml-16">Skills</span>
           </h2>
 
           <div className="soft-skills flex w-full flex-col items-center justify-center gap-4 md:flex-row">
             <div
-              className="soft-skills-l z-10 flex flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-xl md:text-2xl"
+              className="soft-skills-l z-10 flex flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-base md:text-2xl"
               style={{
                 boxShadow:
                   'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
@@ -384,7 +430,7 @@ export default function AboutHero() {
               <span>Adaptability</span>
             </div>
             <div
-              className="soft-skills-r z-10 flex flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-xl md:text-2xl"
+              className="soft-skills-r z-10 flex flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-base md:text-2xl"
               style={{
                 boxShadow:
                   'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
@@ -398,7 +444,7 @@ export default function AboutHero() {
         </section>
       </main>
 
-      <section className="pinned absolute left-8 top-[5vh] flex items-center justify-center sm:top-[10vh]">
+      <section className="pinned absolute left-8 top-[10vh] flex items-center justify-center sm:top-[10vh]">
         <div className="revelear relative mt-20 rounded-full opacity-0">
           <div
             className="revelear-1 absolute left-1/2 top-1/2 h-10 w-10 bg-white"

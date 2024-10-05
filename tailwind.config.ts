@@ -12,6 +12,7 @@ const config: Config = {
       screens: {
         'break-locale': '1244px',
         'max-sm': { max: '640px' },
+        '3xl': { min: '1800' },
       },
       colors: {
         background: 'var(--background)',

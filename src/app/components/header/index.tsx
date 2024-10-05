@@ -10,9 +10,6 @@ import { useEffect, useRef, useState } from 'react'
 import { CgMail } from 'react-icons/cg'
 import { FaInstagram, FaLinkedin } from 'react-icons/fa'
 
-import americanFlag from '@/assets/american-flag.svg'
-import brazilianFlag from '@/assets/brazilian-flag.svg'
-
 import AnimatedLogo from '../animated-logo'
 import Located from '../located'
 import Magneto from '../magneto'
@@ -260,7 +257,9 @@ export default function Header() {
             <div className="flex gap-4">
               <button>
                 <Image
-                  src={brazilianFlag}
+                  src={
+                    'https://www.svgrepo.com/show/405433/flag-for-flag-brazil.svg'
+                  }
                   alt="language option Portuguese"
                   height={30}
                   width={30}
@@ -269,7 +268,7 @@ export default function Header() {
 
               <button>
                 <Image
-                  src={americanFlag}
+                  src={'https://www.svgrepo.com/show/508668/flag-us.svg'}
                   alt="language option English"
                   height={30}
                   width={30}
