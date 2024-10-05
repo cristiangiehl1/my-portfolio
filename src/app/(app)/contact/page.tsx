@@ -24,7 +24,7 @@ export default function Contact() {
 
           <div className="flex items-center justify-center rounded-full md:w-[40%]">
             <Image
-              src={'https:/github.com/cristiangiehl1.png'}
+              src={'https://github.com/cristiangiehl1.png'}
               alt=""
               width={150}
               height={150}
