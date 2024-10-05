@@ -9,7 +9,7 @@ import { CgArrowLeft, CgArrowRight, CgArrowUp } from 'react-icons/cg'
 import knightChill from '@/assets/__Idle.gif'
 import knightJump from '@/assets/__Jump.gif'
 import knightRun from '@/assets/__Run.gif'
-import bgParallaxLayer00 from '@/assets/Parallax_Backgrounds_Cave/0.png'
+// import bgParallaxLayer00 from '@/assets/Parallax_Backgrounds_Cave/0.png'
 import bgParallaxLayer01 from '@/assets/Parallax_Backgrounds_Cave/1.png'
 import bgParallaxLayer02 from '@/assets/Parallax_Backgrounds_Cave/2.png'
 import bgParallaxLayer03 from '@/assets/Parallax_Backgrounds_Cave/3.png'
@@ -27,9 +27,9 @@ export default function KnightGame() {
   const [isJumping, setIsJumping] = useState(false)
   const [isGameRunning, setIsGameRunning] = useState(false)
 
-  function handleKnightJump(event: React.KeyboardEvent) {
-    const key = event.key
-  }
+  // function handleKnightJump(event: React.KeyboardEvent) {
+  //   const key = event.key
+  // }
 
   function handleKnightMovement(event: React.KeyboardEvent) {
     const key = event.key
@@ -90,28 +90,28 @@ export default function KnightGame() {
     }
   }
 
-  function startKnightAnimation() {
-    const knightRunning = document.getElementById(
-      'knight-running',
-    ) as HTMLImageElement
-    const knightJumping = document.getElementById(
-      'knight-jumping',
-    ) as HTMLImageElement
-    const treadmillContainer = treadmillContainerRef.current
-    const treadmill = treadmillContainer?.getBoundingClientRect()
+  // function startKnightAnimation() {
+  //   const knightRunning = document.getElementById(
+  //     'knight-running',
+  //   ) as HTMLImageElement
+  //   const knightJumping = document.getElementById(
+  //     'knight-jumping',
+  //   ) as HTMLImageElement
+  //   const treadmillContainer = treadmillContainerRef.current
+  //   const treadmill = treadmillContainer?.getBoundingClientRect()
 
-    if (!treadmill) return
+  //   if (!treadmill) return
 
-    if (knightRunning) {
-      gsap.to([knightRunning, knightJumping], {
-        startAt: { x: '-30px' },
-        x: `${treadmill.width + 40}px`,
-        duration: 8,
-        ease: 'linear',
-        repeat: -1,
-      })
-    }
-  }
+  //   if (knightRunning) {
+  //     gsap.to([knightRunning, knightJumping], {
+  //       startAt: { x: '-30px' },
+  //       x: `${treadmill.width + 40}px`,
+  //       duration: 8,
+  //       ease: 'linear',
+  //       repeat: -1,
+  //     })
+  //   }
+  // }
 
   function handleStartGame() {
     setIsGameRunning(true)
