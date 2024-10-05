@@ -48,7 +48,7 @@ export default function ContactSection() {
 
         <LinksWithAnimation
           linkProps={{
-            href: 'https://wa.me/5521999815903?text=Bem-vindo!%20Clique%20no%20ícone%20para%20iniciar%20uma%20conversa%20comigo.',
+            href: 'https://wa.me/5521999815903',
             className: 'p-5 rounded-full border-[2px]',
             target: '_blank',
             'aria-label': 'Open whatsapp chat with Cristian Giehl.',

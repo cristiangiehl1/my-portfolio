@@ -40,7 +40,7 @@ export default function EmailGreetingsTemplate({
             <Text style={paragraph}>
               {`If you have any urgent inquiries, please don’t hesitate to reach out to me directly by phone: `}
               <Link
-                href="https://wa.me/5521999815903?text=Bem-vindo!%20Clique%20no%20ícone%20para%20iniciar%20uma%20conversa%20comigo."
+                href="https://wa.me/5521999815903"
                 target="_blank"
                 style={whatsappLink}
               >
