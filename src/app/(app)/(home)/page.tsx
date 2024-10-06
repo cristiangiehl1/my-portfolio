@@ -16,10 +16,13 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="relative min-h-full min-w-full overflow-x-hidden">
+    <div
+      className="relative min-h-full min-w-full overflow-x-hidden"
+      id="home-page-container"
+    >
       <Header />
 
-      <main className="mx-10 mt-10 flex min-h-screen flex-col items-center justify-center">
+      <main className="mx-10 mt-16 flex min-h-screen flex-col items-center justify-center">
         <HomeTextAndImage />
         <TechStack />
       </main>

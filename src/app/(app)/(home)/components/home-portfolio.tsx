@@ -1,13 +1,15 @@
 'use client'
 import gsap from 'gsap'
 import Image from 'next/image'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
+import { TbWorld } from 'react-icons/tb'
 
 import { projects } from '@/api/projects'
 import { techStack } from '@/api/tech-stack'
 import LinksWithAnimation from '@/app/components/links-with-animation'
 import Modal from '@/app/components/modal'
+import VideoLoadingState from '@/app/components/video-loading-state'
 
 export default function HomePortfolio() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -76,7 +78,7 @@ export default function HomePortfolio() {
                 {project.name}
               </h3>
 
-              <div className="flex flex-wrap gap-4 pb-4 max-sm:pb-10">
+              <div className="relative flex h-[100px] flex-wrap gap-4 pb-4 md:h-auto max-sm:pb-10">
                 {project.techs.map((tech, techIndex) => {
                   const techData = techStack.find((item) => item.name === tech)
                   return (
@@ -100,25 +102,40 @@ export default function HomePortfolio() {
                   )
                 })}
               </div>
-            </div>
 
-            <div
-              className="absolute bottom-2 right-4 flex items-center justify-start gap-2 rounded-xl bg-gray-950 p-2 transition-colors hover:bg-green-800"
-              style={{
-                boxShadow:
-                  'rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset',
-              }}
-            >
-              <a
-                className="flex items-center gap-2 text-left"
-                target="_blank"
-                href={project.projectRepo}
-                rel="noreferrer"
-                aria-label="Navigate to project github repository."
-              >
-                <span className="text-xs font-bold sm:text-sm">Code</span>
-                <FaGithub className="text-lg sm:text-xl" />
-              </a>
+              <div className="absolute bottom-2 right-4 flex items-center justify-start gap-2 rounded-xl transition-colors hover:bg-green-800">
+                <a
+                  className="flex items-center gap-2 rounded-xl bg-gray-950 p-2 text-left"
+                  target="_blank"
+                  href={project.projectRepo}
+                  rel="noreferrer"
+                  aria-label="Navigate to project github repository."
+                  style={{
+                    boxShadow:
+                      'rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset',
+                  }}
+                >
+                  <span className="text-xs font-bold sm:text-sm">Code</span>
+                  <FaGithub className="text-lg sm:text-xl" />
+                </a>
+
+                {!project.deploy && (
+                  <a
+                    className="flex items-center gap-2 rounded-xl bg-gray-950 p-2 text-left"
+                    target="_blank"
+                    href={project.projectRepo}
+                    rel="noreferrer"
+                    aria-label="Navigate to the project deployment."
+                    style={{
+                      boxShadow:
+                        'rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset',
+                    }}
+                  >
+                    <span className="text-xs font-bold sm:text-sm">Deploy</span>
+                    <TbWorld className="text-lg sm:text-xl" />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
 
@@ -129,18 +146,23 @@ export default function HomePortfolio() {
               width={600}
               height={400}
               className="w-full cursor-pointer border-none object-cover"
-              quality={80}
+              quality={100}
             />
             {project.projectVideo && (
-              <div className="video-wrapper absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center border-none opacity-0">
-                <video
-                  src={project.projectVideo}
-                  loop
-                  muted
-                  className="h-full w-full object-cover"
-                  onClick={() => openModal(project.projectVideo)}
-                />
-              </div>
+              <Suspense fallback={<VideoLoadingState />}>
+                <div className="video-wrapper bg-gray-95 absolute left-0 top-0 h-full w-full cursor-pointer items-center justify-center border-none opacity-0">
+                  <video
+                    loop
+                    muted
+                    playsInline
+                    className="h-full w-full object-cover"
+                    onClick={() => openModal(project.projectVideo)}
+                  >
+                    <source src={project.projectVideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </Suspense>
             )}
           </div>
         </div>

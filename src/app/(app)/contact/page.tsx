@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function Contact() {
   return (
-    <div className="relative min-h-screen w-full">
+    <div className="relative min-h-screen w-full" id="contact-page-container">
       <Header />
 
       <main className="flex min-h-screen flex-col justify-between gap-10 px-20 py-32">

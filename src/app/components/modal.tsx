@@ -55,7 +55,7 @@ export default function Modal({ url, closeModal, isModalOpen }: ModalProps) {
                 loop
                 muted
                 autoPlay
-                controls
+                playsInline
                 className="h-[50vh] w-[85vw] object-cover lg:h-[65vh] lg:w-[60vw]"
               />
 

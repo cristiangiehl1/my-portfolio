@@ -25,10 +25,10 @@
     content: '';
     position: absolute;
    
-    width: 135%; 
+    width: 200%; 
     height: 50%;
-    top: 30%;
-    left: -15%;
+    top: 35%;
+    left: -50%;
   
     background: conic-gradient(
       rgba(244, 114, 182, 0.8) 0deg,

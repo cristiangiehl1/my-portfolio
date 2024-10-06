@@ -4,24 +4,28 @@ import './styles.css'
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { CgMail } from 'react-icons/cg'
 import { FaInstagram, FaLinkedin } from 'react-icons/fa'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
 import AnimatedLogo from '../animated-logo'
 import Located from '../located'
 import Magneto from '../magneto'
 import { NavLink } from '../nav-links'
 
+gsap.registerPlugin(ScrollTrigger)
+
 export default function Header() {
   const pathname = usePathname()
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const menuMobileContainer = useRef(null)
-  const menuContainer = useRef(null)
+  const menuMobileContainer = useRef<HTMLDivElement>(null)
+  const menuContainer = useRef<HTMLDivElement | null>(null)
 
   const tl = useRef(gsap.timeline({ paused: true }))
 
@@ -102,12 +106,60 @@ export default function Header() {
     }
   }, [isMenuOpen])
 
+  useGSAP(() => {
+    if (menuContainer.current) {
+      const parent = menuContainer.current.parentElement
+      const parentId = parent?.id
+
+      let start = '3% top'
+      const top = 28
+
+      console.log(parentId)
+
+      if (parentId === 'contact-page-container') {
+        start = '5% top'
+      }
+
+      if (parentId === 'home-page-container') {
+        start = '2% top'
+      }
+
+      gsap.to('.mobile-scrolltrigger-menu', {
+        scrollTrigger: {
+          trigger: parent,
+          pin: '.mobile-scrolltrigger-menu',
+          pinSpacing: true,
+          start,
+          markers: false,
+          toggleActions: 'play none none reverse',
+        },
+        top,
+        opacity: 1,
+        duration: 0.5,
+        scale: 1,
+        ease: 'power3',
+      })
+    }
+  }, [])
+
   return (
     <header
       ref={menuContainer}
       id="app-header"
-      className="lef-0 over absolute top-0 z-20 flex w-full items-center justify-between px-6 pt-6"
+      className="absolute left-0 top-0 z-50 flex w-full items-center justify-between px-6 pt-6"
     >
+      <div className="mobile-scrolltrigger-menu absolute -top-full right-[10px] z-10 scale-0 opacity-0 sm:hidden">
+        <Magneto
+          text=""
+          className="h-8 w-8 bg-gradient-to-b from-slate-600 to-slate-900"
+          magnetoStrength={10}
+          magnetoTextStrength={10}
+          onClick={toggleMenu}
+        >
+          <GiHamburgerMenu size={16} />
+        </Magneto>
+      </div>
+
       <AnimatedLogo />
 
       <Located />
@@ -158,7 +210,7 @@ export default function Header() {
       {/* Mobile Menu Button */}
       <Magneto
         text="Menu"
-        className="h-[30px] w-[30px] sm:hidden"
+        className="z-0 h-[30px] w-[30px] sm:hidden"
         magnetoStrength={5}
         magnetoTextStrength={5}
         onClick={toggleMenu}

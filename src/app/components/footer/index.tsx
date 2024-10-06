@@ -22,17 +22,17 @@ export default function Footer() {
   return (
     <footer
       id="app-footer"
-      className="footer-component absolute bottom-0 left-0 flex w-full justify-between px-8 py-6"
+      className="footer-component absolute bottom-0 left-0 flex w-full justify-between gap-4 px-8 py-6"
     >
       <div className="flex flex-col gap-2">
         <strong className="text-xs text-gray-500">VERSION</strong>
 
-        <span className="text-sm">2024 &copy; Edition</span>
+        <span className="text-xs sm:text-sm">2024 &copy; Edition</span>
       </div>
 
       <div className="flex flex-col gap-2">
         <strong className="text-xs text-gray-500">LOCAL TIME</strong>
-        <span className="text-sm">{time}</span>
+        <span className="text-xs sm:text-sm">{time}</span>
       </div>
       <div className="flex flex-col gap-1">
         <strong className="text-xs text-gray-500">SOCIALS</strong>
@@ -43,7 +43,9 @@ export default function Footer() {
             href="https://www.instagram.com/cristian.giehl/"
             rel="noreferrer"
           >
-            <span className="hover-underline">Instagram</span>
+            <span className="hover-underline text-xs sm:text-sm">
+              Instagram
+            </span>
           </a>
 
           <a
@@ -52,7 +54,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/cristian-giehl-5b3539b4/"
             rel="noreferrer"
           >
-            <span className="text-sm">LinkedIn</span>
+            <span className="text-xs sm:text-sm">LinkedIn</span>
           </a>
         </div>
       </div>

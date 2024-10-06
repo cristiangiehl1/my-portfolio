@@ -111,17 +111,17 @@ export default function ContactForm() {
       className="flex w-full flex-col"
       autoComplete="off"
     >
-      <div className="flex h-[180px] w-full items-start justify-center gap-4 border-t-2 border-zinc-500 px-6 py-12">
+      <div className="flex w-full items-start justify-center gap-4 border-t-2 border-zinc-500 px-6 py-12 sm:h-[180px]">
         <span className="w-[25%] text-xs font-bold text-zinc-500">01</span>
 
         <div className="flex w-full flex-col items-start justify-start gap-4">
-          <label htmlFor="name" className="text-xl md:text-2xl">
+          <label htmlFor="name" className="sm-text-xl text-base md:text-2xl">
             {`What's your name?`}
           </label>
           <input
             type="text"
             id="name"
-            className={`w-full bg-transparent text-xl text-blue-100 placeholder:text-xl focus:outline-none md:text-2xl md:placeholder:text-2xl`}
+            className={`sm-text-xl w-full bg-transparent text-base text-blue-100 placeholder:text-base focus:outline-none sm:placeholder:text-xl md:text-2xl md:placeholder:text-2xl`}
             placeholder="John Doe"
             {...register('name')}
           />
@@ -133,17 +133,17 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="flex h-[180px] w-full items-start justify-center gap-4 border-t-2 border-zinc-500 px-6 py-12">
+      <div className="flex w-full items-start justify-center gap-4 border-t-2 border-zinc-500 px-6 py-12 sm:h-[180px]">
         <span className="w-[25%] text-xs font-bold text-zinc-500">02</span>
 
         <div className="flex w-full flex-col items-start gap-4">
-          <label htmlFor="email" className="text-xl md:text-2xl">
+          <label htmlFor="email" className="text-base sm:text-xl md:text-2xl">
             {`What's your email?`}
           </label>
           <input
             type="email"
             id="email"
-            className="w-full bg-transparent text-xl text-blue-100 placeholder:text-xl focus:outline-none md:text-2xl md:placeholder:text-2xl"
+            className="w-full bg-transparent text-base text-blue-100 placeholder:text-base focus:outline-none sm:text-xl sm:placeholder:text-xl md:text-2xl md:placeholder:text-2xl"
             placeholder="john@doe.com"
             {...register('email')}
           />
@@ -155,17 +155,20 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="flex h-[180px] w-full items-start justify-center gap-4 border-t-2 border-zinc-500 px-6 py-12">
+      <div className="flex w-full items-start justify-center gap-4 border-t-2 border-zinc-500 px-6 py-12 sm:h-[180px]">
         <span className="w-[25%] text-xs font-bold text-zinc-500">03</span>
 
         <div className="flex w-full flex-col items-start gap-4">
-          <label htmlFor="organization" className="text-xl md:text-2xl">
+          <label
+            htmlFor="organization"
+            className="text-base sm:text-xl md:text-2xl"
+          >
             {`What's the name of your organization?`}
           </label>
           <input
             type="text"
             id="organization"
-            className="w-full bg-transparent text-xl text-blue-100 placeholder:text-xl focus:outline-none md:text-2xl md:placeholder:text-2xl"
+            className="w-full bg-transparent text-base text-blue-100 placeholder:text-base focus:outline-none sm:text-xl sm:placeholder:text-xl md:text-2xl md:placeholder:text-2xl"
             placeholder="John Doe Inc"
             {...register('organization')}
           />
@@ -177,16 +180,19 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="flex h-[340px] w-full items-start justify-center gap-4 border-y-2 border-zinc-500 px-6 py-12">
+      <div className="flex w-full items-start justify-center gap-4 border-y-2 border-zinc-500 px-6 py-12 sm:h-[340px]">
         <span className="w-[25%] text-xs font-bold text-zinc-500">04</span>
 
         <div className="flex w-full flex-col items-start gap-4">
-          <label htmlFor="contactMessage" className="text-xl md:text-2xl">
+          <label
+            htmlFor="contactMessage"
+            className="text-base sm:text-xl md:text-2xl"
+          >
             {`Your message`}
           </label>
           <textarea
             id="contactMessage"
-            className="w-full resize-none bg-transparent text-xl text-blue-100 placeholder:text-xl focus:outline-none md:placeholder:text-2xl"
+            className="w-full resize-none bg-transparent text-base text-blue-100 placeholder:text-base focus:outline-none sm:text-xl sm:placeholder:text-xl md:placeholder:text-2xl"
             rows={6}
             placeholder="Hello Cristian, I want to hire you to work with..."
             {...register('contactMessage')}
@@ -202,7 +208,7 @@ export default function ContactForm() {
       <div className="relative mt-8 flex justify-center">
         <Magneto
           text={`${!isSubmitting ? 'Send It!' : ''} `}
-          className={`h-32 w-32 bg-slate-600 text-xl`}
+          className={`h-20 w-20 bg-slate-600 text-base sm:h-32 sm:w-32 sm:text-xl`}
           magnetoStrength={30}
           magnetoTextStrength={30}
           type="submit"

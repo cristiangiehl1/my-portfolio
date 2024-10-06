@@ -8,7 +8,6 @@ import Image from 'next/image'
 import { useRef } from 'react'
 
 import ContactSection from '@/app/components/contact-section'
-import Header from '@/app/components/header'
 import aboutImg from '@/assets/about-img.jpeg'
 
 // import KnightGame from './knight-game'
@@ -39,14 +38,9 @@ export default function AboutHero() {
 
   const { contextSafe } = useGSAP(
     () => {
-      ScrollTrigger.create({
-        trigger: '#app-header',
-        pin: true,
-        pinSpacing: false,
-        scrub: 1,
-        start: 'top top',
-        endTrigger: '#contact-section',
-      })
+      function calcWindowWidth() {
+        return window.innerWidth
+      }
 
       gsap.to('.revelear', {
         opacity: 1,
@@ -89,18 +83,23 @@ export default function AboutHero() {
         let animation: gsap.core.Animation = tl.to('.panel', {})
 
         let start = 'top top'
+        let end = 'bottom top'
 
         if (i > 0) {
           start = '2% top'
         }
 
+        if (i === panels.length) {
+          end = 'top top'
+        }
+
         snapTriggers.current[i] = ScrollTrigger.create({
           trigger: panel,
           start,
-          end: '90% top',
+          end,
           scrub: 1,
           pinSpacing: true,
-          markers: false,
+          markers: true,
           onUpdate: (self) => {
             const progress = self.progress
             const rotation = 360 * i + progress * 360
@@ -276,7 +275,11 @@ export default function AboutHero() {
 
           timeoutId = setTimeout(() => {
             if (lastScroll !== null) {
-              goToSection(scrollStarts.indexOf(lastScroll))
+              const windowWidth = calcWindowWidth()
+
+              if (windowWidth > 638) {
+                goToSection(scrollStarts.indexOf(lastScroll))
+              }
             }
 
             lastScroll = null
@@ -309,11 +312,9 @@ export default function AboutHero() {
   return (
     <div
       ref={aboutRef}
-      className="relative min-h-screen w-full overflow-x-hidden"
+      className="relative z-0 min-h-screen w-full overflow-x-hidden"
     >
-      <Header />
-
-      <main className="contact-hero min-h-screen w-full">
+      <main className="contact-hero z-0 min-h-screen w-full">
         <section className="panel flex min-h-[110vh] w-full flex-col items-start justify-center gap-6 overflow-hidden bg-slate-500 px-20 pt-24 md:flex-row md:justify-between md:pt-32">
           <div
             className="flex w-full translate-y-full flex-col items-center justify-start md:h-full"

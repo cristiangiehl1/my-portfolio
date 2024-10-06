@@ -7,9 +7,9 @@ export default function ContactSection() {
   return (
     <section
       id="contact-section"
-      className="panel contact-section relative flex h-[100vh] w-full flex-col place-content-center items-center justify-center gap-6 bg-slate-800"
+      className="panel contact-section relative flex h-[100vh] w-full flex-col place-content-center items-center justify-center gap-6 overflow-hidden bg-slate-800"
     >
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center gap-6">
         <Image
           src={'https://github.com/cristiangiehl1.png'}
           alt=""
