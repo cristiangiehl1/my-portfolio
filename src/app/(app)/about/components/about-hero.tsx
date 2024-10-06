@@ -6,6 +6,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { useRef } from 'react'
+import { FaPlus } from 'react-icons/fa'
 
 import ContactSection from '@/app/components/contact-section'
 import aboutImg from '@/assets/about-img.jpeg'
@@ -98,89 +99,39 @@ export default function AboutHero() {
           start,
           end,
           scrub: 1,
-          pinSpacing: true,
-          markers: true,
+          pinSpacing: false,
+          markers: false,
           onUpdate: (self) => {
             const progress = self.progress
             const rotation = 360 * i + progress * 360
-            const windowWidth = window.innerWidth
 
             const clipPath = getClipPath(i, progress)
-
-            let left = 32
-            let top = 5
-
-            // if (windowWidth > 1500) {
-            //   top = 7
-            // } else
-
-            if (windowWidth > 648) {
-              top = 10
-            }
 
             let hue = 222
             let saturation = 47
             let light = 100
 
             if (i === 0) {
-              top = 5 - progress * 1
-
               // hsl(269, 97%, 85%);
-
               hue = 222 + progress * 47
               saturation = 47 + progress * 50
               light = 100 - progress * 15
-
-              // if (windowWidth > 1500) {
-              //   top = 7 + progress * 31
-              // } else
-
-              if (windowWidth > 1500) {
-                top = 10 + progress * 18
-              }
             }
 
             if (i === 1) {
-              top = 4 + progress * 40
-              left = 33 + progress * (windowWidth / 2 - 40)
-
               // hsl(222, 100%, 11%)
               hue = 269 - progress * 47
               saturation = 97 + progress * 3
               light = 85 - progress * 74
-
-              // if (windowWidth > 1500) {
-              //   top = 38 + progress * 9
-              // } else
-
-              if (windowWidth > 1500) {
-                top = 28 + progress * 15
-              }
             }
 
             if (i >= 2) {
-              top = 44
-              left = windowWidth / 2 - 8
-
-              if (windowWidth > 648) {
-                top = 43
-              }
-
-              // if (windowWidth > 1500) {
-              //   top = 47
-              // } else
-
-              if (windowWidth > 1500) {
-                top = 43
-              }
-
               // hsl(222, 100%, 11%)
               hue = 222
               saturation = 100
               light = 11
             }
 
-            gsap.to('.pinned', { left: `${left}px`, top: `${top}vh` })
             gsap.to('.revelear', { rotation })
             gsap.to('.revelear-1, .revelear-2', {
               clipPath,
@@ -192,8 +143,15 @@ export default function AboutHero() {
         })
 
         if (i === 0) {
+          gsap.to(children, {
+            y: 0,
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1,
+            ease: 'power4.inOut',
+          })
+        } else if (i === 1) {
           animation = tl
-            .from('.help-with-element', {
+            .to('.help-with-element', {
               x: 0,
               opacity: 1,
               duration: 2,
@@ -201,24 +159,15 @@ export default function AboutHero() {
                 amount: 15,
               },
             })
-            .from('.help-with-element-heading', {
+            .to('.help-with-element-heading', {
               y: 0,
               opacity: 1,
               duration: 2,
             })
-
-          gsap.to(children, {
-            y: 0,
-            clipPath: 'inset(0% 0% 0% 0%)',
-            duration: 1,
-            ease: 'power4.inOut',
-          })
-        }
-
-        if (i === 2) {
+        } else if (i === 2) {
           animation = tl
             .to('.soft-skills', {
-              gap: '42vw',
+              gap: '50vw',
               duration: 2,
             })
             .to('.soft-skills-l', {
@@ -231,17 +180,8 @@ export default function AboutHero() {
             })
             .to('.soft-skills-heading', {
               opacity: 1,
-              y: 0,
             })
         }
-
-        ScrollTrigger.create({
-          trigger: panel,
-          start: 'top top',
-          pin: true,
-          pinSpacing: false,
-          scrub: 1,
-        })
 
         ScrollTrigger.create({
           trigger: panel,
@@ -251,6 +191,16 @@ export default function AboutHero() {
           markers: false,
           animation,
         })
+
+        if (window.innerWidth > 648) {
+          ScrollTrigger.create({
+            trigger: panel,
+            start: 'top top',
+            pin: true,
+            pinSpacing: false,
+            scrub: 1,
+          })
+        }
       })
 
       ScrollTrigger.addEventListener('refresh', () => {
@@ -315,12 +265,12 @@ export default function AboutHero() {
       className="relative z-0 min-h-screen w-full overflow-x-hidden"
     >
       <main className="contact-hero z-0 min-h-screen w-full">
-        <section className="panel flex min-h-[110vh] w-full flex-col items-start justify-center gap-6 overflow-hidden bg-slate-500 px-20 pt-24 md:flex-row md:justify-between md:pt-32">
+        <section className="panel flex min-h-[110vh] w-full flex-col items-start justify-start gap-6 overflow-hidden bg-slate-500 px-8 pt-24 md:flex-row md:justify-between md:px-20 md:pt-32">
           <div
-            className="flex w-full translate-y-full flex-col items-center justify-start md:h-full"
+            className="flex w-full translate-y-full flex-col items-center justify-start gap-4 md:h-full"
             style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
           >
-            <h1 className="text-3xl font-bold leading-snug tracking-tighter md:text-5xl">
+            <h1 className="text-2xl font-bold leading-snug tracking-tighter md:text-5xl">
               Turning{' '}
               <span className="text-about-animation px-2 text-yellow-300">
                 ideas
@@ -328,7 +278,7 @@ export default function AboutHero() {
               into solutions that make an impact
             </h1>
 
-            <p className="w-full text-left leading-relaxed">
+            <p className="w-full text-center text-sm leading-relaxed sm:text-left sm:text-base">
               {`Passionate about exploring new technologies and discovering
                 innovative ways to turn concepts into reality.`}
             </p>
@@ -347,8 +297,7 @@ export default function AboutHero() {
               height={500}
               quality={100}
               priority
-              sizes="(max-width: 640px) 80vw, (max-width: 768px) 50vw, (max-width: 1024px) 40vw, 400px"
-              className="about-img h-[50vh] bg-white object-cover p-2 md:h-[70vh]"
+              className="about-img h-[40vh] bg-white object-cover p-2 md:h-[70vh]"
               style={{
                 boxShadow:
                   ' rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px',
@@ -357,7 +306,7 @@ export default function AboutHero() {
           </div>
         </section>
 
-        <section className="website-content panel flex min-h-[110vh] w-full flex-col items-center justify-center overflow-hidden bg-slate-700 px-20 py-16">
+        <section className="website-content panel flex min-h-[110vh] w-full flex-col items-center justify-center overflow-hidden bg-slate-700 p-8 md:p-16">
           <h2 className="help-with-element-heading w-full text-left text-2xl font-bold text-purple-300 md:text-3xl">
             I can help you with<span className="dot-appear">...</span>
           </h2>
@@ -413,12 +362,15 @@ export default function AboutHero() {
         </section>
 
         <section className="panel relative flex min-h-[110vh] w-full flex-col items-center justify-center overflow-hidden bg-slate-600 px-6">
-          <h2 className="soft-skills-heading absolute translate-y-20 text-4xl font-bold opacity-0 md:text-6xl">
+          <div className="soft-skills-heading absolute top-1/2 flex -translate-y-1/2 items-center justify-center gap-2 text-4xl font-bold opacity-0 md:text-6xl">
             <span className="cloudy text-yellow-500">Soft</span>
-            <span className="target ml-16">Skills</span>
-          </h2>
+            <span>
+              <FaPlus className="text-slate-900" />
+            </span>
+            <span className="target">Skills</span>
+          </div>
 
-          <div className="soft-skills flex w-full flex-col items-center justify-center gap-4 md:flex-row">
+          <div className="soft-skills flex w-full flex-col items-center justify-center gap-4 sm:mt-0 md:flex-row">
             <div
               className="soft-skills-l z-10 flex flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-base md:text-2xl"
               style={{
@@ -445,7 +397,7 @@ export default function AboutHero() {
         </section>
       </main>
 
-      <section className="pinned absolute left-8 top-[10vh] flex items-center justify-center sm:top-[10vh]">
+      <section className="pinned absolute left-4 top-[8vh] z-50 flex scale-50 items-center justify-center sm:top-[10vh] sm:scale-100 md:left-10">
         <div className="revelear relative mt-20 rounded-full opacity-0">
           <div
             className="revelear-1 absolute left-1/2 top-1/2 h-10 w-10 bg-white"

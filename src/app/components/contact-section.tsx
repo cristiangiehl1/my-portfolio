@@ -7,7 +7,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact-section"
-      className="panel contact-section relative flex h-[100vh] w-full flex-col place-content-center items-center justify-center gap-6 overflow-hidden bg-slate-800"
+      className="panel contact-section relative z-0 flex h-[100vh] w-full flex-col place-content-center items-center justify-center gap-6 overflow-hidden bg-slate-800"
     >
       <div className="flex items-center justify-center gap-6">
         <Image
@@ -19,7 +19,7 @@ export default function ContactSection() {
           className="rounded-full border-2"
         />
 
-        <h2 className="text-4xl font-bold">{`Let's work together`}</h2>
+        <h2 className="text-2xl font-bold sm:text-4xl">{`Let's work together`}</h2>
       </div>
 
       <div className="z-50 flex items-center justify-center">
@@ -32,7 +32,7 @@ export default function ContactSection() {
         />
       </div>
 
-      <div className="flex items-center justify-center gap-4">
+      <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
         <LinksWithAnimation
           linkProps={{
             href: 'mailto:cristiangiehl@gmail.com',

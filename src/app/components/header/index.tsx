@@ -148,7 +148,7 @@ export default function Header() {
       id="app-header"
       className="absolute left-0 top-0 z-50 flex w-full items-center justify-between px-6 pt-6"
     >
-      <div className="mobile-scrolltrigger-menu absolute -top-full right-[10px] z-10 scale-0 opacity-0 sm:hidden">
+      <div className="mobile-scrolltrigger-menu absolute -top-full right-[10px] z-10 scale-0 opacity-0">
         <Magneto
           text=""
           className="h-8 w-8 bg-gradient-to-b from-slate-600 to-slate-900"
