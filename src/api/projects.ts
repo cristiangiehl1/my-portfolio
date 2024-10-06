@@ -44,19 +44,19 @@ export const projects: Project[] = [
   createProject('3-2'),
 ]
 
-const projectPortfolio = {
-  name: 'My Portfolio',
-  techs: [
-    'HTML5',
-    'CSS3',
-    'Tailwind',
-    'React',
-    'Next.js',
-    'TypeScript',
-    'GSAP',
-  ],
-  projectRepo: 'https://github.com/cristiangiehl1/my-portfolio',
-  projectImg: portfolioPage,
-  projectVideo: '/assets/videos/portfolio-video.mp4',
-  deploy: 'https://cristiangiehl.com.br/'
-}
+// const projectPortfolio = {
+//   name: 'My Portfolio',
+//   techs: [
+//     'HTML5',
+//     'CSS3',
+//     'Tailwind',
+//     'React',
+//     'Next.js',
+//     'TypeScript',
+//     'GSAP',
+//   ],
+//   projectRepo: 'https://github.com/cristiangiehl1/my-portfolio',
+//   projectImg: portfolioPage,
+//   projectVideo: '/assets/videos/portfolio-video.mp4',
+//   deploy: 'https://cristiangiehl.com.br/',
+// }
