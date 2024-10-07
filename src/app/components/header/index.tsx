@@ -63,19 +63,12 @@ export default function Header() {
 
       if (!parent) return
 
-      const parentId = parent?.id
-      let start = '3% top'
-
-      if (parentId === 'contact-page-container') {
-        start = '5% top'
-      }
-
       gsap.to('.mobile-scrolltrigger-menu', {
         scrollTrigger: {
           trigger: parent,
           pin: '.mobile-scrolltrigger-menu',
-          start,
-          markers: true,
+          start: '80px top',
+          markers: false,
           pinSpacing: false,
           toggleActions: 'play none none reverse',
         },
@@ -142,7 +135,7 @@ export default function Header() {
       id="app-header"
       className="absolute z-50 m-auto flex w-full items-center justify-between bg-transparent px-10 pt-6"
     >
-      <div className="mobile-scrolltrigger-menu absolute -bottom-24 right-[10px] z-40 scale-0 opacity-0">
+      <div className="mobile-scrolltrigger-menu absolute -bottom-20 right-[10px] z-40 scale-0 opacity-0 md:-bottom-24">
         <Magneto
           text=""
           className="h-8 w-8 border-[1px] border-white bg-gradient-to-b from-slate-600 to-slate-900 md:h-14 md:w-14"

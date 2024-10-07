@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import { PiFirstAidBold, PiStarFourFill } from 'react-icons/pi'
 
@@ -34,7 +34,6 @@ export default function AboutHero() {
       let snapScroll = (value: number, direction?: number) => value
 
       function createScrollTriggers() {
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
         panels.forEach((panel, i) => {
           const children = panel.querySelectorAll('*')
 
@@ -60,6 +59,7 @@ export default function AboutHero() {
             scrub: 1,
             pinSpacing: false,
             markers: false,
+            id: 'about-hero-scrolltrigger',
           })
 
           if (i === 0) {
@@ -87,7 +87,7 @@ export default function AboutHero() {
           } else if (i === 2) {
             animation = tl
               .to('.soft-skills', {
-                gap: '50vw',
+                gap: '40px',
                 duration: 2,
               })
               .to('.soft-skills-l', {
@@ -100,6 +100,9 @@ export default function AboutHero() {
               })
               .to('.soft-skills-heading', {
                 opacity: 1,
+                height: 'auto',
+                width: 'auto',
+                delay: 0.5,
               })
           }
 
@@ -110,17 +113,17 @@ export default function AboutHero() {
             scrub: 1,
             markers: false,
             animation,
+            id: 'about-hero-scrolltrigger',
           })
 
-          if (window.innerWidth > 648) {
-            ScrollTrigger.create({
-              trigger: panel,
-              start: 'top top',
-              pin: true,
-              pinSpacing: false,
-              scrub: 1,
-            })
-          }
+          ScrollTrigger.create({
+            trigger: panel,
+            start: 'top top',
+            pin: true,
+            pinSpacing: false,
+            scrub: 1,
+            id: 'about-hero-scrolltrigger',
+          })
         })
 
         ScrollTrigger.addEventListener('refresh', () => {
@@ -160,15 +163,12 @@ export default function AboutHero() {
         ScrollTrigger.refresh()
       }
 
-      createScrollTriggers()
-
-      window.addEventListener('resize', () => {
+      if (aboutRef.current) {
         createScrollTriggers()
-      })
+      }
 
       return () => {
-        window.removeEventListener('resize', createScrollTriggers)
-        ScrollTrigger.killAll()
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
       }
     },
     { scope: aboutRef, revertOnUpdate: true },
@@ -229,7 +229,7 @@ export default function AboutHero() {
           </div>
         </section>
 
-        <section className="website-content panel flex min-h-[110vh] w-full flex-col items-center justify-center overflow-hidden bg-slate-700 p-8 md:p-16">
+        <section className="website-content panel flex min-h-[110vh] w-full flex-col items-center justify-start overflow-hidden bg-slate-700 p-8 sm:justify-center md:p-16">
           <h2 className="help-with-element-heading w-full text-left text-2xl font-bold text-purple-300 md:text-3xl">
             I can help you with<span className="dot-appear">...</span>
             <PiFirstAidBold className="absolute -left-7 top-1 text-2xl sm:-left-10 sm:top-0 sm:text-4xl" />
@@ -285,18 +285,10 @@ export default function AboutHero() {
           </div>
         </section>
 
-        <section className="panel relative flex min-h-[110vh] w-full flex-col items-center justify-center overflow-hidden bg-slate-600 px-6">
-          <div className="soft-skills-heading absolute top-1/2 flex -translate-y-1/2 items-center justify-center gap-2 text-4xl font-bold opacity-0 md:text-6xl">
-            <span className="cloudy text-yellow-500">Soft</span>
-            <span>
-              <FaPlus className="text-slate-900" />
-            </span>
-            <span className="target">Skills</span>
-          </div>
-
-          <div className="soft-skills flex w-full flex-col items-center justify-center gap-4 sm:mt-0 lg:flex-row">
+        <section className="panel relative flex min-h-[110vh] w-full flex-col items-center overflow-hidden bg-slate-600 px-6 pt-[20vw] sm:justify-center sm:pt-0">
+          <div className="soft-skills flex w-full flex-col items-center justify-center gap-4 lg:flex-row">
             <div
-              className="soft-skills-l relative z-10 flex flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-base md:text-2xl"
+              className="soft-skills-l relative z-10 flex min-w-[200px] flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-base md:min-w-[250px] md:text-2xl"
               style={{
                 boxShadow:
                   'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
@@ -306,8 +298,17 @@ export default function AboutHero() {
               <span>Teamwork</span>
               <span>Adaptability</span>
             </div>
+
+            <div className="soft-skills-heading flex h-0 w-0 items-center justify-center gap-2 text-4xl font-bold opacity-0 md:text-6xl">
+              <span className="cloudy text-yellow-500">Soft</span>
+              <span>
+                <FaPlus className="text-slate-900" />
+              </span>
+              <span className="target">Skills</span>
+            </div>
+
             <div
-              className="soft-skills-r z-10 flex flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-base md:text-2xl"
+              className="soft-skills-r z-10 flex min-w-[200px] flex-col gap-6 rounded-2xl bg-slate-900 p-6 text-base md:min-w-[250px] md:text-2xl"
               style={{
                 boxShadow:
                   'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
