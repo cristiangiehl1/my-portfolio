@@ -103,9 +103,9 @@ export default function HomePortfolio() {
                 })}
               </div>
 
-              <div className="absolute bottom-2 right-4 flex items-center justify-start gap-2 rounded-xl transition-colors hover:bg-green-800">
+              <div className="absolute bottom-2 right-4 flex items-center justify-start gap-2 rounded-xl transition-colors">
                 <a
-                  className="flex items-center gap-2 rounded-xl bg-gray-950 p-2 text-left"
+                  className="flex items-center gap-2 rounded-xl bg-gray-950 p-2 text-left hover:bg-green-800"
                   target="_blank"
                   href={project.projectRepo}
                   rel="noreferrer"
@@ -121,7 +121,7 @@ export default function HomePortfolio() {
 
                 {!project.deploy && (
                   <a
-                    className="flex items-center gap-2 rounded-xl bg-gray-950 p-2 text-left"
+                    className="flex items-center gap-2 rounded-xl bg-gray-950 p-2 text-left hover:bg-green-800"
                     target="_blank"
                     href={project.projectRepo}
                     rel="noreferrer"
