@@ -56,7 +56,8 @@ export default function Modal({ url, closeModal, isModalOpen }: ModalProps) {
                 muted
                 autoPlay
                 playsInline
-                className="h-[50vh] w-[85vw] object-cover lg:h-[65vh] lg:w-[60vw]"
+                controls
+                className="max-[600px] aspect-video object-fill md:max-w-[900px]"
               />
 
               <div onClick={closeModal} autoFocus>

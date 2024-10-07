@@ -1,5 +1,4 @@
 
-
 .text-about-animation:hover {
     animation: textBlink 1.5s infinite; 
 }
@@ -17,18 +16,8 @@
     transform: translateX(-200px);  
 }
 
-
-.about-img {
-    transition: filter 1s ease-in-out;
-}
-
-.about-img:hover {
-    filter: saturate(0);
-}
-
 .dot-appear {
     animation: dotAppereance 1.5s linear infinite;
-    
 }
 
 .cloudy {

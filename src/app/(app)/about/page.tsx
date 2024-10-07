@@ -13,9 +13,14 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <div className="relative z-0 min-h-screen w-full overflow-x-hidden">
+    <div
+      className="relative z-0 min-h-full min-w-full overflow-x-hidden"
+      id="about-page-container"
+    >
       <Header />
+
       <AboutHero />
+
       <Footer />
     </div>
   )
