@@ -2,21 +2,44 @@
 
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import Image, { type StaticImageData } from 'next/image'
+import { useEffect, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
 import { TbWorld } from 'react-icons/tb'
 
-import { projects } from '@/api/projects'
+import { type Project, projects } from '@/api/projects'
 import { techStack } from '@/api/tech-stack'
 import Modal from '@/app/components/modal'
-import planet from '@/assets/planet.png'
+import earth from '@/assets/planet07.png'
+import venus from '@/assets/planet08.png'
+
+interface GroupedProjectsInterface {
+  projects: Project[]
+  planet: StaticImageData
+}
 
 export default function OrbitalPortfolio() {
-  const sliderRef = useRef<HTMLDivElement>(null)
-
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null)
+  const [currentBanner, setCurrentBanner] = useState(0)
+
+  const planets: StaticImageData[] = [earth, venus]
+
+  const groupedProjects = projects.reduce<GroupedProjectsInterface[]>(
+    (acc, project, index) => {
+      if (index % 4 === 0) {
+        const planet = planets[acc.length % planets.length]
+        acc.push({
+          projects: [],
+          planet,
+        })
+      }
+
+      acc[Math.floor(index / 4)].projects.push(project)
+      return acc
+    },
+    [],
+  )
 
   const openModal = (url: string) => {
     setSelectedVideo(url)
@@ -56,38 +79,53 @@ export default function OrbitalPortfolio() {
     }
   }
 
-  useEffect(() => {
-    const sliderElement = sliderRef.current
+  const totalSlides = groupedProjects.length
 
-    if (!sliderElement) return
+  function animateSlide(direction: 'left' | 'right') {
+    const banners = document.querySelectorAll(
+      '.banner',
+    ) as NodeListOf<HTMLElement>
+    const selectedBanner = banners[currentBanner]
 
-    const handleMouseEnter = () => {
-      sliderElement.style.animationPlayState = 'paused'
+    if (gsap.isTweening(selectedBanner)) {
+      return
     }
 
-    const handleMouseLeave = () => {
-      sliderElement.style.animationPlayState = 'running'
-    }
+    if (direction === 'left' && currentBanner === 0) return
 
-    const projectElements = document.querySelectorAll('.project')
-    projectElements.forEach((projectElement) => {
-      projectElement.addEventListener('mouseenter', handleMouseEnter)
-      projectElement.addEventListener('mouseleave', handleMouseLeave)
+    if (direction === 'right' && currentBanner === totalSlides - 1) return
+
+    const nextImgIndex =
+      (direction === 'left'
+        ? currentBanner - 1
+        : currentBanner + 1 + banners.length) % banners.length
+    const nextBanner = banners[nextImgIndex]
+
+    gsap.to(selectedBanner, {
+      x: direction === 'left' ? window.innerWidth : -window.innerWidth,
+      duration: 1.5,
+      ease: 'power4.out',
+      onComplete: () => {
+        selectedBanner.style.display = 'none'
+      },
     })
 
-    return () => {
-      projectElements.forEach((projectElement) => {
-        projectElement.removeEventListener('mouseenter', handleMouseEnter)
-        projectElement.removeEventListener('mouseleave', handleMouseLeave)
-      })
-    }
-  }, [])
+    gsap.fromTo(
+      nextBanner,
+      {
+        x: direction === 'left' ? -window.innerWidth : +window.innerWidth,
+        display: 'block',
+      },
+      { x: 0, duration: 1.5, ease: 'power4.out' },
+    )
+
+    setCurrentBanner(nextImgIndex)
+  }
 
   useGSAP(() => {
     const tl = gsap.timeline({})
 
-    tl.to('.planet', {
-      clipPath: 'circle(150% at 50% 50%)',
+    tl.to('.planet0', {
       opacity: 1,
       duration: 2,
       ease: 'circ.inOut',
@@ -108,152 +146,283 @@ export default function OrbitalPortfolio() {
       })
   }, [])
 
-  return (
-    <div className="relative h-screen w-full">
-      <aside className="absolute left-2 top-1/2 z-[9999px] -translate-y-1/2">
-        <nav className="flex flex-col gap-4">
-          <a href="#">Planet 1</a>
-          <a href="#">Planet 2</a>
-          <a href="#">Planet 3</a>
-        </nav>
-      </aside>
+  useEffect(() => {
+    const sliders = document.querySelectorAll(
+      '.slider',
+    ) as NodeListOf<HTMLDivElement>
 
-      <div className="banner relative -z-10 h-screen w-full scale-[0.2] overflow-hidden bg-red-500 text-center">
-        <div
-          style={
-            {
-              '--quantity': projects.length,
-            } as React.CSSProperties
+    if (!sliders) return
+
+    const handleMouseEnter = () => {
+      sliders.forEach((slider) => {
+        slider.style.animationPlayState = 'paused'
+      })
+    }
+
+    const handleMouseLeave = () => {
+      if (isModalOpen) return
+
+      sliders.forEach((slider) => {
+        slider.style.animationPlayState = 'running'
+      })
+    }
+
+    if (!isModalOpen) {
+      sliders.forEach((slider) => {
+        slider.style.animationPlayState = 'running'
+      })
+    }
+
+    const projectElements = document.querySelectorAll('.project')
+    projectElements.forEach((projectElement) => {
+      projectElement.addEventListener('mouseenter', handleMouseEnter)
+      projectElement.addEventListener('mouseleave', handleMouseLeave)
+    })
+
+    return () => {
+      projectElements.forEach((projectElement) => {
+        projectElement.removeEventListener('mouseenter', handleMouseEnter)
+        projectElement.removeEventListener('mouseleave', handleMouseLeave)
+      })
+    }
+  }, [isModalOpen])
+
+  useEffect(() => {
+    const prevSlides = document.querySelectorAll(
+      '.slider-preview .preview',
+    ) as NodeListOf<HTMLDivElement>
+
+    function updateCounterPosition() {
+      const countX = -25 * currentBanner
+
+      gsap.to('.counter', {
+        x: countX,
+        duration: 1,
+        ease: 'elastic.inOut',
+      })
+    }
+
+    function updateActiveSlidePreview() {
+      prevSlides.forEach((prev) => prev.classList.remove('active'))
+      prevSlides[currentBanner].classList.add('active')
+    }
+
+    updateCounterPosition()
+    updateActiveSlidePreview()
+  }, [currentBanner, groupedProjects])
+
+  useEffect(() => {
+    const sliderPreview = document.querySelector(
+      '.slider-preview',
+    ) as HTMLDivElement
+    const prevSlides = document.querySelectorAll(
+      '.slider-preview .preview',
+    ) as NodeListOf<HTMLDivElement>
+
+    if (!sliderPreview) return
+
+    sliderPreview.addEventListener('click', (event: MouseEvent) => {
+      if (event.target instanceof HTMLElement) {
+        const clickedPrev = event.target.closest('.preview') as HTMLDivElement
+
+        if (clickedPrev) {
+          const clickedIndex = Array.from(prevSlides).indexOf(clickedPrev)
+
+          if (clickedIndex !== currentBanner) {
+            if (clickedIndex < currentBanner) {
+              setCurrentBanner(clickedIndex)
+              animateSlide('left')
+            } else {
+              setCurrentBanner(clickedIndex)
+              animateSlide('right')
+            }
           }
-          ref={sliderRef}
-          className="slider absolute left-[calc(50%_-200px)] top-[28%] z-[60] h-[280px] w-[400px] rounded-2xl sm:top-[30%] sm:h-[300px] lg:top-[22%] lg:h-[400px] max-sm:top-[33%]"
-        >
-          {projects.map((project, index) => (
-            <div
-              style={
-                {
-                  '--position': index,
-                } as React.CSSProperties
-              }
-              key={index}
-              className="project absolute inset-0 flex flex-col items-center rounded-2xl"
-            >
-              <p className="video-name atext-center pointer-events-none w-full rounded-t-2xl px-4 py-2 text-center text-base font-extrabold lg:text-2xl">
-                {project.name}
-              </p>
+        }
+      }
+    })
+  })
 
-              <div
-                onMouseEnter={(e) => playVideo(e, 'play')}
-                onMouseLeave={(e) => playVideo(e, 'pause')}
-                className="project-video-image relative h-[160px] w-[320px] cursor-pointer overflow-hidden rounded-xl sm:h-[180px] sm:w-[360px] lg:h-[200px] lg:w-[400px] max-sm:h-[150px] max-sm:w-[300px]"
-                style={{
-                  boxShadow:
-                    ' rgb(0, 0, 0) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
-                }}
-              >
-                <div className="preview-img absolute inset-0 opacity-100 hover:opacity-0">
-                  <Image
-                    src={project.projectImg}
-                    alt={project.name || 'Project image'}
-                    className="h-full w-full object-fill"
-                  />
-                </div>
+  useEffect(() => {})
 
-                <video
-                  src={project.projectVideo}
-                  loop
-                  muted
-                  className="project-video absolute inset-0 opacity-0"
-                  onClick={() => openModal(project.projectVideo)}
-                />
-              </div>
-
-              <div className="flex w-full justify-center gap-4 rounded-b-2xl p-4">
-                {project.techs.map((tech, techIndex) => {
-                  const techData = techStack.find((item) => item.name === tech)
-                  return (
-                    <div
-                      key={techIndex}
-                      className="relative items-center gap-2 rounded-lg bg-slate-900 p-2"
-                      style={{
-                        boxShadow:
-                          ' rgb(0, 0, 0) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
-                      }}
-                    >
-                      {techData && (
-                        <Image
-                          src={techData.iconUrl}
-                          alt={tech}
-                          title={tech}
-                          width={35}
-                          height={35}
-                          className="h-auto w-[15px] md:w-[35px]"
-                        />
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-
-              <div className="flex items-center justify-center gap-6">
-                <div
-                  className="rounded-2xl bg-slate-800 p-2 hover:bg-slate-500"
-                  style={{
-                    boxShadow:
-                      'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
-                  }}
-                >
-                  <a
-                    className="flex items-center gap-2 text-left"
-                    target="_blank"
-                    href={project.projectRepo}
-                    rel="noreferrer"
-                  >
-                    <span className="text-xs font-bold sm:text-sm">Code</span>
-                    <FaGithub className="text-lg sm:text-xl" />
-                  </a>
-                </div>
-
-                <div
-                  className="rounded-2xl bg-slate-800 p-2 hover:bg-slate-500"
-                  style={{
-                    boxShadow:
-                      'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
-                  }}
-                >
-                  <a
-                    className="flex items-center gap-2 text-left"
-                    target="_blank"
-                    href={project.projectRepo}
-                    rel="noreferrer"
-                  >
-                    <span className="text-xs font-bold sm:text-sm">Deploy</span>
-                    <TbWorld className="text-lg sm:text-xl" />
-                  </a>
-                </div>
-              </div>
-            </div>
+  return (
+    <div className="relative flex h-screen w-full gap-10">
+      <aside
+        className="slider-counter absolute left-2 top-1/2 z-50 flex -translate-y-1/2 flex-col items-start justify-center"
+        style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
+      >
+        <div className="counter ml-1 flex gap-4">
+          {groupedProjects.map((group, index) => (
+            <p key={index} className="h-[30px]">
+              {index + 1}
+            </p>
           ))}
         </div>
 
-        <div className="planet-container relative h-full w-full">
-          <Image
-            src={planet}
-            priority
-            alt=""
-            className="planet absolute -bottom-[140px] left-1/2 z-50 h-auto w-[650px] -translate-x-1/2 opacity-0 max-sm:-bottom-[50px]"
-            style={{
-              clipPath: 'circle(0% at 50% 50%)',
-            }}
-          />
+        <div className="">
+          <p className="">&mdash;</p>
         </div>
 
-        <Modal
-          isModalOpen={isModalOpen}
-          closeModal={closeModal}
-          url={selectedVideo}
-        />
-      </div>
+        <div className="ml-1">
+          <p className="">{groupedProjects.length}</p>
+        </div>
+      </aside>
+
+      <aside className="slider-preview absolute bottom-2 right-2 z-50 flex h-[50px] gap-5">
+        {planets.map((planet, index) => (
+          <div
+            key={index}
+            className={`preview ${index === 0 && 'active'} relative flex-1 cursor-pointer`}
+          >
+            <Image src={planet} alt="" className="aboslute h-full w-auto" />
+          </div>
+        ))}
+      </aside>
+
+      {groupedProjects.map((group, index) => (
+        <div
+          key={index}
+          className={`banner ${index === 0 ? 'absolute' : 'hidden'} h-screen w-[100vw] scale-[0.2] overflow-hidden text-center`}
+        >
+          <div
+            style={
+              {
+                '--quantity': group.projects.length,
+              } as React.CSSProperties
+            }
+            className="slider absolute left-[calc(50%_-275px)] top-[28%] z-[60] flex h-[320px] w-[550px] items-center justify-center rounded-2xl lg:top-[27%]"
+          >
+            {group.projects.map((project, index) => (
+              <div
+                style={
+                  {
+                    '--position': index,
+                  } as React.CSSProperties
+                }
+                key={index}
+                className="project absolute inset-0 flex flex-col items-center rounded-2xl"
+              >
+                <div className="flex h-full w-full items-center justify-between gap-6">
+                  <div
+                    className="rounded-2xl bg-slate-800 p-2 hover:bg-slate-500"
+                    style={{
+                      boxShadow:
+                        'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
+                    }}
+                  >
+                    <a
+                      className="flex items-center gap-2 text-left"
+                      target="_blank"
+                      href={project.projectRepo}
+                      rel="noreferrer"
+                    >
+                      <span className="text-xs font-bold sm:text-sm">Code</span>
+                      <FaGithub className="text-lg sm:text-xl" />
+                    </a>
+                  </div>
+
+                  <p className="video-name pointer-events-none w-full rounded-t-2xl px-4 py-2 text-center text-base font-extrabold lg:text-2xl">
+                    {project.name}
+                  </p>
+
+                  <div
+                    className="rounded-2xl bg-slate-800 p-2 hover:bg-slate-500"
+                    style={{
+                      boxShadow:
+                        'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
+                    }}
+                  >
+                    <a
+                      className="flex items-center gap-2 text-left"
+                      target="_blank"
+                      href={project.projectRepo}
+                      rel="noreferrer"
+                    >
+                      <span className="text-xs font-bold sm:text-sm">
+                        Deploy
+                      </span>
+                      <TbWorld className="text-lg sm:text-xl" />
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-start justify-center gap-2">
+                  <div
+                    onMouseEnter={(e) => playVideo(e, 'play')}
+                    onMouseLeave={(e) => playVideo(e, 'pause')}
+                    className="project-video-image relative h-[220px] w-[500px] cursor-pointer overflow-hidden rounded-xl"
+                    style={{
+                      boxShadow:
+                        ' rgb(0, 0, 0) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
+                    }}
+                  >
+                    <div className="preview-img absolute inset-0 opacity-100 hover:opacity-0">
+                      <Image
+                        src={project.projectImg}
+                        alt={project.name || 'Project image'}
+                        className="h-full w-full object-cover"
+                        quality={80}
+                      />
+                    </div>
+                    <video
+                      src={project.projectVideo}
+                      loop
+                      muted
+                      className="project-video absolute inset-0 h-full w-full object-cover opacity-0"
+                      onClick={() => openModal(project.projectVideo)}
+                    />
+                  </div>
+
+                  <div className="flex w-full items-center justify-center gap-4 rounded-b-2xl">
+                    {project.techs.map((tech, techIndex) => {
+                      const techData = techStack.find(
+                        (item) => item.name === tech,
+                      )
+                      return (
+                        <div
+                          key={techIndex}
+                          className="relative items-center gap-2 rounded-lg bg-slate-900 p-2"
+                          style={{
+                            boxShadow:
+                              ' rgb(0, 0, 0) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
+                          }}
+                        >
+                          {techData && (
+                            <Image
+                              src={techData.iconUrl}
+                              alt={tech}
+                              title={tech}
+                              width={35}
+                              height={35}
+                              className="h-auto w-[15px] md:w-[25px]"
+                            />
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="planet-container relative h-full w-full">
+            <Image
+              src={group.planet}
+              width={400}
+              height={400}
+              priority
+              alt=""
+              className={`planet${index} absolute bottom-0 left-1/2 z-50 h-auto w-[400px] -translate-x-1/2 ${index === 0 ? 'opacity-0' : 'opacity-1'} max-sm:-bottom-[50px]`}
+            />
+          </div>
+
+          <Modal
+            isModalOpen={isModalOpen}
+            closeModal={closeModal}
+            url={selectedVideo}
+          />
+        </div>
+      ))}
     </div>
   )
 }

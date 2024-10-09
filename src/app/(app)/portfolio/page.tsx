@@ -12,9 +12,7 @@ export const metadata: Metadata = {
 
 export default function Portfolio() {
   return (
-    <div
-      className={`projects-container relative h-screen w-full overflow-hidden`}
-    >
+    <div className="projects-container relative h-screen w-full overflow-hidden">
       <PortFolioHeader />
 
       <OrbitalPortfolio />

@@ -9,9 +9,7 @@
     #26293b 95%, 
     #34394e 100% 
     );  background-size: 125% 125%;
-    /* animation: spaceMovement 30s linear infinite; */
-  }
-  
+}
   
 .slider {
   transform-style: preserve-3d;
@@ -19,12 +17,10 @@
   animation: autoRun 70s linear infinite;
 }
 
-
 .project {
   transform: rotateY(calc(var(--position) * (360 / var(--quantity)) * 1deg)) translateZ(550px);
   opacity: 0;
 }
-
 
 .star {
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5);
@@ -66,16 +62,56 @@
   clip-path: circle(150% at 50% 50%);
 }
 
+.pizza-slice {
+  height: 50%;
+  width: 80px;
+  clip-path: polygon(100% 0, 50% 100%, 0 0);
+  
+  position: absolute;
+  left: 46.4%;
+  
+  transform-origin: bottom;
+  
+  text-align: center;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.video-name {
-  /* color: #39FF14;
-  text-shadow: 
-    0 0 3px #39FF14,  
-    0 0 6px #39FF14,   
-    0 0 10px #39FF14,  
-    0 0 15px #39FF14;   */
+  /* background-color: hsl(calc(var(--slice-number) * var(--angle)), 70%, 50%); */
+  transform: rotate(calc(var(--slice-number) * var(--angle) * 1deg));
 }
 
+
+.slider-counter > div {
+  flex: 1;
+}
+
+.slider-counter > p {
+  line-height: 20px;
+}
+
+.counter {
+  position: relative;
+  top: 0;
+  will-change: transform;
+}
+
+.preview::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: .3s ease-in-out;
+  border-radius: 50%;
+}
+
+.preview.active::after {
+  background: rgba(0, 0, 0, 0);
+}
 
 
 @keyframes blackHoleMovemet {
@@ -91,7 +127,6 @@
     transform: scale(1) rotate(360deg);
   }
 }
-
 
 @keyframes spaceMovement {
   0% {
@@ -148,5 +183,11 @@
   }
   to {
     transform: perspective(6000px) rotateX(-16deg) rotateY(360deg);
+  }
+}
+
+@media(max-width: 768px) {
+  .pizza-slice {
+      left: 30%;
   }
 }
