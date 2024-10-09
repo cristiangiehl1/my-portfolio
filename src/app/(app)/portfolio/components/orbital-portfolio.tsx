@@ -291,7 +291,7 @@ export default function OrbitalPortfolio() {
                 '--quantity': group.projects.length,
               } as React.CSSProperties
             }
-            className="slider absolute left-[calc(50%_-275px)] z-[60] flex h-[320px] w-[550px] items-center justify-center rounded-2xl lg:bottom-[210px]"
+            className="slider absolute bottom-[40%] left-[calc(50%_-175px)] z-[60] flex h-[250px] w-[350px] items-center justify-center rounded-2xl lg:bottom-[210px] lg:left-[calc(50%_-275px)] lg:h-[320px] lg:w-[550px]"
           >
             {group.projects.map((project, index) => (
               <div
@@ -301,7 +301,7 @@ export default function OrbitalPortfolio() {
                   } as React.CSSProperties
                 }
                 key={index}
-                className="project absolute inset-0 flex flex-col items-center rounded-2xl"
+                className="project rounded-2x absolute inset-0 flex flex-col items-center"
               >
                 <div className="flex h-full w-full items-center justify-between gap-6">
                   <div
@@ -351,7 +351,7 @@ export default function OrbitalPortfolio() {
                   <div
                     onMouseEnter={(e) => playVideo(e, 'play')}
                     onMouseLeave={(e) => playVideo(e, 'pause')}
-                    className="project-video-image relative h-[220px] w-[500px] cursor-pointer overflow-hidden rounded-xl"
+                    className="project-video-image relative h-[150px] w-[300px] cursor-pointer overflow-hidden rounded-xl lg:h-[220px] lg:w-[500px]"
                     style={{
                       boxShadow:
                         ' rgb(0, 0, 0) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;',
@@ -414,7 +414,7 @@ export default function OrbitalPortfolio() {
               height={400}
               priority
               alt=""
-              className={`planet${index} absolute bottom-0 left-1/2 z-50 h-auto w-[400px] -translate-x-1/2 ${index === 0 ? 'opacity-0' : 'opacity-1'} max-sm:-bottom-[50px]`}
+              className={`planet${index} absolute bottom-[30%] left-1/2 z-50 h-auto w-[250px] -translate-x-1/2 lg:bottom-0 lg:w-[400px] ${index === 0 ? 'opacity-0' : 'opacity-1'}`}
             />
           </div>
 
