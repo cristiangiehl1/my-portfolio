@@ -122,30 +122,32 @@ export default function OrbitalPortfolio() {
     setCurrentBanner(nextImgIndex)
   }
 
+  // show current banner animation
   useGSAP(() => {
     const tl = gsap.timeline({})
 
     tl.to('.planet0', {
       opacity: 1,
-      duration: 2,
+      duration: 1.5,
       ease: 'circ.inOut',
     })
       .to('.banner', {
         scale: 1,
-        duration: 6,
-        ease: 'sine.inOut',
+        duration: 4,
+        ease: 'expo.inOut',
         delay: -1,
       })
       .to('.project', {
         opacity: 1,
-        duration: 0.8,
+        duration: 0.5,
         ease: 'power4.out',
         stagger: {
-          amount: 1,
+          amount: 1.5,
         },
       })
   }, [])
 
+  // handle modal changes
   useEffect(() => {
     const sliders = document.querySelectorAll(
       '.slider',
@@ -187,6 +189,7 @@ export default function OrbitalPortfolio() {
     }
   }, [isModalOpen])
 
+  // counter and slide animation
   useEffect(() => {
     const prevSlides = document.querySelectorAll(
       '.slider-preview .preview',
@@ -211,6 +214,7 @@ export default function OrbitalPortfolio() {
     updateActiveSlidePreview()
   }, [currentBanner, groupedProjects])
 
+  // handle preview slider changes
   useEffect(() => {
     const sliderPreview = document.querySelector(
       '.slider-preview',
@@ -241,8 +245,6 @@ export default function OrbitalPortfolio() {
       }
     })
   })
-
-  useEffect(() => {})
 
   return (
     <div className="relative flex h-screen w-full gap-10">
@@ -289,7 +291,7 @@ export default function OrbitalPortfolio() {
                 '--quantity': group.projects.length,
               } as React.CSSProperties
             }
-            className="slider absolute left-[calc(50%_-275px)] top-[28%] z-[60] flex h-[320px] w-[550px] items-center justify-center rounded-2xl lg:top-[27%]"
+            className="slider absolute left-[calc(50%_-275px)] z-[60] flex h-[320px] w-[550px] items-center justify-center rounded-2xl lg:bottom-[210px]"
           >
             {group.projects.map((project, index) => (
               <div

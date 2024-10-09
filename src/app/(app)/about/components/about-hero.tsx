@@ -5,7 +5,7 @@ import { gsap } from 'gsap'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { FaPlus } from 'react-icons/fa'
 import { PiFirstAidBold, PiStarFourFill } from 'react-icons/pi'
 

@@ -8,6 +8,15 @@ import { useLayoutEffect, useRef } from 'react'
 
 import { getRandom } from '@/utils/create-start'
 
+interface AnimateParticlesProps {
+  className: string
+  yPosition: number
+  delay: number
+  duration: number
+  repeat: number
+  opacity: number
+}
+
 export default function SpaceshipMovement() {
   const slices = 32
   const angle = 360 / slices
@@ -65,15 +74,6 @@ export default function SpaceshipMovement() {
       }, 5000)
     })
   }, [])
-
-  interface AnimateParticlesProps {
-    className: string
-    yPosition: number
-    delay: number
-    duration: number
-    repeat: number
-    opacity: number
-  }
 
   useGSAP(() => {
     const animateParticles = ({

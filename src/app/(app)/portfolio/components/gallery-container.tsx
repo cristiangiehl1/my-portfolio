@@ -15,8 +15,6 @@ export default function GalleryContainer() {
     const galleryElement = galleryRef.current as HTMLDivElement
     const parent = galleryElement.parentElement
 
-    console.log(parent)
-
     function handleMouseMovement(e: MouseEvent) {
       const { clientX, clientY, currentTarget } = e
 
