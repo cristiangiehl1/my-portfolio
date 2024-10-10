@@ -13,7 +13,7 @@
   
 .slider {
   transform-style: preserve-3d;
-  transform: perspective(6000px) rotateX(-16deg);
+  transform: perspective(5000px) rotateX(-16deg);
   animation: autoRun 70s linear infinite;
 }
 
@@ -97,20 +97,8 @@
   will-change: transform;
 }
 
-.preview::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: .3s ease-in-out;
-  border-radius: 50%;
-}
-
-.preview.active::after {
-  background: rgba(0, 0, 0, 0);
+.preview:not(.active) > .planet-preview {
+  opacity: .5;
 }
 
 
@@ -179,10 +167,10 @@
 
 @keyframes autoRun {
   from {
-    transform: perspective(6000px) rotateX(-16deg) rotateY(0deg);
+    transform: perspective(5000px) rotateX(-16deg) rotateY(0deg);
   }
   to {
-    transform: perspective(6000px) rotateX(-16deg) rotateY(360deg);
+    transform: perspective(5000px) rotateX(-16deg) rotateY(360deg);
   }
 }
 

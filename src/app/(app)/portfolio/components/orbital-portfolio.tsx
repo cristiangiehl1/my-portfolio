@@ -92,8 +92,9 @@ export default function OrbitalPortfolio() {
     }
 
     if (direction === 'left' && currentBanner === 0) return
-
     if (direction === 'right' && currentBanner === totalSlides - 1) return
+
+    // setIsAnimating(true)
 
     const nextImgIndex =
       (direction === 'left'
@@ -226,6 +227,16 @@ export default function OrbitalPortfolio() {
     if (!sliderPreview) return
 
     sliderPreview.addEventListener('click', (event: MouseEvent) => {
+      const banners = document.querySelectorAll(
+        '.banner',
+      ) as NodeListOf<HTMLElement>
+      const selectedBanner = banners[currentBanner]
+
+      if (gsap.isTweening(selectedBanner)) {
+        event.stopPropagation()
+        return
+      }
+
       if (event.target instanceof HTMLElement) {
         const clickedPrev = event.target.closest('.preview') as HTMLDivElement
 
@@ -269,14 +280,19 @@ export default function OrbitalPortfolio() {
         </div>
       </aside>
 
-      <aside className="slider-preview absolute bottom-2 right-2 z-50 flex h-[50px] gap-5">
+      <aside className="slider-preview absolute bottom-2 right-2 z-50 flex gap-5">
         {planets.map((planet, index) => (
-          <div
+          <button
             key={index}
+            aria-label="change current planet"
             className={`preview ${index === 0 && 'active'} relative flex-1 cursor-pointer`}
           >
-            <Image src={planet} alt="" className="aboslute h-full w-auto" />
-          </div>
+            <Image
+              src={planet}
+              alt=""
+              className="planet-preview relative h-[50px] w-auto"
+            />
+          </button>
         ))}
       </aside>
 
@@ -414,17 +430,17 @@ export default function OrbitalPortfolio() {
               height={400}
               priority
               alt=""
-              className={`planet${index} absolute bottom-[30%] left-1/2 z-50 h-auto w-[250px] -translate-x-1/2 lg:bottom-0 lg:w-[400px] ${index === 0 ? 'opacity-0' : 'opacity-1'}`}
+              className={`planet${index} absolute bottom-[29%] left-1/2 z-50 h-auto w-[250px] -translate-x-1/2 lg:bottom-0 lg:w-[400px] ${index === 0 ? 'opacity-0' : 'opacity-1'}`}
             />
           </div>
-
-          <Modal
-            isModalOpen={isModalOpen}
-            closeModal={closeModal}
-            url={selectedVideo}
-          />
         </div>
       ))}
+
+      <Modal
+        isModalOpen={isModalOpen}
+        closeModal={closeModal}
+        url={selectedVideo}
+      />
     </div>
   )
 }

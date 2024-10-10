@@ -18,7 +18,7 @@ export default function Contact() {
     <div className="relative min-h-screen w-full" id="contact-page-container">
       <Header />
 
-      <main className="flex min-h-screen flex-col justify-between gap-10 px-20 py-32">
+      <main className="flex min-h-screen flex-col justify-between gap-10 px-6 py-32 md:px-20">
         <div className="flex h-[30vh] items-center justify-between gap-6 md:gap-20">
           <h1 className="mb-10 text-3xl md:text-7xl">{`Let's work together`}</h1>
 
