@@ -91,7 +91,7 @@ export default function HomePortfolio() {
                           width={40}
                           height={40}
                           loading="lazy"
-                          className="rounded-xl bg-gray-800 p-2"
+                          className="h-[40px] w-[40px] rounded-xl bg-slate-800 p-[6px] sm:h-[40px] sm:w-[50x]"
                           style={{
                             boxShadow:
                               'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',

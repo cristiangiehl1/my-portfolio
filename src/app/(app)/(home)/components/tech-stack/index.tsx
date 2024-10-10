@@ -131,7 +131,7 @@ export default function TechStack() {
               title={tech.name}
               width={30}
               height={30}
-              className="w-[30px] rounded-2xl bg-slate-700 p-[6px] sm:w-[40px]"
+              className="h-[30px] w-[30px] rounded-xl bg-slate-700 p-[6px] sm:h-[40px] sm:w-[40px]"
               style={{
                 boxShadow:
                   'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',
@@ -158,7 +158,7 @@ export default function TechStack() {
               title={tech.name}
               width={30}
               height={30}
-              className="h-[auto] w-[30px] rounded-2xl bg-slate-700 p-[6px] sm:w-[40px]"
+              className="h-[30px] w-[30px] rounded-xl bg-slate-700 p-[6px] sm:h-[40px] sm:w-[40px]"
               style={{
                 boxShadow:
                   'rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset',

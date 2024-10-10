@@ -25,10 +25,10 @@ export default function ContactSection() {
       <div className="z-50 flex items-center justify-center">
         <Magneto
           text="Get in touch"
-          className="h-[120px] w-[120px] bg-red-800"
+          className="h-[100px] w-[100px] bg-red-800 md:h-[120px] md:w-[120px]"
           href="/contact"
-          magnetoStrength={50}
-          magnetoTextStrength={30}
+          magnetoStrength={40}
+          magnetoTextStrength={20}
         />
       </div>
 

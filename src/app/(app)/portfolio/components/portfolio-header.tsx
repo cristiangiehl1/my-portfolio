@@ -73,7 +73,7 @@ export default function PortFolioHeader() {
   }, [isMenuOpen])
 
   return (
-    <header className="portfolio-header absolute left-0 top-0 z-50 flex -translate-y-full gap-4 p-2">
+    <header className="portfolio-header absolute -left-0 top-0 z-50 flex -translate-y-full gap-4 p-2">
       <nav ref={portfolioNavRef} className="flex -translate-x-[88%] gap-4">
         <ul className="flex gap-4">
           <li className="relative">
@@ -83,6 +83,7 @@ export default function PortFolioHeader() {
               width={85}
               className="rounded-2xl"
               quality={80}
+              priority
             />
             <NavLink
               className="current-path-project absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 rounded-sm p-[18px] text-[#E0FFFF] data-[current=true]:text-[#00FFFF]"

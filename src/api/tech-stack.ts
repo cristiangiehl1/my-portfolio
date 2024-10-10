@@ -1,3 +1,8 @@
+import type { StaticImageData } from 'next/image'
+
+import gsapSVG from '@/assets/gsap-greensock.svg'
+import zodSVG from '@/assets/zod.svg'
+
 export type TechName =
   | 'JavaScript'
   | 'TypeScript'
@@ -22,7 +27,7 @@ export type TechName =
 
 export interface TechStack {
   name: TechName
-  iconUrl: string
+  iconUrl: string | StaticImageData
 }
 
 export const techStack: TechStack[] = [
@@ -114,13 +119,11 @@ export const techStack: TechStack[] = [
   },
   {
     name: 'GSAP',
-    iconUrl:
-      'https://gsap.com/community/uploads/monthly_2020_03/tweenmax.png.cf27916e926fbb328ff214f66b4c8429.png',
+    iconUrl: gsapSVG,
   },
   {
     name: 'Zod',
-    iconUrl:
-      'https://raw.githubusercontent.com/colinhacks/zod/3032e240a0c227692bb96eedf240ed493c53f54c/logo.svg',
+    iconUrl: zodSVG,
   },
   {
     name: 'Git',

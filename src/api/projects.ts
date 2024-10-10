@@ -23,6 +23,7 @@ const defaultProject: Omit<Project, 'id'> = {
     'Next.js',
     'TypeScript',
     'GSAP',
+    'Zod',
   ],
   projectRepo: 'https://github.com/cristiangiehl1/my-portfolio',
   projectImg: portfolioPage,

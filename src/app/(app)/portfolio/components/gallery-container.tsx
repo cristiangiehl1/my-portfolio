@@ -1,7 +1,9 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
+import spaceBg from '@/assets/portfolio/Nebula Aqua-Pink.png'
 import { createComet } from '@/utils/create-comet'
 import { createStar } from '@/utils/create-start'
 
@@ -93,6 +95,13 @@ export default function GalleryContainer() {
     <div
       ref={galleryRef}
       className="space-bg absolute left-1/2 top-1/2 -z-20 h-[200vh] w-[200vw] -translate-x-1/2 -translate-y-1/2"
-    ></div>
+    >
+      <Image
+        src={spaceBg}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+        quality={100}
+      />
+    </div>
   )
 }

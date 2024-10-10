@@ -16,6 +16,7 @@ import venus from '@/assets/planet08.png'
 interface GroupedProjectsInterface {
   projects: Project[]
   planet: StaticImageData
+  show: boolean
 }
 
 export default function OrbitalPortfolio() {
@@ -29,9 +30,15 @@ export default function OrbitalPortfolio() {
     (acc, project, index) => {
       if (index % 4 === 0) {
         const planet = planets[acc.length % planets.length]
+        let show = false
+        if (index === 0) {
+          show = true
+        }
+
         acc.push({
           projects: [],
           planet,
+          show,
         })
       }
 
@@ -86,6 +93,9 @@ export default function OrbitalPortfolio() {
       '.banner',
     ) as NodeListOf<HTMLElement>
     const selectedBanner = banners[currentBanner]
+    const selectedBannerProjects = selectedBanner.querySelectorAll('.project')
+
+    console.log(selectedBannerProjects)
 
     if (gsap.isTweening(selectedBanner)) {
       return
@@ -93,8 +103,6 @@ export default function OrbitalPortfolio() {
 
     if (direction === 'left' && currentBanner === 0) return
     if (direction === 'right' && currentBanner === totalSlides - 1) return
-
-    // setIsAnimating(true)
 
     const nextImgIndex =
       (direction === 'left'
@@ -104,6 +112,7 @@ export default function OrbitalPortfolio() {
 
     gsap.to(selectedBanner, {
       x: direction === 'left' ? window.innerWidth : -window.innerWidth,
+      opacity: 0,
       duration: 1.5,
       ease: 'power4.out',
       onComplete: () => {
@@ -114,10 +123,10 @@ export default function OrbitalPortfolio() {
     gsap.fromTo(
       nextBanner,
       {
-        x: direction === 'left' ? -window.innerWidth : +window.innerWidth,
+        x: direction === 'left' ? -window.innerWidth : window.innerWidth,
         display: 'block',
       },
-      { x: 0, duration: 1.5, ease: 'power4.out' },
+      { x: 0, duration: 1.5, opacity: 1, ease: 'power4.out' },
     )
 
     setCurrentBanner(nextImgIndex)
@@ -143,7 +152,7 @@ export default function OrbitalPortfolio() {
         duration: 0.5,
         ease: 'power4.out',
         stagger: {
-          amount: 1.5,
+          amount: 1,
         },
       })
   }, [])
@@ -261,7 +270,7 @@ export default function OrbitalPortfolio() {
     <div className="relative flex h-screen w-full gap-10">
       <aside
         className="slider-counter absolute left-2 top-1/2 z-50 flex -translate-y-1/2 flex-col items-start justify-center"
-        style={{ clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0 100%)' }}
+        style={{ clipPath: 'polygon(0 0, 40% 0, 50% 100%, 0 100%)' }}
       >
         <div className="counter ml-1 flex gap-4">
           {groupedProjects.map((group, index) => (
@@ -299,7 +308,7 @@ export default function OrbitalPortfolio() {
       {groupedProjects.map((group, index) => (
         <div
           key={index}
-          className={`banner ${index === 0 ? 'absolute' : 'hidden'} h-screen w-[100vw] scale-[0.2] overflow-hidden text-center`}
+          className={`banner ${index === 0 ? 'block' : 'hidden opacity-0'} absolute h-screen w-[100vw] scale-[0.2] overflow-hidden text-center`}
         >
           <div
             style={

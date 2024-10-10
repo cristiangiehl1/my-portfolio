@@ -1,6 +1,8 @@
 'use client'
 
+import { useGSAP } from '@gsap/react'
 import FocusTrap from 'focus-trap-react'
+import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 
 import Magneto from './magneto'
@@ -41,6 +43,23 @@ export default function Modal({ url, closeModal, isModalOpen }: ModalProps) {
     }
   }, [isModalOpen, closeModal])
 
+  useGSAP(() => {
+    const tl = gsap.timeline({ paused: true })
+
+    tl.to(modalRef.current, {
+      opacity: 1,
+      clipPath: 'circle(150% at 50% 50%)',
+      duration: 1,
+      ease: 'circ.inOut',
+    })
+
+    if (isModalOpen) {
+      tl.play()
+    } else {
+      tl.reverse()
+    }
+  }, [isModalOpen])
+
   return (
     <div>
       {isModalOpen && url && (
@@ -48,7 +67,10 @@ export default function Modal({ url, closeModal, isModalOpen }: ModalProps) {
           <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-75 p-5">
             <div
               ref={modalRef}
-              className="relative overflow-hidden rounded-2xl"
+              className="relative overflow-hidden rounded-2xl opacity-0"
+              style={{
+                clipPath: 'circle(0% at 50% 50%)',
+              }}
             >
               <video
                 src={url}
